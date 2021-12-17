@@ -11,5 +11,98 @@ Member Zone
 {% endblock %}
 
 {% block content %}
-<h1>Member Zone</h1>
+<div id="member-zone d-flex mt-3 mb-3">
+    <h1 class="text-center display-3">Members Zone</h1>
+    <div id="next-fixture">
+        <h2 class="text-center display-4">Next Fixture</h2>
+        <h3 class="text-center">Thursday 16th December</h3>
+        <h3 class="text-center">Reigate Fields</h3>
+        <table class="table mb-4">
+            <thead>
+                <tr>
+                    <th>Blues</th>
+                    <th>Whites</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+                <tr>
+                    <td>Player Name</td>
+                    <td>Player Name</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div id="league-table-container">
+        <h2 class="display-4 text-center">League Table</h2>
+        <table class="table mb-4">
+            <tr>
+                <th>Position</th>
+                <th>Player</th>
+                <th>Played</th>
+                <th>Won</th>
+                <th>Drawn</th>
+                <th>Lost</th>
+                <th>Points</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>Steve Wilson</td>
+                <td>5</td>
+                <td>3</td>
+                <td>1</td>
+                <td>1</td>
+                <td>10</td>
+            </tr>
+        </table>
+    </div>
+    <div id="past-results-container">
+        <h2 class="display-4 text-center">Latest Results</h2>
+        <table class="table mb-3">
+            <tr>
+                <th>Date</th>
+                <th>Blues</th>
+                <th>Whites</th>
+            </tr>
+            <tr>
+                <td>02/12/21</td>
+                <td>3</td>
+                <td>0</td>
+            </tr>
+        </table>
+    </div>
+    <div id="booking-container">
+        <h2 class="text-center display-4 mt-30">Book your place in Thursday's match</h2>
+        <h3 class="text-center">Registrations open in...</h3>
+        <div id="countdown-container">
+            <p class="lead text-center">5 DAYS  12 HOURS  10 MINS  30 SECS</p>
+        </div>
+        <div class="d-flex justify-content-center mb-3">
+            <button class="btn btn-outline-dark btn-lg" disabled>Book Now</button>  
+        </div>
+    </div>
+</div>
 {% endblock %}

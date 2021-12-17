@@ -1,0 +1,36 @@
+.navbar {
+    background-color: rgb(70, 70, 190);
+    color: white;
+    height: 5rem;
+    padding: 20px;
+}
+
+/* styles for footer of each page */
+
+footer {
+    width: 100%;
+    background-color: rgb(70, 70, 190);
+    color: white;
+    align-items: center;
+    padding: 10px;   
+}
+ 
+footer li {
+    display:inline-block;
+    padding: 0px 40px 0px 80px;    
+}
+
+footer i {
+    color: white;
+    font-size: 200%;  
+}
+
+.social i:hover {
+    color:darkgoldenrod;
+}
+
+#small-logo i:hover {
+    color:white;
+}
+
+

@@ -39,15 +39,19 @@ https://belt26.github.io
 
 ## Overview
 
+Site created for a friend of mine who is the manager of an amateur football club. He was finding it time consuming to manually manage match registrations, update the player league table and keep all members informed of club activities.
+
 ## Planning
 
 Meeting with club manager to ascertain requirements.  
 Project created with Kanban template on Github
 26 User Stories added to initial board
 Word document created to break down user stories into tasks
-Set up index html 
+Set up views / urls / templates in club app folder
 Added member model
 Added member zone
+Set up base html and base css
+Add navbar and footer to base html
 
 ## Structure
 

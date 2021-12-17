@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block css %}
 <link rel="stylesheet" href="{% static 'club/css/index.css' %}">
 {% endblock %}
@@ -9,5 +11,15 @@ Home
 {% endblock %}
 
 {% block content %}
-<h1>Home</h1>
+<div class=container mb-4>
+    <div class="jumbotron">
+        <h1 class="display-2">Reigate Dads FC</h1>
+    </div>
+    <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero tempore voluptatum blanditiis ab excepturi numquam modi eveniet ad reiciendis soluta! Officiis quod accusamus assumenda nesciunt! Reprehenderit obcaecati officiis iusto eaque.</p>
+<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur repudiandae, magni corporis dicta voluptate eligendi nesciunt quisquam omnis tempora obcaecati? Expedita iusto dolorem temporibus? Fugiat sapiente quisquam labore minima deserunt.</p>
+</div>
+<h2 class="display-4 text-center">Where to find us</h2>
+<div id="map-container">
+    <div id="map"></div>
+</div>
 {% endblock %}

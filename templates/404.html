@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+
+{% block title %}
+Page Not Found
+{% endblock %}
+
+{% block content %}
+<h2 id="404-title" class="display-4 text-center">Sorry we couldn't find that page!</h2>
+<button class="btn-lg btn"><a href="{% url 'index' %}">Back to Home</a></button>
+{% endblock %}

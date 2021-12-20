@@ -16,6 +16,7 @@ class Member(models.Model):
     is_approved = models.BooleanField(default=False)
     is_available = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
+    is_logged_in = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

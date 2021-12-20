@@ -3,7 +3,7 @@
 {% load static %}
 
 {% block css %}
-<link rel="stylesheet" href="{% static 'club/css/sign up.css' %}">
+<link rel="stylesheet" href="{% static 'club/css/signup.css' %}">
 {% endblock %}
 
 {% block title %}
@@ -11,5 +11,18 @@ Sign Up
 {% endblock %}
 
 {% block content %}
-<h1>Sign Up</h1>
+<h1 class="text-center display-3">Sign Up</h1>
+
+<form method="POST" action="/signup">
+    {% csrf_token %}
+    <div class="form-controls">
+    {% for field in form %}
+        <div class="form-input">
+            {{field.label_tag}}
+            {{field}}
+        </div>
+    {% endfor %}
+        <button type="submit" id="sign-up-button">Send</button>
+    </div> 
+</form>
 {% endblock %}

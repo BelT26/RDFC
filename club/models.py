@@ -32,3 +32,6 @@ class Match(models.Model):
     teams = models.ManyToManyField(Team)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
+
+    class Meta:
+        verbose_name_plural = "Matches"

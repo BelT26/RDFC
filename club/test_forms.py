@@ -5,13 +5,14 @@ from .forms import SignUpForm
 
 
 class TestSignUpForm(TestCase):
+
     def test_first_name_is_required(self):
         form = SignUpForm({
             'first_name': '',
             'last_name': 'Smith',
             'email': 'harry@gmail.com',
             'username': 'HarryS',
-            'password': 'me'
+            'password': 'football'
         })
         self.assertFalse(form.is_valid())
         self.assertIn('first_name', form.errors.keys())
@@ -23,7 +24,7 @@ class TestSignUpForm(TestCase):
             'last_name': '',
             'email': 'harry@gmail.com',
             'username': 'HarryS',
-            'password': 'me'
+            'password': 'football'
         })
         self.assertFalse(form.is_valid())
         self.assertIn('last_name', form.errors.keys())
@@ -35,7 +36,7 @@ class TestSignUpForm(TestCase):
             'last_name': 'Smith',
             'email': '',
             'username': 'HarryS',
-            'password': 'me'
+            'password': 'football'
         })
         self.assertFalse(form.is_valid())
         self.assertIn('email', form.errors.keys())
@@ -47,7 +48,7 @@ class TestSignUpForm(TestCase):
             'last_name': 'Smith',
             'email': 'harry@gmail.com',
             'username': '',
-            'password': 'me'
+            'password': 'football'
         })
         self.assertFalse(form.is_valid())
         self.assertIn('username', form.errors.keys())

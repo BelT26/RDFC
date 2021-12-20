@@ -86,18 +86,35 @@ Add navbar and footer to base html
 ### Fixture Updates
 
 ### Team Selection
+A maximum of 12 members per week can play. Once 12 people have registered a function is called to allocated players to either the blue or the white team as follows: 
+The registered players are sorted in descending order according to their current points.
+If 2 or members have the same number of points, they are then ranked according to the number of matches with players with  the fewest number of matches played ranking higher
+The eams assigned according to the players' position in the sorted list:
+Blues: 1, 4, 6, 8, 10, 12
+Whites: 2, 3, 5, 7, 9, 11
+Once assignment has occurred the next fixture details are be updated with the team details.
+
 
 ### Social Updates
 
 ### Match Results
+The manager has the ability to manually enter the latest match score.
+The winning team gets 3 points, the losing team 0 points and in the case of a draw each team receives 1 point.
+Players automatically inherit their team’s points once the scores have been input by the manager
+The league table automatically updates the player scores and resorts the players.
+The scores areautomatically populated in the latest results table
+
 
 ## Bugs and Challenges
 
 ## Testing
 
 ### Automated Tests
+Tests to check that the first name is required on the sign up form and the password is at least 8 characters passed
 
 ### Manual Tests
+Tested that the sign up form worked manually and that new members were created.
+No message explaining that a longer password is required if a user enters a password that is less than 7 characters.
 
 ## Deployment
 

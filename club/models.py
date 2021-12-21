@@ -27,6 +27,9 @@ class Team(models.Model):
     match_date = models.DateField()
     players = models.ManyToManyField(Member)
 
+    def __str__(self):
+        return f"{self.color} - {self.match_date}"
+
 
 class Match(models.Model):
     match_date = models.DateTimeField()
@@ -34,5 +37,10 @@ class Match(models.Model):
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
 
+    def __str__(self):
+        return self.match_date
+
     class Meta:
         verbose_name_plural = "Matches"
+
+

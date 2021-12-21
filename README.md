@@ -81,9 +81,12 @@ Add navbar and footer to base html
 
 ### Countdown Clock
 
+
 ## Manager Zone
 
 ### Fixture Updates
+The Manager is able to add, cancel and edit the next match fixture details
+
 
 ### Team Selection
 A maximum of 12 members per week can play. Once 12 people have registered a function is called to allocated players to either the blue or the white team as follows: 
@@ -96,6 +99,8 @@ Once assignment has occurred the next fixture details are be updated with the te
 
 
 ### Social Updates
+The manager is able to add details and images of upcoming social events
+
 
 ### Match Results
 The manager has the ability to manually enter the latest match score.
@@ -106,17 +111,20 @@ The scores areautomatically populated in the latest results table
 
 
 ## Bugs and Challenges
+Linking to specific sections of a page[linking](https://engineertodeveloper.com/a-better-way-to-route-back-to-a-section-ids-in-django/)
 
 ## Testing
 
 ### Automated Tests
-Tests to check that the first name is required on the sign up form and the password is at least 8 characters passed
+Tests to check that all fields are required on the sign up form and the password is at least 8 characters passed.
 
 ### Manual Tests
 Tested that the sign up form worked manually and that new members were created.
-No message explaining that a longer password is required if a user enters a password that is less than 7 characters.
+No message explaining that a longer password is required if a user enters a password that is less than 8 characters.
 
 ## Deployment
+
+## Credits
 
 ## Future Development Possibilities
 

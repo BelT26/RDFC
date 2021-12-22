@@ -16,8 +16,8 @@ Member Zone
     <h1 class="text-center display-3">Members Zone</h1>
     <div id="next-fixture">
         <h2 class="text-center display-4">Next Fixture</h2>
-        <h3 class="text-center">Thursday 16th December</h3>
-        <h3 class="text-center">Reigate Fields</h3>
+        <h3 class="text-center">{{next_fixture.match_date}}</h3>
+        <h3 class="text-center">{{next_fixture.location}}</h3>
         <table class="table mb-4">
             <thead>
                 <tr>
@@ -69,30 +69,34 @@ Member Zone
                 <th>Lost</th>
                 <th>Points</th>
             </tr>
+            {% for member in league_table %}
             <tr>
-                <td>1</td>
-                <td>Steve Wilson</td>
-                <td>5</td>
-                <td>3</td>
-                <td>1</td>
-                <td>1</td>
-                <td>10</td>
+                <td>position</td>
+                <td>{{member.first_name}} {{member.last_name}}</td>
+                <td>{{member.played}}</td>
+                <td>{{member.won}}</td>
+                <td>{{member.drawn}}</td>
+                <td>{{member.lost}}</td>
+                <td>{{member.points}}</td>
             </tr>
+            {% endfor %}
         </table>
     </div>
     <div id="past-results-container">
         <h2 class="display-4 text-center">Latest Results</h2>
         <table class="table mb-3">
+            {% for match in past_results %}
             <tr>
                 <th>Date</th>
                 <th>Blues</th>
                 <th>Whites</th>
             </tr>
             <tr>
-                <td>02/12/21</td>
-                <td>3</td>
-                <td>0</td>
+                <td>{{match.match_date}}</td>
+                <td>{{match.blue_goals}}</td>
+                <td>{{match.white_goals}}</td>
             </tr>
+            {% endfor %}
         </table>
     </div>
     <div id="booking-container">

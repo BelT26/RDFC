@@ -30,7 +30,7 @@ class Team(models.Model):
         (blues, 'Blues'),
         (whites, 'Whites'),
     ]
-    colour = models.CharField(max_length=10, choices=colour_choices)
+    colour = models.CharField(max_length=7, choices=colour_choices)
     match_date = models.DateField()
     players = models.ManyToManyField(Member, blank=True)
 

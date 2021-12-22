@@ -25,3 +25,9 @@ Home
     <div id="map"></div>
 </div>
 {% endblock %}
+
+{% block js %}
+<script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+<script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCkzXIMO43ubGJL50SBLPxqdfLhDlsgGFA&callback=initMap"></script>
+<script src="{% static 'club/js/map.js' %}"></script>
+{% endblock %}

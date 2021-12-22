@@ -24,12 +24,18 @@ class Member(models.Model):
 
 
 class Team(models.Model):
-    colour = models.CharField(max_length=10)
+    blues = 'BL'
+    whites = 'WH'
+    colour_choices = [
+        (blues, 'Blues'),
+        (whites, 'Whites'),
+    ]
+    colour = models.CharField(max_length=10, choices=colour_choices)
     match_date = models.DateField()
-    players = models.ManyToManyField(Member)
+    players = models.ManyToManyField(Member, blank=True)
 
     def __str__(self):
-        return f"{self.color} - {self.match_date}"
+        return f"{self.colour} - {self.match_date}"
 
 
 class Match(models.Model):

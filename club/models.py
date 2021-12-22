@@ -15,6 +15,7 @@ class Member(models.Model):
     points = models.IntegerField(default=0)
     is_approved = models.BooleanField(default=False)
     is_available = models.BooleanField(default=False)
+    is_in_team = models.BooleanField(default=False)
     is_manager = models.BooleanField(default=False)
     is_logged_in = models.BooleanField(default=False)
 
@@ -33,12 +34,12 @@ class Team(models.Model):
 
 class Match(models.Model):
     match_date = models.DateTimeField()
-    teams = models.ManyToManyField(Team)
+    location = models.CharField(max_length=200)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
 
     def __str__(self):
-        return self.match_date
+        return f"{self.match_date} - {self.location}"
 
     class Meta:
         verbose_name_plural = "Matches"

@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponseRedirect
 from .models import Member, Match
-from .forms import SignUpForm
+from .forms import SignUpForm, LogInForm
 
 # Create your views here.
 
@@ -50,3 +50,10 @@ def signup(request):
 
 def thankyou(request):
     return render(request, 'club/thankyou.html')
+
+
+def login(request):
+    form = LogInForm()
+    return render(request, 'club/login.html', {
+        'form': form
+    })

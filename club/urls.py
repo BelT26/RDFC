@@ -5,7 +5,7 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('members', views.members, name='members'),
     path('social', views.social, name='social'),
-    path('signup', views.signup, name='signup'),
+    path('signup', views.mysignup, name='signup'),
     path('thankyou', views.thankyou, name='thankyou'),
-    path('login', views.login, name='login'),
+    path('login', views.mylogin, name='login'),
 ]

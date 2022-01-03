@@ -27,7 +27,7 @@ def social(request):
     return render(request, 'club/social.html')
 
 
-def signup(request):
+def mysignup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)
         if form.is_valid():
@@ -52,7 +52,7 @@ def thankyou(request):
     return render(request, 'club/thankyou.html')
 
 
-def login(request):
+def mylogin(request):
     form = LogInForm()
     return render(request, 'club/login.html', {
         'form': form

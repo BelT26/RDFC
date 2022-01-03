@@ -27,6 +27,10 @@ def social(request):
     return render(request, 'club/social.html')
 
 
+def management(request):
+    return render(request, 'club/management.html')
+
+
 def mysignup(request):
     if request.method == 'POST':
         form = SignUpForm(request.POST)

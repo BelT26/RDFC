@@ -113,6 +113,9 @@ The scores areautomatically populated in the latest results table
 ## Bugs and Challenges
 Linking to specific sections of a page[linking](https://engineertodeveloper.com/a-better-way-to-route-back-to-a-section-ids-in-django/)
 
+
+Issues when testing deployment mid project were resolved with the help of Alan at tutor support who identified that my requirements.txt did not contain all of my dependencies.  Solved by freezing the requirements.txt file again.
+
 ## Testing
 
 ### Automated Tests

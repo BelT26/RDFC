@@ -1,1 +1,1 @@
-web: gunicorn reigate-dads.wsgi
+web: gunicorn reigate_dads.wsgi

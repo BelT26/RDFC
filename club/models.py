@@ -7,8 +7,8 @@ from cloudinary.models import CloudinaryField
 class Member(models.Model):
     first_name = models.CharField(max_length=50, null=False, blank=False)
     last_name = models.CharField(max_length=50, null=False, blank=False)
-    username = models.CharField(max_length=50, null=False, blank=False, unique= True)
-    email = models.EmailField(max_length=200, null=False, blank=False, unique= True)
+    username = models.CharField(max_length=50, null=False, blank=False, unique=True)
+    email = models.EmailField(max_length=200, null=False, blank=False, unique=True)
     password = models.CharField(max_length=50, null=False, blank=False)
     played = models.IntegerField(default=0)
     won = models.IntegerField(default=0)

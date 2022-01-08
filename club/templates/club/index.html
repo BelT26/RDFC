@@ -12,47 +12,52 @@ Home
 {% endblock %}
 
 {% block content %}
-<div class="container-fluid mb-4">
-    <div class="jumbotron jumbotron-fluid" id="main-img-container">
-        
-        <h1 class="display-1 text-center">Reigate Dads FC</h1>
+<div class="container-fluid mb-5 mt-2">
+    <div id="main-img-container" class="container mt-5">        
+        <h1 class="display-1 text-center font-weight-normal text-white pt-3">Reigate Dads FC</h1>
     </div>
-    <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero tempore voluptatum blanditiis ab excepturi numquam modi eveniet ad reiciendis soluta! Officiis quod accusamus assumenda nesciunt! Reprehenderit obcaecati officiis iusto eaque.</p>
-<p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur repudiandae, magni corporis dicta voluptate eligendi nesciunt quisquam omnis tempora obcaecati? Expedita iusto dolorem temporibus? Fugiat sapiente quisquam labore minima deserunt.</p>
+    <div class="container mt-2" id="club-intro-text">
+        <p class="lead">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Libero tempore voluptatum blanditiis ab excepturi numquam modi eveniet ad reiciendis soluta! Officiis quod accusamus assumenda nesciunt! Reprehenderit obcaecati officiis iusto eaque.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur repudiandae, magni corporis dicta voluptate eligendi nesciunt quisquam omnis tempora obcaecati? Expedita iusto dolorem temporibus? Fugiat sapiente quisquam labore minima deserunt.</p>
+        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempora nobis, reiciendis excepturi quas eos fuga alias temporibus dicta culpa, vitae porro molestias quos vel! Voluptatibus dolor necessitatibus quaerat sunt minus!</p>
+    </div>   
 </div>
-<div class="container">
-    <h2 class="display-3 text-center">Social</h2>
+<hr>
+<div class="container mt-4 mb-5">
+    <h2 class="display-4 text-center pb-4">Social</h2>
     <div class="row">
-        <div class="col-md-4" id="social-text">
-            <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsum sapiente, eligendi incidunt debitis a, quam eveniet molestiae deserunt quibusdam quod itaque officia ab quia consequuntur eaque quo iste labore!</p>
+        <div class="col-md-6" id="social-text">
+            <p class="lead pr-md-5">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ducimus amet tenetur dolor eos in rem corporis molestiae velit odit officiis laborum voluptatem, minima, doloribus id nemo quibusdam soluta, eveniet autem.</p>
+            <p class="pr-md-5">Lorem ipsum dolor sit, amet consectetur adipisicing elit. Sunt ipsum sapiente, eligendi incidunt debitis a, quam eveniet molestiae deserunt quibusdam quod itaque officia ab quia consequuntur eaque quo iste labore!</p>
         </div>
-        <div class="col-md-8" id="social-pic">            
+        <div class="col-md-6" id="social-pic">            
         </div>
     </div>
 </div>
-<div class="container">
+<hr>
+<div class="container mt-4 mb-5">
     <div class="row">
         <div class="col">
-            <h2 class="display-4 text-center">Where to find us</h2>
+            <h2 class="display-4 text-center mb-2">Where to find us</h2>
             <img src="{% static 'club/images/RDFC_logo.png' %}" height="200px">
         </div>
     </div>
     <div class="row">
-        <div id="map-container" class="col-md-8">
+        <div id="map-container" class="col-md-8 mb-3">
             <div id="map"></div>
         </div>
-        <div id="map-text" class="col-md-4">
-            <div class="row" id="grounds-address">
+        <div id="map-text" class="col-md-4 mb-4">
+            <div class="row pb-3" id="grounds-address">
                 <div class="col">
-                    <h4 class="text-md-right">Match Grounds</h4>
+                    <h5 class="text-md-right">A: Match Grounds</h5>
                     <p class="text-md-right">Reigate Fields</p>
                     <p class="text-md-right">Church Lane</p>
                     <p class="text-md-right">Reigate</p>
                 </div>                
             </div>
-            <div class="row" id="pub-address">
+            <div class="row pb-3" id="pub-address">
                 <div class="col">
-                    <h4 class="text-md-right">Our Local</h4>
+                    <h5 class="text-md-right">B: Our Local</h5>
                     <p class="text-md-right">The Pub</p>
                     <p class="text-md-right">Reigate Road</p>
                     <p class="text-md-right">Reigate</p>

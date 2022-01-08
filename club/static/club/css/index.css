@@ -1,3 +1,16 @@
+#main-img-container {
+    background: url(../images/football.jpg) center no-repeat;
+    background-size: cover;
+    height: 80vh;
+}
+
+#social-pic {
+    background: url(../images/pub.jpg) center no-repeat;
+    background-size: cover;
+    height: 600px;
+
+}
+
 div #map {
     min-height: 360px;
 }

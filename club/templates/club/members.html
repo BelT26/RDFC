@@ -12,54 +12,57 @@ Member Zone
 {% endblock %}
 
 {% block content %}
-<div id="member-zone d-flex mt-3 mb-3">
+<div id="member-zone" class= "container-fluid">
     <h1 class="text-center display-3">Members Zone</h1>
-    <div id="next-fixture">
+    <div id="next-fixture" class="container">
         <h2 class="text-center display-4">Next Fixture</h2>
         <h3 class="text-center">{{next_fixture.match_date}}</h3>
         <h3 class="text-center">{{next_fixture.location}}</h3>
-        <table class="table mb-4">
+        <div class="container" id="pitch-img-container">
+        <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto">
+        </div>
+        <table class="table table-bordered my-5">
             <thead>
                 <tr>
-                    <th>Blues</th>
-                    <th>Whites</th>
+                    <th class="text-center">Blues</th>
+                    <th class="text-center">Whites</th>
                 </tr>
             </thead>
             <tbody>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
                 <tr>
-                    <td>Player Name</td>
-                    <td>Player Name</td>
+                    <td class="text-center">Player Name</td>
+                    <td class="text-center">Player Name</td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div id="league-table-container">
+    <div id="league-table-container" class="container">
         <h2 class="display-4 text-center">League Table</h2>
-        <table class="table mb-4">
+        <table class="table table-bordered my-4">
             <tr>
                 <th>Position</th>
                 <th>Player</th>
@@ -82,15 +85,15 @@ Member Zone
             {% endfor %}
         </table>
     </div>
-    <div id="past-results-container">
+    <div id="past-results-container" class="container">
         <h2 class="display-4 text-center">Latest Results</h2>
-        <table class="table mb-3">
-            {% for match in past_results %}
+        <table class="table table-bordered my-4">
             <tr>
                 <th>Date</th>
                 <th>Blues</th>
                 <th>Whites</th>
             </tr>
+            {% for match in past_results %}
             <tr>
                 <td>{{match.match_date}}</td>
                 <td>{{match.blue_goals}}</td>
@@ -99,14 +102,16 @@ Member Zone
             {% endfor %}
         </table>
     </div>
-    <div id="booking-container">
-        <h2 class="text-center display-4 mt-30">Book your place in Thursday's match</h2>
+    <div id="booking-container" class="container">
+        <h2 class="text-center display-4 mt-3">Book your place in Thursday's match</h2>
         <h3 class="text-center">Registrations open in...</h3>
         <div id="countdown-container">
             <p class="lead text-center">5 DAYS  12 HOURS  10 MINS  30 SECS</p>
         </div>
         <div class="d-flex justify-content-center mb-3">
-            <button class="btn btn-outline-dark btn-lg" disabled>Book Now</button>  
+            <form method="POST" action="#">
+                <button class="btn btn-outline-dark btn-lg" disabled>Book Now</button>
+            </form>  
         </div>
     </div>
 </div>

@@ -1,0 +1,7 @@
+
+#pitch-img-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;  
+    margin-top: 2rem;  
+}

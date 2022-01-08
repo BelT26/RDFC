@@ -57,7 +57,44 @@ def thankyou(request):
 
 
 def mylogin(request):
+    if request.method == 'POST':
+        form = LogInForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data['username']
+            password = form.cleaned_data['password']
+            approved_members = Member.objects.all().filter(is_approved=True)
+            login_attempts = 0
+            while login_attempts < 3:
+                for member in approved_members:
+                    if member['username'] == username:
+                        member_logging_in = member
+                        if member_logging_in['password'] == password:
+                            member_logging_in['is_logged_in'] == True
+                        else: 
+                            print('incorrect password')
+                            login_attempts += 1
+                            # return render(request, 'club/incorrect_password.html')
+                    else:
+                        print('no member with that username')
+                        # return render(request, 'club/no_user.html')
+            
     form = LogInForm()
     return render(request, 'club/login.html', {
         'form': form
     })
+
+
+available_players = []
+blues = []
+whites = []
+
+def book_match_place(player):
+    if len(available_players) < 12:
+        player['is_in_team'] = True
+        available_players.append(player)
+        print('Your place on the team has been booked')
+        
+    else:
+        reserves.append(player)
+        print('Unfortunately there is no room on the team')
+        print(f'You are number {len(reserves)} on the reserve list')

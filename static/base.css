@@ -1,8 +1,16 @@
+* {
+    margin: 0;
+}
+
 .navbar {
     background-color: rgb(70, 70, 190);
     color: white;
     height: 5rem;
     padding: 20px;
+}
+
+#logo-img {
+    height: 70px;
 }
 
 /* styles for footer of each page */

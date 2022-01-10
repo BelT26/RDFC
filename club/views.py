@@ -40,6 +40,22 @@ def management(request):
     return render(request, 'club/management.html')
 
 
+def applications(request):
+    return render(request, 'club/applications.html')
+
+
+def add_fixture(request):
+    return render(request, 'club/fixture.html')
+
+
+def add_result(request):
+    return render(request, 'club/result.html')
+
+
+def registrations(request):
+    return render(request, 'club/registrations.html')
+
+
 # def mysignup(request):
 #     if request.method == 'POST':
 #         form = SignUpForm(request.POST)

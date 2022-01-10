@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+
+{% load static %}
+{% load custom_tags %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'club/css/management.css' %}">
+{% endblock %}
+
+{% block title %}
+Manager Zone
+{% endblock %}
+
+{% block content %}
+
+<h2>Manage Registration Facility</h2>
+<form>
+    <div>
+        <button class="btn">Open Match Registrations</button>
+    </div>
+    <div>
+        <button class="btn">Close Match Registrations</button>
+    </div>  
+</form>
+
+
+{% endblock %}

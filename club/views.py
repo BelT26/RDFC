@@ -32,10 +32,6 @@ def members(request):
     return render(request, 'club/members.html', context)
 
 
-def social(request):
-    return render(request, 'club/social.html')
-
-
 def management(request):
     return render(request, 'club/management.html')
 

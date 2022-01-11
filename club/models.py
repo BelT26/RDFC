@@ -9,30 +9,8 @@ class ClubMember(AbstractUser):
     username = models.CharField(max_length=50, null=False, blank=False, unique=True)
     email = models.EmailField(max_length=255, unique=True)
     is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False) # club manager with access to management functions
-    admin = models.BooleanField(default=False) # a superuser with access to django-admin
-    played = models.IntegerField(default=0)
-    won = models.IntegerField(default=0)
-    drawn = models.IntegerField(default=0)
-    lost = models.IntegerField(default=0)
-    points = models.IntegerField(default=0)
-    is_approved = models.BooleanField(default=False)
-    is_available = models.BooleanField(default=False)
-    is_in_team = models.BooleanField(default=False)  
-
-    
-    def __str__(self):
-        return f"{self.first_name} {self.last_name}"
-
-
-
-# original model to be replaced by ClubMember model
-class Member(models.Model):
-    first_name = models.CharField(max_length=50, null=False, blank=False)
-    last_name = models.CharField(max_length=50, null=False, blank=False)
-    username = models.CharField(max_length=50, null=False, blank=False, unique=True)
-    email = models.EmailField(max_length=200, null=False, blank=False, unique=True)
-    password = models.CharField(max_length=50, null=False, blank=False)
+    staff = models.BooleanField(default=False)
+    admin = models.BooleanField(default=False)
     played = models.IntegerField(default=0)
     won = models.IntegerField(default=0)
     drawn = models.IntegerField(default=0)
@@ -41,8 +19,6 @@ class Member(models.Model):
     is_approved = models.BooleanField(default=False)
     is_available = models.BooleanField(default=False)
     is_in_team = models.BooleanField(default=False)
-    is_manager = models.BooleanField(default=False)
-    is_logged_in = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
@@ -57,14 +33,15 @@ class Team(models.Model):
     ]
     colour = models.CharField(max_length=7, choices=colour_choices)
     match_date = models.DateField()
-    players = models.ManyToManyField(Member, blank=True)
+    players = models.ManyToManyField(ClubMember, blank=True)
 
     def __str__(self):
         return f"{self.colour} - {self.match_date}"
 
 
 class Match(models.Model):
-    match_date = models.DateTimeField()
+    match_date = models.DateField()
+    match_time = models.TimeField(default="19:00")
     location = models.CharField(max_length=200)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
@@ -74,6 +51,3 @@ class Match(models.Model):
 
     class Meta:
         verbose_name_plural = "Matches"
-
-
-

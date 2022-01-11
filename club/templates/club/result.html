@@ -14,7 +14,11 @@ Manager Zone
 {% block content %}
 
 <h2>Add Match Result</h2>
-<form></form>
+<form>
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn">Submit Result</button>
+</form>
 
 
 {% endblock %}

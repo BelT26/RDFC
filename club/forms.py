@@ -15,6 +15,11 @@ class MyCustomSignupForm(SignupForm):
         return user
 
 
+class ResultForm(forms.Form):
+    match_date = forms.DateField()
+    blues = forms.IntegerField()
+    whites = forms.IntegerField()
+
 # class SignUpForm(forms.Form):
 #     first_name = forms.CharField(max_length=50, min_length=2)
 #     last_name = forms.CharField(max_length=50, min_length=2)

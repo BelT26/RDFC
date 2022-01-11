@@ -2,6 +2,7 @@ from django.shortcuts import render, reverse
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import ClubMember, Match
+from .forms import ResultForm
 
 
 # Create your views here.
@@ -59,7 +60,10 @@ def add_fixture(request):
 def add_result(request):
     """returns a form in which the manager can add, remove
     or modify a match result"""
-    return render(request, 'club/result.html')
+    form = ResultForm()
+    return render(request, 'club/result.html', {
+        'form': form
+    })
 
 
 def registrations(request):

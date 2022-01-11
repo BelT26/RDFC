@@ -1,5 +1,5 @@
 #main-img-container {
-    background: url(../images/football2.jpg) center no-repeat;
+    background: url(../images/football.jpg) center no-repeat;
     background-size: cover;
     height: 75vh;
 }
@@ -13,4 +13,12 @@
 
 div #map {
     min-height: 360px;
+}
+
+#phone {
+    letter-spacing: 0.2rem;
+}
+
+#email a{
+    text-decoration: none;
 }

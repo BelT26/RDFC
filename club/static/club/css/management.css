@@ -13,3 +13,15 @@
 .submit-button:hover {
     background-color: rgb(216, 188, 29);
 }
+
+.asteriskField {
+    display: none;
+}
+
+@media screen and (max-width: 760px) {
+    .custom-form-container {
+        width: 90%;
+        padding-top: 1rem;
+        height: calc(100vh - 4rem)
+    }
+}

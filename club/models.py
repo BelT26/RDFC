@@ -41,7 +41,7 @@ class Team(models.Model):
 
 class Match(models.Model):
     match_date = models.DateField()
-    kick_off = models.TimeField(default="19:00")
+    time = models.TimeField(default="19:00")
     location = models.CharField(max_length=200)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)

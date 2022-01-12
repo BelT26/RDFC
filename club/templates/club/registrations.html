@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load custom_tags %}
+{% load crispy_forms_tags %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'club/css/management.css' %}">
@@ -12,16 +13,19 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
-
-<h2>Manage Registration Facility</h2>
-<form>
-    <div>
-        <button class="btn">Open Match Registrations</button>
-    </div>
-    <div>
-        <button class="btn">Close Match Registrations</button>
+<div class="custom-form-container">
+    <h1 class="text-center display-4 mb-5">Manage Booking System</h1>
+    <div class="row">
+        <div class="col-12">
+            <form method="POST" action="#">
+                <h4 class="mb-5 text-center">Registrations are currently open/closed</h5>
+                {% csrf_token %}
+                <div class="form-group text-center">
+                    <button class="btn btn-lg p-4 mx-3 my-auto submit-button" id="open">Open Match Registrations</button>
+                    <button class="btn btn-lg p-4 mx-3 my-auto submit-button" id="close">Close Match Registrations</button>
+                </div>                 
+            </form>
+        </div>    
     </div>  
-</form>
-
-
+</div>
 {% endblock %}

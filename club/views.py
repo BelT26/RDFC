@@ -59,7 +59,7 @@ def add_match(request):
         if form.is_valid():
             match = Match(
                 match_date=form.cleaned_data['match_date'],
-                match_time=form.cleaned_data['kick_off'],
+                match_time=form.cleaned_data['time'],
                 location=form.cleaned_data['location'],
                 blue_goals=form.cleaned_data['blues'],
                 white_goals=form.cleaned_data['whites'],

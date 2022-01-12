@@ -14,14 +14,18 @@ Manager Zone
 
 {% block content %}
 <div class="custom-form-container">
-    <h2 class="text-center">Match Details</h2>
-    <h6 class="mb-2 text-center">(Please ensure that you enter the kick off time in the following format: <strong>19:00</strong>)</h6>
-    <form method="POST" action="#">
-        {% csrf_token %}
-        <div class="form-group">
-            {{ form | crispy }}
-        </div>              
-        <button class="btn submit-button">Submit</button>
-    </form>
+    <h1 class="text-center display-4">Match Details</h1>
+    <h5 class="mb-3 text-center">(Please ensure that you enter the time in the following format: <strong>19:00</strong>)</h5>
+    <div class="row">
+        <div class="col-10 col-sm-6 col-md-4">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <div class="form-group">
+                    {{ form | crispy }}
+                </div>              
+                <button class="btn submit-button">Submit</button>
+            </form>
+        </div>    
+    </div>  
 </div>
 {% endblock %}

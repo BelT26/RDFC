@@ -12,26 +12,27 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
-
-<h2>All Matches</h2>
-<br>
-<table class="table table-bordered my-4">
-    <tr>
-        <th>Date</th>
-        <th>Blues</th>
-        <th>Whites</th>
-        <th>Results Added</th>
-    </tr>
-    {% for match in matches %}
-    <tr>
-        <td>{{match.match_date}}</td>
-        <td>{{match.blue_goals}}</td>
-        <td>{{match.white_goals}}</td>
-        <td>{{match.results_added}}</td>
-        <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
-        <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
-    </tr>
-    {% endfor %}
-</table>
+<div class="custom-form-container">
+    <h2>All Matches</h2>
+    <br>
+    <table class="table table-bordered my-4">
+        <tr>
+            <th>Date</th>
+            <th>Blues</th>
+            <th>Whites</th>
+            <th>Results Added</th>
+        </tr>
+        {% for match in matches %}
+        <tr>
+            <td>{{match.match_date}}</td>
+            <td>{{match.blue_goals}}</td>
+            <td>{{match.white_goals}}</td>
+            <td>{{match.results_added}}</td>
+            <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
+            <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
+        </tr>
+        {% endfor %}
+    </table>   
+</div>
 
 {% endblock %}

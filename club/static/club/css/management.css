@@ -1,7 +1,7 @@
 .custom-form-container {
     margin: 0 auto;
     height: calc(100vh - 10rem);
-    padding-top: 2rem;
+    padding: 2rem;
     width: 60%;
 }
 

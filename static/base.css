@@ -43,3 +43,9 @@ footer i {
 }
 
 
+.allauth-container {
+    margin: 0 auto;
+    height: calc(100vh - 10rem);
+    padding: 2rem;
+    width: 60%;
+}

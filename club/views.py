@@ -48,7 +48,10 @@ def management(request):
 def applications(request):
     """ returns a template showing any pending applications and
     gives the manager the opportunity to approve them """
-    return render(request, 'club/applications.html')
+    pending_applications = ClubMember.objects.filter(is_approved=False)
+    return render(request, 'club/applications.html', {
+        'pending_applications':pending_applications
+    })
 
 
 def add_match(request):
@@ -91,7 +94,7 @@ def edit_match(request, pk):
         if form.is_valid():
             match = Match(
                 match_date=form.cleaned_data['match_date'],
-                match_time=form.cleaned_data['kick_off'],
+                match_time=form.cleaned_data['time'],
                 location=form.cleaned_data['location'],
                 blue_goals=form.cleaned_data['blues'],
                 white_goals=form.cleaned_data['whites'],

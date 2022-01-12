@@ -1,0 +1,15 @@
+.custom-form-container {
+    margin: 0 auto;
+    height: calc(100vh - 10rem);
+    padding-top: 2rem;
+    width: 60%;
+}
+
+.submit-button {
+    background-color: gold;
+}
+
+.submit-button:active,
+.submit-button:hover {
+    background-color: rgb(216, 188, 29);
+}

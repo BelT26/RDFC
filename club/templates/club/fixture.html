@@ -2,6 +2,7 @@
 
 {% load static %}
 {% load custom_tags %}
+{% load crispy_forms_tags %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static 'club/css/management.css' %}">
@@ -12,15 +13,15 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
-
-<h2>Add Match Fixture</h2>
-<br>
-<h4>Please ensure that you enter the time in the following format <strong>19:00</strong></h4>
-<form method="POST" action="#">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button class="btn">Add Match</button>
-
-</form>
-
+<div class="custom-form-container">
+    <h2 class="text-center">Match Details</h2>
+    <h6 class="mb-2 text-center">(Please ensure that you enter the kick off time in the following format: <strong>19:00</strong>)</h6>
+    <form method="POST" action="#">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form | crispy }}
+        </div>              
+        <button class="btn submit-button">Submit</button>
+    </form>
+</div>
 {% endblock %}

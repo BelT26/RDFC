@@ -50,6 +50,7 @@ INSTALLED_APPS = [
     'cloudinary_storage',
     'django.contrib.staticfiles',
     'cloudinary',
+    'crispy_forms',
     'club',
 ]
 
@@ -58,6 +59,8 @@ SITE_ID = 1
 LOGIN_REDIRECT = '/'
 LOGOUT_REDIRECT = '/'
 
+
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',

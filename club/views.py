@@ -1,8 +1,8 @@
-from django.shortcuts import render, reverse
+from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import ClubMember, Match
-from .forms import ResultForm
+from .forms import MatchForm
 
 
 # Create your views here.
@@ -51,15 +51,71 @@ def applications(request):
     return render(request, 'club/applications.html')
 
 
-def add_fixture(request):
+def add_match(request):
     """returns a form in which the manager can add, remove
     or modify a match fixture"""
+    if request.method == 'POST':
+        form = MatchForm(request.POST)
+        if form.is_valid():
+            match = Match(
+                match_date=form.cleaned_data['match_date'],
+                match_time=form.cleaned_data['kick_off'],
+                location=form.cleaned_data['location'],
+                blue_goals=form.cleaned_data['blues'],
+                white_goals=form.cleaned_data['whites'],
+                results_added=form.cleaned_data['results']
+            )
+            match.save()
+            messages.success(request, 'Match successfully added')
+            return HttpResponseRedirect(reverse('index'))
+    form = MatchForm()
+    return render(request, 'club/fixture.html', {
+        'form': form
+    })
+
+
+def select_match(request):
+    matches = Match.objects.all().order_by('-match_date')
+    return render(request, 'club/matches.html', {
+        'matches': matches
+    })
+
+
+def edit_match(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    form = MatchForm(instance=match)
+    
+    if request.method == 'POST':
+        form = MatchForm(request.POST, instance=match)
+        if form.is_valid():
+            match = Match(
+                match_date=form.cleaned_data['match_date'],
+                match_time=form.cleaned_data['kick_off'],
+                location=form.cleaned_data['location'],
+                blue_goals=form.cleaned_data['blues'],
+                white_goals=form.cleaned_data['whites'],
+                results_added=form.cleaned_data['results']
+            )
+            match.save()
+            messages.success(request, 'Match successfully updated')
+            return HttpResponseRedirect(reverse('index'))
+    
+    return render(request, 'club/fixture.html', {
+        'form': form
+    })
+
+
+def delete_match(request, pk):
     return render(request, 'club/fixture.html')
 
 
 def add_result(request):
     """returns a form in which the manager can add, remove
     or modify a match result"""
+    if request.method == 'POST':
+        date = request.POST['date']
+        match = Match.objects.get(match_date=date)
     form = ResultForm()
     return render(request, 'club/result.html', {
         'form': form

@@ -14,7 +14,13 @@ Manager Zone
 {% block content %}
 
 <h2>Add Match Fixture</h2>
-<form></form>
+<br>
+<h4>Please ensure that you enter the time in the following format <strong>19:00</strong></h4>
+<form method="POST" action="#">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn">Add Match</button>
 
+</form>
 
 {% endblock %}

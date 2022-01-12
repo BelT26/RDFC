@@ -41,10 +41,11 @@ class Team(models.Model):
 
 class Match(models.Model):
     match_date = models.DateField()
-    match_time = models.TimeField(default="19:00")
+    kick_off = models.TimeField(default="19:00")
     location = models.CharField(max_length=200)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
+    results_added = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.match_date} - {self.location}"

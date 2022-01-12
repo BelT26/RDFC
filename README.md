@@ -116,14 +116,15 @@ Linking to specific sections of a page[linking](https://engineertodeveloper.com/
 
 Issues when testing deployment mid project were resolved with the help of Alan at tutor support who identified that my requirements.txt did not contain all of my dependencies.  Solved by freezing the requirements.txt file again.
 
+I had several problems when trying to customize the standard allauth signup form and create the ClubMember model. Each time I ran a migration I was getting an error message.  The original message informed me 
+
 ## Testing
 
 ### Automated Tests
 Tests to check that all fields are required on the sign up form and the password is at least 8 characters passed.
 
 ### Manual Tests
-Tested that the sign up form worked manually and that new members were created.
-No message explaining that a longer password is required if a user enters a password that is less than 8 characters.
+Tested that the modified sign up form worked manually and that new members were created.
 
 ## Deployment
 

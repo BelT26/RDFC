@@ -1,6 +1,6 @@
 from django import forms
-from .models import ClubMember
-from allauth.account.forms import SignupForm 
+from allauth.account.forms import SignupForm
+from .models import Match
 
 
 class MyCustomSignupForm(SignupForm):
@@ -15,22 +15,12 @@ class MyCustomSignupForm(SignupForm):
         return user
 
 
-class ResultForm(forms.Form):
-    match_date = forms.DateField()
-    blues = forms.IntegerField()
-    whites = forms.IntegerField()
-
-# class SignUpForm(forms.Form):
-#     first_name = forms.CharField(max_length=50, min_length=2)
-#     last_name = forms.CharField(max_length=50, min_length=2)
-#     username = forms.CharField(max_length=50, min_length=2)
-#     email = forms.EmailField(max_length=200)
-#     password = forms.CharField(max_length=50, min_length=8, 
-#                                widget=forms.PasswordInput)
+class DateInput(forms.DateInput):
+    input_type = 'date'
 
 
+class MatchForm(forms.ModelForm):
+    class Meta:
+        model = Match
+        fields = '__all__'
 
-# class LogInForm(forms.ModelForm):
-#     username = forms.CharField(max_length=50, min_length=2)
-#     password = forms.CharField(max_length=50, min_length=8, 
-#                                widget=forms.PasswordInput)

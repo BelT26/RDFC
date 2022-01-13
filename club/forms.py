@@ -22,5 +22,4 @@ class DateInput(forms.DateInput):
 class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
-        fields = '__all__'
-
+        exclude = ['registrations_open']

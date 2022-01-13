@@ -70,11 +70,10 @@
           </div>
           </a>
         </li>
-      </ul>
-         
+      </ul>         
   </div>
   </nav>
-  <div class="container">
+  <div class="container mt-4">
     <div class="row">
         <div class="col-md-8 offset-md-2">
             {% for message in messages %}
@@ -117,7 +116,7 @@
         let messages = document.getElementById('msg');
         let alert = new bootstrap.Alert(messages);
         alert.close();
-    }, 3000)
+    }, 5000)
 </script> 
   {% block js %}
   {% endblock %}

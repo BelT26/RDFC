@@ -62,11 +62,11 @@ def add_match(request):
         if form.is_valid():
             match = Match(
                 match_date=form.cleaned_data['match_date'],
-                match_time=form.cleaned_data['time'],
+                time=form.cleaned_data['time'],
                 location=form.cleaned_data['location'],
-                blue_goals=form.cleaned_data['blues'],
-                white_goals=form.cleaned_data['whites'],
-                results_added=form.cleaned_data['results']
+                blue_goals=form.cleaned_data['blue_goals'],
+                white_goals=form.cleaned_data['white_goals'],
+                results_added=form.cleaned_data['results_added']
             )
             match.save()
             messages.success(request, 'Match successfully added')
@@ -94,11 +94,11 @@ def edit_match(request, pk):
         if form.is_valid():
             match = Match(
                 match_date=form.cleaned_data['match_date'],
-                match_time=form.cleaned_data['time'],
+                time=form.cleaned_data['time'],
                 location=form.cleaned_data['location'],
-                blue_goals=form.cleaned_data['blues'],
-                white_goals=form.cleaned_data['whites'],
-                results_added=form.cleaned_data['results']
+                blue_goals=form.cleaned_data['blue_goals'],
+                white_goals=form.cleaned_data['white_goals'],
+                results_added=form.cleaned_data['results_added']
             )
             match.save()
             messages.success(request, 'Match successfully updated')

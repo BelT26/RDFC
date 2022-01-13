@@ -46,6 +46,7 @@ class Match(models.Model):
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
     results_added = models.BooleanField(default=False)
+    registrations_open = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.match_date} - {self.location}"

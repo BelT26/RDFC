@@ -21,6 +21,7 @@ Manager Zone
             <th>Blues</th>
             <th>Whites</th>
             <th>Results Added</th>
+            <th colspan="3">Match Management</th>
         </tr>
         {% for match in matches %}
         <tr>
@@ -30,6 +31,11 @@ Manager Zone
             <td>{{match.results_added}}</td>
             <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
             <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
+            {% if match.registrations_open %}
+            <td>Close Registrations</td>
+            {% else %}
+            <td>Open Registrations</td>
+            {% endif %}
         </tr>
         {% endfor %}
     </table>   

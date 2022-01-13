@@ -110,7 +110,11 @@ def edit_match(request, pk):
 
 
 def delete_match(request, pk):
-    return render(request, 'club/fixture.html')
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    match.delete()
+    messages.success(request, 'Match successfully deleted')
+    return HttpResponseRedirect(reverse('index'))
 
 
 def add_result(request):

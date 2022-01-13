@@ -35,7 +35,8 @@ def members(request):
         'league_table': league_table,
         'next_fixture': next_fixture,
         'past_results': past_results,
-        'registrations_open': registrations_open
+        'registrations_open': registrations_open,
+        'blues': blues
     }
     return render(request, 'club/members.html', context)
 

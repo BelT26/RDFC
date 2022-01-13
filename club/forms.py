@@ -23,3 +23,4 @@ class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
         exclude = ['registrations_open']
+        widgets = {'match_date': DateInput()}

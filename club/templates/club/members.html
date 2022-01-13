@@ -21,44 +21,20 @@ Member Zone
         <div class="container" id="pitch-img-container">
         <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto">
         </div>
-        <table class="table table-bordered my-5">
-            <thead>
-                <tr>
-                    <th class="text-center">Blues</th>
-                    <th class="text-center">Whites</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-                <tr>
-                    <td class="text-center">Player Name</td>
-                    <td class="text-center">Player Name</td>
-                </tr>
-            </tbody>
-        </table>
+        <div class="row">
+            <div class="col-md-6">
+                <h5 class="text-center">Blues</h5>
+                {% for player in blues %}
+                <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
+                {% endfor %}
+            </div>
+            <div class="col-md-6">
+                <h5 class="text-center">Whites</h5>
+                {% for player in whites %}
+                <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
+                {% endfor %}
+            </div>
+        </div>         
     </div>
     <div id="league-table-container" class="container">
         <h2 class="display-4 text-center">League Table</h2>

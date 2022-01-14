@@ -26,8 +26,10 @@ def allocate_teams():
     whites.append(sorted_players[1], sorted_players[2], sorted_players[4], sorted_players[6], sorted_players[8], sorted_players[10])
 
 
-
-def update_player_scores(request):
+"""
+def update_player_scores(request, pk, blue_goals, white_goals):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
     match['blue_goals'] = blue_goals
     match['white_goals'] = white_goals
     if blue_goals > white_goals:
@@ -42,7 +44,7 @@ def update_player_scores(request):
         for player in whites:
             player['points'] += 1
     available_players.clear()
-
+"""
 
 
 

@@ -50,3 +50,13 @@ footer i {
     height: calc(100vh - 10rem);
     width: 60%;
 }
+
+@media screen and (max-width: 760px) {
+    footer li {
+        padding: 10px;
+    }
+
+    footer i {
+        font-size: 150%;
+    }
+}

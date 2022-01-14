@@ -5,6 +5,14 @@
     width: 60%;
 }
 
+.edit-match-container {
+    margin: 0 auto;
+    height: calc(100vh - 10rem);
+    line-height: 1rem;
+    padding: 0rem;
+    width: 60%;
+}
+
 .submit-button {
     background-color: gold;
 }
@@ -24,4 +32,12 @@
         padding-top: 1rem;
         height: calc(100vh - 4rem)
     }
+
+    .edit-match-container {
+        width: 90%;
+        height: auto;
+        padding-bottom: 1rem;
+    }
+
+
 }

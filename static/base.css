@@ -1,7 +1,13 @@
 * {
     margin: 0;
     box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.custom-display {
     font-family: 'Raleway', sans-serif;
+    font-size: 50px;
+    font-weight: 100;
 }
 
 .navbar {

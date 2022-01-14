@@ -15,8 +15,9 @@ Member Zone
 <div id="member-zone" class= "container-fluid">
     <h1 class="text-center display-3">Members Zone</h1>
     <div id="next-fixture" class="container">
-        <h2 class="text-center display-4">Next Fixture</h2>
-        <h3 class="text-center">{{next_fixture.match_date}}</h3>
+        <h2 class="text-center custom-display">Next Fixture</h2>
+        <h3 class="text-center">{{next_fixture.match_date|date:"l j F y"}}</h3>
+        <h3 class="text-center">{{next_fixture.time|date:"H:i"}}</h3>
         <h3 class="text-center">{{next_fixture.location}}</h3>
         <div class="row">
             <div class="col-md-6">
@@ -37,7 +38,7 @@ Member Zone
         </div>           
     </div>
     <div id="league-table-container" class="container">
-        <h2 class="display-4 text-center">League Table</h2>
+        <h2 class="custom-display text-center">League Table</h2>
         <table class="table table-bordered my-4">
             <tr>
                 <th>Position</th>
@@ -65,7 +66,7 @@ Member Zone
         </div>
     </div>
     <div id="past-results-container" class="container">
-        <h2 class="display-4 text-center">Latest Results</h2>
+        <h2 class="custom-display text-center">Latest Results</h2>
         <table class="table table-bordered my-4">
             <tr>
                 <th>Date</th>
@@ -85,7 +86,7 @@ Member Zone
         </div>
     </div>
     <div id="booking-container" class="container">
-        <h2 class="text-center display-4 mt-5">Book your place in the next match</h2>
+        <h2 class="text-center custom-display mt-5">Book your place in the next match</h2>
         <div class="d-flex justify-content-center mb-3">
             {% if registrations_open %}
             <form method="POST" action="#">

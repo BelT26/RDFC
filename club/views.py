@@ -118,17 +118,45 @@ def delete_match(request, pk):
     return HttpResponseRedirect(reverse('index'))
 
 
-def add_result(request):
-    """returns a form in which the manager can add, remove
-    or modify a match result"""
-    if request.method == 'POST':
-        date = request.POST['date']
-        match = Match.objects.get(match_date=date)
-    form = ResultForm()
-    return render(request, 'club/result.html', {
-        'form': form
-    })
+def add_next_fixture(request, pk):
+    """checks that there is not already a match flagged as
+    the next fixture. Displays an error message if there is
+    otherwise changes the next_fixture property of the match
+    to true and updates the display in members.html"""
+    queryset = Match.objects.all().filter(next_fixture=True)
+    if len(queryset) > 0:
+        messages.error(request, 'Only one match can be flagged as the next fixture')
+        messages.error(request, 'Please remove the next fixture tag from the current match')
+        return HttpResponseRedirect(reverse('select_match'))
+    else:
+        match = get_object_or_404(queryset, id=pk)
+        match['next_fixture'] = True
+        messages.success(request, 'Next fixture updated')
+        return HttpResponseRedirect(reverse('members'))
 
+
+def remove_next_fixture(request, pk):
+    queryset = Match.objects.all().filter()
+    match = get_object_or_404(queryset, id=pk)
+    match['next_fixture'] = False
+    messages.success(request, 'Next fixture flag removed')
+    return HttpResponseRedirect(reverse('select_match'))
+
+
+def close_registrations(request, pk):
+    queryset = Match.objects.all().filter()
+    match = get_object_or_404(queryset, id=pk)
+    match['registrations_open'] = False
+    messages.success(request, f"Registrations closed for {match['match_date']}")
+    return HttpResponseRedirect(reverse('select_match'))
+
+
+def close_registrations(request, pk):
+    queryset = Match.objects.all().filter()
+    match = get_object_or_404(queryset, id=pk)
+    match['registrations_open'] = True
+    messages.success(request, f"Registrations opened for {match['match_date']}")
+    return HttpResponseRedirect(reverse('select_match'))
 
 def registrations(request):
     """returns a form in which the manager can open or

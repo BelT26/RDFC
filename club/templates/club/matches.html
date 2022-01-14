@@ -21,7 +21,7 @@ Manager Zone
             <th>Blues</th>
             <th>Whites</th>
             <th>Results Added</th>
-            <th colspan="3">Match Management</th>
+            <th colspan="4">Match Management</th>
         </tr>
         {% for match in matches %}
         <tr>
@@ -35,6 +35,11 @@ Manager Zone
             <td>Close Registrations</td>
             {% else %}
             <td>Open Registrations</td>
+            {% endif %}
+            {% if match.next_fixture %}
+            <td>Remove next fixture flag</td>
+            {% else %}
+            <td>Add next fixture flag</td>
             {% endif %}
         </tr>
         {% endfor %}

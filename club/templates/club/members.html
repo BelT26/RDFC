@@ -18,9 +18,6 @@ Member Zone
         <h2 class="text-center display-4">Next Fixture</h2>
         <h3 class="text-center">{{next_fixture.match_date}}</h3>
         <h3 class="text-center">{{next_fixture.location}}</h3>
-        <div class="container" id="pitch-img-container">
-        <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto">
-        </div>
         <div class="row">
             <div class="col-md-6">
                 <h5 class="text-center">Blues</h5>
@@ -34,13 +31,13 @@ Member Zone
                 <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
                 {% endfor %}
             </div>
-        </div>         
+        </div>
+        <div class="container" id="pitch-img-container">
+            <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto">  
+        </div>           
     </div>
     <div id="league-table-container" class="container">
         <h2 class="display-4 text-center">League Table</h2>
-        <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/trophy2.jpg' %}" height="200px" class="my-auto">
-        </div>
         <table class="table table-bordered my-4">
             <tr>
                 <th>Position</th>
@@ -63,12 +60,12 @@ Member Zone
             </tr>
             {% endfor %}
         </table>
+        <div class="container" id="pitch-img-container">
+            <img src="{% static 'club/images/trophy2.jpg' %}" height="200px" class="my-auto">
+        </div>
     </div>
     <div id="past-results-container" class="container">
         <h2 class="display-4 text-center">Latest Results</h2>
-        <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/goal.jpg' %}" height="200px" class="my-auto">
-        </div>
         <table class="table table-bordered my-4">
             <tr>
                 <th>Date</th>
@@ -83,21 +80,21 @@ Member Zone
             </tr>
             {% endfor %}
         </table>
+        <div class="container" id="pitch-img-container">
+            <img src="{% static 'club/images/goal.jpg' %}" height="200px" class="my-auto">
+        </div>
     </div>
     <div id="booking-container" class="container">
-        <h2 class="text-center display-4 mt-3">Book your place in Thursday's match</h2>
-        {% if registrations_open %}
+        <h2 class="text-center display-4 mt-5">Book your place in the next match</h2>
         <div class="d-flex justify-content-center mb-3">
+            {% if registrations_open %}
             <form method="POST" action="#">
-                <button class="btn btn-outline-dark btn-lg" disabled>Book Now</button>
+                <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'book_match_place' %}">Book Now</a></button>
             </form>
-        {% else %} 
+            {% else %} 
+            <h3 class="text-center">Registrations open in...</h3>
+            {% endif %}
         </div>
-        <h3 class="text-center">Registrations open in...</h3>
-        <div id="countdown-container">
-            <p class="lead text-center">5 DAYS  12 HOURS  10 MINS  30 SECS</p>
-        </div>
-        {% endif %}
     </div>
 </div>
 {% endblock %}

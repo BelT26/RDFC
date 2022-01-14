@@ -1,19 +1,3 @@
-available_players = []
-blues = []
-whites = []
-
-def book_match_place(player):
-    if len(available_players) < 12:
-        player['is_in_team'] = True
-        available_players.append(player)
-        print('Your place on the team has been booked')
-        
-    else:
-        reserves.append(player)
-        print('Unfortunately there is no room on the team')
-        print(f'You are number {len(reserves)} on the reserve list')
-
-
 def get_score(player):
     return player['points']
 
@@ -33,8 +17,7 @@ def clear_teams():
     whites.clear()
 
 
-
-def allocate_teams_again(request):
+def allocate_teams():
     clear_teams()
     available_members = Members.objects.filter(is_in_team=True)
     scored_players = available_members.order_by('-score')
@@ -44,14 +27,13 @@ def allocate_teams_again(request):
 
 
 
-
-def add_result(blue_goals, white_goals, match):
+def update_player_scores(request):
     match['blue_goals'] = blue_goals
     match['white_goals'] = white_goals
     if blue_goals > white_goals:
         for player in blues:
             player['points'] += 3
-    elif white_goals > blue_goals
+    elif white_goals > blue_goals:
         for player in whites:
             player['points'] += 3
     else:

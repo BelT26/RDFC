@@ -118,6 +118,8 @@ Issues when testing deployment mid project were resolved with the help of Alan a
 
 I had several problems when trying to customize the standard allauth signup form and create the ClubMember model. Each time I ran a migration I was getting an error message.  The original message informed me 
 
+book match place not working. implemented manual test driven approach, gradually increasing functionality
+
 ## Testing
 
 ### Automated Tests

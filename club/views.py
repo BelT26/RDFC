@@ -3,6 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from .models import ClubMember, Match
 from .forms import MatchForm
+from . import helpers
 
 
 # Create your views here.
@@ -164,21 +165,42 @@ def registrations(request):
     return render(request, 'club/registrations.html')
 
 
+# def book_match_place(request):
+#     """allows club members to book a place on the team
+#     for the next match. If teams are full the player is
+#     placed on a reserve list"""
+#     player = None
+#     if request.user.is_authenticated():
+#         player = request.user
+#         if len(available_players) <= 12:
+#             player['is_in_team'] = True
+#             available_players.append(player)
+#             messages.success(request, 'You have been allocated a place in '
+#                                       'the next match!')
+#         else:
+#             reserves.append(player)
+#             messages.warning(request, 'Unfortunately there is no room on '
+#                                       'the team')
+#             messages.warning(request, f'You are reseve number {len(reserves)}.')
+#     return HttpResponseRedirect(reverse('members'))
+
 def book_match_place(request):
-    """allows club members to book a place on the team
-    for the next match. If teams are full the player is
-    placed on a reserve list"""
-    player = None
-    if request.user.is_authenticated():
-        player = request.user
-        if len(available_players) <= 12:
-            player['is_in_team'] = True
+    player = request.user
+    if player in available_players:
+        messages.warning(request, 'You have already registered')
+        return HttpResponseRedirect(reverse('members'))
+    else:
+        if len(available_players) < 12:     
             available_players.append(player)
             messages.success(request, 'You have been allocated a place in '
-                                      'the next match!')
+                                  'the next match!')
+            # for player in available_players: 
+                # messages.success(request, f'available players {player.first_name}')
+            if len(available_players) == 12:
+                allocate_teams()
         else:
             reserves.append(player)
-            messages.warning(request, 'Unfortunately there is no room on '
-                                      'the team')
-            messages.warning(request, f'You are reseve number {len(reserves)}.')
+            messages.warning(request, 'Unfortunately there is no room '
+                                    'on the team. You are reserve '
+                                    f'number {len(reserves)}.')                                
     return HttpResponseRedirect(reverse('members'))

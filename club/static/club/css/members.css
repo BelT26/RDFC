@@ -5,3 +5,12 @@
     margin-bottom: 3rem;  
     margin-top: 2rem;  
 }
+
+.submit-button {
+    background-color: gold;
+}
+
+.submit-button:active,
+.submit-button:hover {
+    background-color: rgb(216, 188, 29);
+}

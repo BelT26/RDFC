@@ -26,7 +26,10 @@ def members(request):
     the next match fixture and a booking form with which the
     club member can book a place in the next match"""
     league_table = ClubMember.objects.all().order_by('-points')
-    next_fixture = Match.objects.all().order_by('-match_date')[0]
+    try:
+        next_fixture = Match.objects.get(next_fixture=True)
+    except:
+        next_fixture = Match.objects.all().order_by('-match_date')[0]
     all_matches = Match.objects.all().order_by('-match_date')
     past_results = all_matches[1:]
     registrations_open = True

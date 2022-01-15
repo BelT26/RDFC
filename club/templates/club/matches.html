@@ -37,9 +37,9 @@ Manager Zone
             <td><a href="{% url 'open_reg' match.id %}">Open Registrations</a></td>
             {% endif %}
             {% if match.next_fixture %}
-            <td>Remove next fixture flag</td>
+            <td><a href="{% url 'remove_next' match.id %}">Remove Next Fixture Flag</a></td>
             {% else %}
-            <td>Add next fixture flag</td>
+            <td><a href="{% url 'add_next' match.id %}">Flag as Next Fixture</a></td>
             {% endif %}
         </tr>
         {% endfor %}

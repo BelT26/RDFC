@@ -22,5 +22,5 @@ class DateInput(forms.DateInput):
 class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
-        exclude = ['registrations_open']
+        exclude = ['registrations_open', 'next_fixture']
         widgets = {'match_date': DateInput()}

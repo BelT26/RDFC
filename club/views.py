@@ -121,39 +121,34 @@ def delete_match(request, pk):
     match = get_object_or_404(queryset, id=pk)
     match.delete()
     messages.success(request, 'Match successfully deleted')
-    return HttpResponseRedirect(reverse('index'))
+    return HttpResponseRedirect(reverse('select_match'))
 
 
-def add_next_fixture(request, pk):
+def add_next(request, pk):
     """checks that there is not already a match flagged as
     the next fixture. Displays an error message if there is
     otherwise changes the next_fixture property of the match
     to true and updates the display in members.html"""
-    queryset = Match.objects.all().filter(next_fixture=True)
-    if len(queryset) > 0:
+    next_match = Match.objects.filter(next_fixture=True)
+    if len(next_match) > 0:
         messages.error(request, 'Only one match can be flagged as the next fixture')
-        messages.error(request, 'Please remove the next fixture tag from the current match')
+        messages.error(request, 'Please remove the next fixture flag from the current match')
         return HttpResponseRedirect(reverse('select_match'))
-    else:
-        match = get_object_or_404(queryset, id=pk)
-        match['next_fixture'] = True
-        messages.success(request, 'Next fixture updated')
-        return HttpResponseRedirect(reverse('members'))
-
-
-def remove_next_fixture(request, pk):
-    queryset = Match.objects.all().filter(next_fixture=True)
-    match = get_object_or_404(queryset, id=pk)
-    match['next_fixture'] = False
-    messages.success(request, 'Next fixture flag removed')
-    return HttpResponseRedirect(reverse('select_match'))
-
-def registrations(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    return render(request, 'club/registrations.html', {
-        'match': match
-    })
+    match.next_fixture = True
+    match.save()        
+    messages.success(request, 'Next fixture updated')
+    return HttpResponseRedirect(reverse('select_match'))
+
+
+def remove_next(request, pk):
+    queryset = Match.objects.filter(next_fixture=True)
+    match = get_object_or_404(queryset, id=pk)
+    match.next_fixture = False
+    match.save()
+    messages.success(request, 'Next fixture flag removed')
+    return HttpResponseRedirect(reverse('select_match'))
 
 
 def open_reg(request, pk):

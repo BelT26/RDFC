@@ -16,7 +16,6 @@ https://belt26.github.io
     * [Navigation](#navigation)
     * [Home Page](#home)
     * [Map](#map)
-    * [Social Events](#social-events)
     * [Member Zone](#member-zone)
         * [Log In Form](#log-in-form)
         * [Next Fixture](#fixture)
@@ -63,8 +62,6 @@ Add navbar and footer to base html
 
 ## Map
 
-## Social Events
-
 ## Sign Up Form
 
 ## Member Zone
@@ -78,9 +75,6 @@ Add navbar and footer to base html
 ### Past Results
 
 ### Match Registration
-
-### Countdown Clock
-
 
 ## Manager Zone
 
@@ -97,9 +91,6 @@ Blues: 1, 4, 6, 8, 10, 12
 Whites: 2, 3, 5, 7, 9, 11
 Once assignment has occurred the next fixture details are be updated with the team details.
 
-
-### Social Updates
-The manager is able to add details and images of upcoming social events
 
 
 ### Match Results
@@ -120,17 +111,21 @@ I had several problems when trying to customize the standard allauth signup form
 
 book match place not working. implemented manual test driven approach, gradually increasing functionality
 
+mambers page throwing an error if next fixture was not flagged. added try block
+
 ## Testing
 
 ### Automated Tests
-Tests to check that all fields are required on the sign up form and the password is at least 8 characters passed.
+
 
 ### Manual Tests
-Tested that the modified sign up form worked manually and that new members were created.
+
 
 ## Deployment
 
 ## Credits
 
 ## Future Development Possibilities
+
+originally planned to add a social page and function to add social events - not current requirement
 

@@ -40,7 +40,9 @@ def members(request):
         'next_fixture': next_fixture,
         'past_results': past_results,
         'registrations_open': registrations_open,
-        'blues': blues
+        'blues': blues,
+        'whites': whites,
+        'reserves': reserves
     }
     return render(request, 'club/members.html', context)
 
@@ -140,32 +142,43 @@ def add_next_fixture(request, pk):
 
 
 def remove_next_fixture(request, pk):
-    queryset = Match.objects.all().filter()
+    queryset = Match.objects.all().filter(next_fixture=True)
     match = get_object_or_404(queryset, id=pk)
     match['next_fixture'] = False
     messages.success(request, 'Next fixture flag removed')
     return HttpResponseRedirect(reverse('select_match'))
 
-
-def close_registrations(request, pk):
-    queryset = Match.objects.all().filter()
+def registrations(request, pk):
+    queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    match['registrations_open'] = False
-    messages.success(request, f"Registrations closed for {match['match_date']}")
+    return render(request, 'club/registrations.html', {
+        'match': match
+    })
+
+
+def open_reg(request, pk):
+    open_matches = Match.objects.filter(registrations_open=True)
+    if len(open_matches) > 0:
+        messages.error(request, 'Registrations can only be '
+                                'open for one match at a time. '
+                                'Please close registrations for any '
+                                'open match before proceding.')
+        return HttpResponseRedirect(reverse('select_match'))
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    match.registrations_open = True
+    match.save()
+    messages.success(request, "Registrations opened")
     return HttpResponseRedirect(reverse('select_match'))
 
 
-def close_registrations(request, pk):
-    queryset = Match.objects.all().filter()
+def close_reg(request, pk):
+    queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    match['registrations_open'] = True
-    messages.success(request, f"Registrations opened for {match['match_date']}")
+    match.registrations_open = False
+    match.save()
+    messages.success(request, f"Registrations closed")
     return HttpResponseRedirect(reverse('select_match'))
-
-def registrations(request):
-    """returns a form in which the manager can open or
-    or close registrations for the next match"""
-    return render(request, 'club/registrations.html')
 
 
 # def book_match_place(request):
@@ -189,14 +202,15 @@ def registrations(request):
 
 def book_match_place(request):
     player = request.user
-    if player in available_players:
+    if player['is_available'] == True:
         messages.warning(request, 'You have already registered')
         return HttpResponseRedirect(reverse('members'))
     else:
+        player['is_available'] = True
         if len(available_players) < 12:     
             available_players.append(player)
             messages.success(request, 'You have been allocated a place in '
-                                  'the next match!')
+                                      'the next match!')
             # for player in available_players: 
                 # messages.success(request, f'available players {player.first_name}')
             if len(available_players) == 12:

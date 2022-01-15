@@ -53,7 +53,7 @@ footer i {
 
 .allauth-container {
     margin: 0 auto;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11rem);
     width: 60%;
 }
 

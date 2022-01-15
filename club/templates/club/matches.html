@@ -32,9 +32,9 @@ Manager Zone
             <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
             <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
             {% if match.registrations_open %}
-            <td>Close Registrations</td>
+            <td><a href="{% url 'close_reg' match.id %}">Close Registrations</a></td>
             {% else %}
-            <td>Open Registrations</td>
+            <td><a href="{% url 'open_reg' match.id %}">Open Registrations</a></td>
             {% endif %}
             {% if match.next_fixture %}
             <td>Remove next fixture flag</td>

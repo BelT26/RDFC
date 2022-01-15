@@ -15,4 +15,5 @@ urlpatterns = [
     path('close_reg:<str:pk>', views.close_reg, name='close_reg'),
     path('add_next:<str:pk>', views.add_next, name='add_next'),
     path('remove_next:<str:pk>', views.remove_next, name='remove_next'),
+    path('approve_member:<str:pk>', views.approve_member, name='approve_member')
 ]

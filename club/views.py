@@ -176,6 +176,16 @@ def close_reg(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+def approve_member(request, pk):
+    queryset = ClubMember.objects.filter(is_approved=False)
+    member = get_object_or_404(queryset, id=pk)
+    member.is_approved = True
+    member.save()
+    messages.success(request, 'Application approved')
+    pending_applications = ClubMember.objects.filter(is_approved=False)
+    return HttpResponseRedirect(reverse('applications'))
+
+
 # def book_match_place(request):
 #     """allows club members to book a place on the team
 #     for the next match. If teams are full the player is

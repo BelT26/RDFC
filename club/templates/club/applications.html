@@ -30,7 +30,7 @@ Manager Zone
                     <tr>
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.email}}</td>
-                        <td><a href="#">Approve</a></td>
+                        <td><a href="{% url 'approve_member' member.id %}">Approve</a></td>
                         <td><a href="#">Reject</a></td>
                     </tr>
                     {% endfor %}

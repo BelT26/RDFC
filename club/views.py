@@ -25,6 +25,7 @@ def members(request):
     returns a view containing details of team and playerscores,
     the next match fixture and a booking form with which the
     club member can book a place in the next match"""
+    player = request.user
     league_table = ClubMember.objects.all().order_by('-points')
     try:
         next_fixture = Match.objects.get(next_fixture=True)
@@ -36,6 +37,7 @@ def members(request):
     if len(available_players) > 11:
         registrations_open = False
     context = {
+        'player': player,
         'league_table': league_table,
         'next_fixture': next_fixture,
         'past_results': past_results,
@@ -207,22 +209,36 @@ def approve_member(request, pk):
 
 def book_match_place(request):
     player = request.user
-    if player['is_available'] == True:
-        messages.warning(request, 'You have already registered')
-        return HttpResponseRedirect(reverse('members'))
+    player.is_available = True
+    player.save()
+    if len(available_players) < 12:     
+        available_players.append(player)
+        messages.success(request, 'You have been allocated a place in '
+                                  'the next match!')
+        # for player in available_players: 
+        # messages.success(request, f'available players {player.first_name}')
+        # if len(available_players) == 12:
+        #     allocate_teams()
     else:
-        player['is_available'] = True
-        if len(available_players) < 12:     
-            available_players.append(player)
-            messages.success(request, 'You have been allocated a place in '
-                                      'the next match!')
-            # for player in available_players: 
-                # messages.success(request, f'available players {player.first_name}')
-            if len(available_players) == 12:
-                allocate_teams()
-        else:
-            reserves.append(player)
-            messages.warning(request, 'Unfortunately there is no room '
-                                    'on the team. You are reserve '
-                                    f'number {len(reserves)}.')                                
+        reserves.append(player)
+        messages.warning(request, 'Unfortunately there is no room '
+                                  'on the team. You are reserve '
+                                  f'number {len(reserves)}.')                                
+    return HttpResponseRedirect(reverse('members'))
+
+
+def cancel_match_place(request):
+    player = request.user
+    if player in blues:
+        blues.remove(player)
+    elif player in whites:
+        whites.remove(player)
+    elif player in reserves:
+        reserves.remove(player)
+    elif player in available_players:
+        available_players.remove(player)
+    player.is_available = False
+    player.save()
+    messages.success(request, 'Your place has been cancelled')
+    #allocate_teams()
     return HttpResponseRedirect(reverse('members'))

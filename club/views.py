@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.core.mail import send_mail
 from .models import ClubMember, Match
 from .forms import MatchForm
 from . import helpers
@@ -166,6 +167,15 @@ def open_reg(request, pk):
     match.registrations_open = True
     match.save()
     messages.success(request, "Registrations opened")
+    members = ClubMember.objects.filter(is_approved=True)
+    member_email_addresses = []
+    for member in members:
+        member_email_addresses.append(member.email)
+    send_mail('Registrations Open!',
+              f'Registrations for {match.match_date} have just opened!'
+              ' Visit the club site to book your place.',
+              'steve@rdfc.com',
+               member_email_addresses)
     return HttpResponseRedirect(reverse('select_match'))
 
 
@@ -184,7 +194,24 @@ def approve_member(request, pk):
     member.is_approved = True
     member.save()
     messages.success(request, 'Application approved')
-    pending_applications = ClubMember.objects.filter(is_approved=False)
+    send_mail('Application approved',
+              'Congratulations!  Your membership application for RDFC has been approved.'
+              'We look forward to seeing you!', 
+              'steve@rdfc.com',
+              member.email)
+    return HttpResponseRedirect(reverse('applications'))
+
+
+
+def reject_member(request, pk):
+    queryset = ClubMember.objects.filter(is_approved=False)
+    member = get_object_or_404(queryset, id=pk)
+    messages.success(request, 'Application rejected')
+    send_mail('Application rejected',
+              'Sorry. Your membership application for RDFC has not been approved'
+              'Please contact steve@rdfc for further information', 
+              'steve@rdfc.com',
+              member.email)
     return HttpResponseRedirect(reverse('applications'))
 
 

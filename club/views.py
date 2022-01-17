@@ -28,6 +28,8 @@ def members(request):
     club member can book a place in the next match"""
     player = request.user
     league_table = ClubMember.objects.all().order_by('-points')
+    player_index = league_table.index(player)
+    fixture_added = False
     try:
         next_fixture = Match.objects.get(next_fixture=True)
     except:
@@ -45,7 +47,8 @@ def members(request):
         'registrations_open': registrations_open,
         'blues': blues,
         'whites': whites,
-        'reserves': reserves
+        'reserves': reserves,
+        'player_index': player_index
     }
     return render(request, 'club/members.html', context)
 
@@ -195,7 +198,8 @@ def approve_member(request, pk):
     member.save()
     messages.success(request, 'Application approved')
     send_mail('Application approved',
-              'Congratulations!  Your membership application for RDFC has been approved.'
+              'Congratulations! '
+              'Your application to join RDFC has been approved.'
               'We look forward to seeing you!', 
               'steve@rdfc.com',
               member.email)
@@ -208,8 +212,8 @@ def reject_member(request, pk):
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Application rejected')
     send_mail('Application rejected',
-              'Sorry. Your membership application for RDFC has not been approved'
-              'Please contact steve@rdfc for further information', 
+              'Sorry. Your application to join RDFC has not been approved'
+              'Please contact steve@rdfc for further information',
               'steve@rdfc.com',
               member.email)
     return HttpResponseRedirect(reverse('applications'))
@@ -244,8 +248,8 @@ def book_match_place(request):
                                   'the next match!')
         # for player in available_players: 
         # messages.success(request, f'available players {player.first_name}')
-        # if len(available_players) == 12:
-        #     allocate_teams()
+        if len(available_players) == 12:
+            allocate_teams()
     else:
         reserves.append(player)
         messages.warning(request, 'Unfortunately there is no room '
@@ -265,6 +269,7 @@ def cancel_match_place(request):
     elif player in available_players:
         available_players.remove(player)
     player.is_available = False
+    player.is_in_team = False
     player.save()
     messages.success(request, 'Your place has been cancelled')
     #allocate_teams()

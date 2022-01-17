@@ -4,8 +4,12 @@
     height: 75vh;
 }
 
+#main-heading {
+    font-family: 'Raleway', sans-serif;
+}
+
 #social-pic {
-    background: url(../images/pub2.jpg) center no-repeat;
+    background: url(../images/beer2.jpg) center no-repeat;
     background-size: cover;
     height: 50vh;
 
@@ -16,9 +20,21 @@ div #map {
 }
 
 #phone {
-    letter-spacing: 0.2rem;
+    letter-spacing: 0.05rem;
 }
 
 #email a{
     text-decoration: none;
+}
+
+@media screen and (max-width: 600px) {
+    #main-img-container {
+        background: url(../images/football-cropped.jpg) center no-repeat;
+        background-size: cover;
+        height: 75vh;
+    }
+
+    #main-heading{
+        font-size: 80px;
+    }
 }

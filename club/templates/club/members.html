@@ -57,7 +57,7 @@ Member Zone
             </tr>
             {% for member in league_table %}
             <tr>
-                <td>position</td>
+                <td>{{member.player_index}}</td>
                 <td>{{member.first_name}} {{member.last_name}}</td>
                 <td>{{member.played}}</td>
                 <td>{{member.won}}</td>

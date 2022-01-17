@@ -25,7 +25,7 @@ Manager Zone
         </tr>
         {% for match in matches %}
         <tr>
-            <td>{{match.match_date}}</td>
+            <td>{{match.match_date|date:"j F y"}}</td>
             <td>{{match.blue_goals}}</td>
             <td>{{match.white_goals}}</td>
             <td>{{match.results_added}}</td>

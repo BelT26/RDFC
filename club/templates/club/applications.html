@@ -13,9 +13,8 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
-<div class="custom-form-container">
-    <h1 class="text-center display-4">Pending Membership Applications</h1>
-    
+<div class="member-form-container">
+    <h1 class="text-center display-4">Pending Membership Applications</h1>    
     <div class="row">
         <div class="col-12 my-auto">
             <form method="POST" action="#">
@@ -32,6 +31,31 @@ Manager Zone
                         <td>{{member.email}}</td>
                         <td><a href="{% url 'approve_member' member.id %}">Approve</a></td>
                         <td><a href="#">Reject</a></td>
+                    </tr>
+                    {% endfor %}
+                </table>   
+            </form>
+        </div>    
+    </div>
+    <h1 class="text-center display-4">Current Members</h1>
+    <div class="row">
+        <div class="col-12 my-auto">
+            <form method="POST" action="#">
+                {% csrf_token %}
+                <br>
+                <table class="table table-bordered my-4">
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Available</th>
+                        <th>Delete Member</th>
+                    </tr>
+                    {% for member in current_members %}
+                    <tr>
+                        <td>{{member.first_name}} {{member.last_name}}</td>
+                        <td>{{member.email}}</td>
+                        <td>{{member.is_available}}</td>
+                        <td><a href="{% url 'delete_member' member.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </table>   

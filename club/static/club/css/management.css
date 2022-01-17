@@ -5,6 +5,13 @@
     width: 60%;
 }
 
+.member-form-container {
+    margin: 0 auto;
+    height: 100%;
+    padding: 2rem;
+    width: 60%;
+}
+
 .edit-match-container {
     margin: 0 auto;
     height: calc(100vh - 10rem);
@@ -31,6 +38,10 @@
         width: 90%;
         padding-top: 1rem;
         height: calc(100vh - 4rem)
+    }
+
+    .member-form-container {
+        width: 90%;
     }
 
     .edit-match-container {

@@ -28,7 +28,6 @@ def members(request):
     club member can book a place in the next match"""
     player = request.user
     league_table = ClubMember.objects.all().order_by('-points')
-    player_index = league_table.index(player)
     fixture_added = False
     try:
         next_fixture = Match.objects.get(next_fixture=True)
@@ -47,8 +46,7 @@ def members(request):
         'registrations_open': registrations_open,
         'blues': blues,
         'whites': whites,
-        'reserves': reserves,
-        'player_index': player_index
+        'reserves': reserves
     }
     return render(request, 'club/members.html', context)
 
@@ -62,8 +60,10 @@ def applications(request):
     """ returns a template showing any pending applications and
     gives the manager the opportunity to approve them """
     pending_applications = ClubMember.objects.filter(is_approved=False)
+    current_members = ClubMember.objects.filter(is_approved=True)
     return render(request, 'club/applications.html', {
-        'pending_applications':pending_applications
+        'pending_applications':pending_applications,
+        'current_members': current_members
     })
 
 
@@ -202,7 +202,7 @@ def approve_member(request, pk):
               'Your application to join RDFC has been approved.'
               'We look forward to seeing you!', 
               'steve@rdfc.com',
-              member.email)
+              (member.email,))
     return HttpResponseRedirect(reverse('applications'))
 
 
@@ -215,7 +215,15 @@ def reject_member(request, pk):
               'Sorry. Your application to join RDFC has not been approved'
               'Please contact steve@rdfc for further information',
               'steve@rdfc.com',
-              member.email)
+              (member.email,))
+    return HttpResponseRedirect(reverse('applications'))
+
+
+def delete_member(request, pk):
+    queryset = ClubMember.objects.filter(is_approved=True)
+    member = get_object_or_404(queryset, id=pk)
+    messages.success(request, 'Member deleted')
+    member.delete()
     return HttpResponseRedirect(reverse('applications'))
 
 

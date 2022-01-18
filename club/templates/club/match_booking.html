@@ -17,6 +17,7 @@ Member Zone
         <h2 class="text-center custom-display mt-5">Book your place in the next match</h2>
         <div class="text-center mb-3">
             {% if registrations_open %}
+            <h5 class="text-center">Registrations are open for {{match.match_date}}</h5>
                 {% if player.is_available %}
                 <form method="POST" action="#">
                     <h5 class="mt-5">You have already registered your availability</h5>
@@ -24,7 +25,7 @@ Member Zone
                 </form>
                 {% else %}
                 <form method="POST" action="#">
-                    <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'book_match_place' %}">Book Now</a></button>
+                    <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'confirm_availability' %}">Book Now</a></button>
                 </form>
                 {% endif %}
             {% else %} 

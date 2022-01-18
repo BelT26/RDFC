@@ -8,6 +8,7 @@ urlpatterns = [
     path('league_table', views.league_table, name='league_table'),
     path('results', views.results, name='results'),
     path('book_match_place', views.book_match_place, name='book_match_place'),
+    path('confirm_availability', views.confirm_availability, name='confirm_availability'),
     path('applications', views.applications, name='applications'),
     path('add_match', views.add_match, name='add_match'),
     path('select_match', views.select_match, name='select_match'),

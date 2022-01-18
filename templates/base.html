@@ -18,7 +18,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400;700&display=swap" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600&display=swap" rel="stylesheet">
   {% block css %}{% endblock %}
-  <title>RDCFC - {% block title %}{% endblock %}</title>
+  <title>RDFC - {% block title %}{% endblock %}</title>
 </head>
 <body>
   <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
@@ -44,8 +44,8 @@
             Member Zone
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'members' %}">Next Fixture</a>
-            <a class="dropdown-item" href="{% anchor 'members' 'league-table-container' %}">League Table</a>
+            <a class="dropdown-item" href="{% url 'next_fixture' %}">Next Fixture</a>
+            <a class="dropdown-item" href="{% url 'league_table' %}">League Table</a>
             <a class="dropdown-item" href="{% anchor 'members' 'past-results-container' %}">Latest Results</a>
             <a class="dropdown-item" href="{% anchor 'members' 'booking-container' %}">Book Your Match Place</a>               
           </div>

@@ -14,3 +14,11 @@
 .submit-button:hover {
     background-color: rgb(216, 188, 29);
 }
+
+.highlight {
+    background-color: rgb(252, 235, 142);
+}
+
+.custom-height {
+    min-height: calc(100vh - 11rem);
+}

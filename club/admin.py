@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import  Team, Match, ClubMember
+from .models import  Team, Match, ClubMember, MatchPlayer, Result
 
 
 # Register your models here.
@@ -18,4 +18,4 @@ class ClubMemberAdmin(admin.ModelAdmin):
 admin.site.register(Team)
 admin.site.register(Match)
 admin.site.register(MatchPlayer)
-admin.site.regiter(Result)
+admin.site.register(Result)

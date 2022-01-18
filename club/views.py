@@ -2,7 +2,7 @@ from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
-from .models import ClubMember, Match
+from .models import ClubMember, Match, MatchPlayer
 from .forms import MatchForm
 
 # Create your views here.
@@ -41,6 +41,30 @@ def members(request):
         'reserves': reserves
     }
     return render(request, 'club/members.html', context)
+
+
+def next_fixture(request):
+    member = request.user
+    match_players = MatchPlayer.objects.all()
+    if member in match_players:
+        member.playing_match = True
+    try:
+        next_fixture = Match.objects.get(next_fixture=True)
+    except:
+        next_fixture = Match.objects.all().order_by('-match_date')[0]
+    return render(request, 'club/next_fixture.html', {
+        'next_fixture': next_fixture,
+        'member': member
+    })
+
+def league_table(request):
+    member = request.user
+    league_table = ClubMember.objects.all().order_by('-points')
+    return render(request, 'club/league_table.html', {
+        'league_table': league_table,
+        'current_member': member,
+    })
+
 
 
 def allocate_teams():

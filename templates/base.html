@@ -21,7 +21,7 @@
   <title>RDCFC - {% block title %}{% endblock %}</title>
 </head>
 <body>
-  <nav class="navbar navbar-expand-lg navbar-dark">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-dark">
     <h2 id="navbar-logo" class="pr-3"><img src="{% static 'images/RDFC-logo.png' %}" id="logo-img"> RDFC </h2>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -57,7 +57,7 @@
         {% endif %}
         {% if request.user.is_superuser %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="{% url 'management' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager Zone</a>
+          <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Manager Zone</a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'add_match' %}">Add Match Fixture</a>
             <a class="dropdown-item" href="{% url 'select_match' %}">Match Admin</a>

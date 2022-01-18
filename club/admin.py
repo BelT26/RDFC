@@ -17,3 +17,5 @@ class ClubMemberAdmin(admin.ModelAdmin):
 
 admin.site.register(Team)
 admin.site.register(Match)
+admin.site.register(MatchPlayer)
+admin.site.regiter(Result)

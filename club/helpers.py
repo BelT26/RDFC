@@ -22,8 +22,11 @@ def allocate_teams():
     available_members = Members.objects.filter(is_in_team=True)
     scored_players = available_members.order_by('-score')
     sorted_players = scored_players.order_by('played')
-    blues.append(sorted_players[0], sorted_players[3], sorted_players[5], sorted_players[7], sorted_players[9], sorted_players[11]) 
-    whites.append(sorted_players[1], sorted_players[2], sorted_players[4], sorted_players[6], sorted_players[8], sorted_players[10])
+    blues.append(sorted_players[0]) 
+    whites.append(sorted_players[1])
+    
+    # blues.append(sorted_players[0], sorted_players[3], sorted_players[5], sorted_players[7], sorted_players[9], sorted_players[11]) 
+    # whites.append(sorted_players[1], sorted_players[2], sorted_players[4], sorted_players[6], sorted_players[8], sorted_players[10])
 
 
 """

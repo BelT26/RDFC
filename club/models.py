@@ -39,6 +39,13 @@ class Team(models.Model):
         return f"{self.colour} - {self.match_date}"
 
 
+
+class Result(models.Model):
+    match_date = models.DateField()
+    blue_goals = models.IntegerField()
+    white_goals = models.IntegerField()
+
+
 class Match(models.Model):
     match_date = models.DateField()
     time = models.TimeField(default="19:00")
@@ -54,3 +61,8 @@ class Match(models.Model):
 
     class Meta:
         verbose_name_plural = "Matches"
+
+class MatchPlayer(models.Model):
+    player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE)
+    match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
+    team = models.CharField(max_length=6, null=True, blank=True)

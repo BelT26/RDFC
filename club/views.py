@@ -66,6 +66,13 @@ def league_table(request):
     })
 
 
+def results(request):
+    past_results = Match.objects.filter(results_added=True)
+    return render(request, 'club/results.html', {
+        'past_results': past_results
+    })
+
+
 
 def allocate_teams():
     team_members = ClubMember.objects.filter(is_in_team=True)
@@ -81,38 +88,44 @@ def allocate_teams():
 
 
 def book_match_place(request):
+    registrations_open = True
+    if match.count() == 0:
+        registrations_open = False
+    return render(request, 'club/match_booking.html', {
+        'player': player,
+        'match': match,
+        'registrations_open': registrations_open
+    })
+
+
+def confirm_availability(request):
     player = request.user
+    match = Match.objects.filter(registrations_open=True)
     player.is_available = True
     player.save()
-    if len(available_players) < 2:
+    num_registered_players = MatchPlayer.objects.count()
+    if num_registered_players < 2:
+        print(num_registered_players)
         player.is_in_team = True
         player.save()
-        available_players.append(player)
+        MatchPlayer(player_id=player, match_id=match)
         messages.success(request, 'You have been allocated a place in '
                                   'the next match!')
-        if len(available_players) == 2:
-            team_members = ClubMember.objects.filter(is_in_team=True)
-            scored_players = team_members.order_by('-points')
-            sorted_players = scored_players.order_by('played')
-            blues.append(sorted_players[0]) 
-            for player in blues: 
-                messages.success(request, f'blues: {player.first_name}')
-            whites.append(sorted_players[1])
-            for player in whites:
-                messages.success(request, f'whites {player.first_name}')
-            messages.success(request, 'teams allocated')
     else:
-        reserves.append(player)
         messages.warning(request, 'Unfortunately there is no room '
-                                  'on the team. You are reserve '
-                                  f'number {len(reserves)}.')                                
-    return HttpResponseRedirect(reverse('members'))
+                                  'on the team.')                             
+    return HttpResponseRedirect(reverse('index'))
+
+
+def sort_players():
+    confirmed_players = MatchPlayer.object.all()
+    scored_players = team_members.order_by('-player_ID__points')
+    sorted_players = scored_players.order_by('player_ID__played')
 
 
 def cancel_match_place(request):
     player = request.user
     player.is_available = False
-    #available_players.remove(player)
     player.save()
     if player.is_in_team == True:
         player.is_in_team == False

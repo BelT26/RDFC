@@ -40,14 +40,14 @@
         </li>
         {% if request.user.is_authenticated %}
         <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="{% url 'members' %}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Member Zone
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="{% url 'next_fixture' %}">Next Fixture</a>
             <a class="dropdown-item" href="{% url 'league_table' %}">League Table</a>
-            <a class="dropdown-item" href="{% anchor 'members' 'past-results-container' %}">Latest Results</a>
-            <a class="dropdown-item" href="{% anchor 'members' 'booking-container' %}">Book Your Match Place</a>               
+            <a class="dropdown-item" href="{% url 'results' %}">Latest Results</a>
+            <a class="dropdown-item" href="{% url 'book_match_place' %}">Book Your Match Place</a>               
           </div>
         </li>
         {% else %}

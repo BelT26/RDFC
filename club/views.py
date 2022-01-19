@@ -286,12 +286,28 @@ def allocate_teams(request, pk):
     registered_players = MatchPlayer.objects.filter(match_id=match)
     blue1 = registered_players.order_by('player_id__points')[0]
     blue1.team = 'blue'
-    blue1.save
+    blue1.save()
     white1 = registered_players.order_by('player_id__points')[1]
     white1.team = 'white'
     white1.save()
     messages.success(request, f"Teams allocated")
+    match.teams_allocated = True
+    match.save()
     return HttpResponseRedirect(reverse('select_match'))
+
+
+def reset_teams(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    registered_players = MatchPlayer.objects.filter(match_id=match)
+    for player in registered_players:
+        player.team = None
+        player.save()
+    messages.success(request, f"Teams cleared")
+    match.teams_allocated = False
+    match.save()
+    return HttpResponseRedirect(reverse('select_match'))
+
 
 def approve_member(request, pk):
     queryset = ClubMember.objects.filter(is_approved=False)

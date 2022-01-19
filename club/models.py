@@ -63,6 +63,7 @@ class Match(models.Model):
     class Meta:
         verbose_name_plural = "Matches"
 
+
 class MatchPlayer(models.Model):
     player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE)
     match_id = models.ForeignKey(Match, on_delete=models.CASCADE)

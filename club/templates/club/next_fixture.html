@@ -26,7 +26,7 @@ Member Zone
         {% else %}
             {% if next_fixture.registrations_open %}
                 <h4 class="text-center">Registrations for this match are currently open</h4>
-                <h4 class="text-center">Register your availability <a href="#">here</a></h4>
+                <h4 class="text-center">Register your availability <a href="{% url 'book_match_place'%}">here</a></h4>
             {% else %}
                 <h4 class="text-center">Registrations for this match are currently closed</h4>
             {% endif %}

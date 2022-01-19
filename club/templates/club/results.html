@@ -12,7 +12,7 @@ Member Zone
 {% endblock %}
 
 {% block content %}
-<div id="member-zone" class= "container-fluid">
+<div id="member-zone" class= "container-fluid custom-height">
     <div id="past-results-container" class="container">
         <h2 class="custom-display text-center">Latest Results</h2>
         <div class="container" id="pitch-img-container">
@@ -32,9 +32,7 @@ Member Zone
             </tr>
             {% endfor %}
         </table>
-        <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/goal.jpg' %}" height="200px" class="my-auto">
-        </div>
+        
     </div>
 </div>
 {% endblock %}

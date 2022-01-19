@@ -3,7 +3,7 @@ from . import views
 
 urlpatterns = [
     path('', views.index, name='index'),
-    path('members', views.members, name='members'),
+    #path('members', views.members, name='members'),
     path('next_fixture', views.next_fixture, name='next_fixture'),
     path('league_table', views.league_table, name='league_table'),
     path('results', views.results, name='results'),
@@ -19,6 +19,8 @@ urlpatterns = [
     path('close_reg:<str:pk>', views.close_reg, name='close_reg'),
     path('add_next:<str:pk>', views.add_next, name='add_next'),
     path('remove_next:<str:pk>', views.remove_next, name='remove_next'),
+    path('allocate_teams:<str:pk>', views.allocate_teams, name='allocate_teams'),
     path('approve_member:<str:pk>', views.approve_member, name='approve_member'),
-    path('delete_member:<str:pk>', views.delete_member, name='delete_member')
+    path('delete_member:<str:pk>', views.delete_member, name='delete_member'),
+    path('see_players', views.see_registered_players, name='see_players')
 ]

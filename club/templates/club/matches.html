@@ -41,6 +41,7 @@ Manager Zone
             {% else %}
             <td><a href="{% url 'add_next' match.id %}">Flag as Next Fixture</a></td>
             {% endif %}
+            <td><a href="{% url 'allocate_teams' match.id %}">Allocate Teams</a></td>
         </tr>
         {% endfor %}
     </table>   

@@ -13,34 +13,34 @@ def index(request):
     return render(request, 'club/index.html')
 
 
-def members(request):
-    """only accessible if a user is logged in.
-    returns a view containing details of team and playerscores,
-    the next match fixture and a booking form with which the
-    club member can book a place in the next match"""
-    player = request.user
-    league_table = ClubMember.objects.all().order_by('-points')
-    fixture_added = False
-    try:
-        next_fixture = Match.objects.get(next_fixture=True)
-    except:
-        next_fixture = Match.objects.all().order_by('-match_date')[0]
-    all_matches = Match.objects.all().order_by('-match_date')
-    past_results = all_matches[1:]
-    registrations_open = True
-    if len(available_players) > 11:
-        registrations_open = False
-    context = {
-        'player': player,
-        'league_table': league_table,
-        'next_fixture': next_fixture,
-        'past_results': past_results,
-        'registrations_open': registrations_open,
-        'blues': blues,
-        'whites': whites,
-        'reserves': reserves
-    }
-    return render(request, 'club/members.html', context)
+# def members(request):
+#     """only accessible if a user is logged in.
+#     returns a view containing details of team and playerscores,
+#     the next match fixture and a booking form with which the
+#     club member can book a place in the next match"""
+#     player = request.user
+#     league_table = ClubMember.objects.all().order_by('-points')
+#     fixture_added = False
+#     try:
+#         next_fixture = Match.objects.get(next_fixture=True)
+#     except:
+#         next_fixture = Match.objects.all().order_by('-match_date')[0]
+#     all_matches = Match.objects.all().order_by('-match_date')
+#     past_results = all_matches[1:]
+#     registrations_open = True
+#     if len(available_players) > 11:
+#         registrations_open = False
+#     context = {
+#         'player': player,
+#         'league_table': league_table,
+#         'next_fixture': next_fixture,
+#         'past_results': past_results,
+#         'registrations_open': registrations_open,
+#         'blues': blues,
+#         'whites': whites,
+#         'reserves': reserves
+#     }
+#     return render(request, 'club/members.html', context)
 
 
 def next_fixture(request):
@@ -52,9 +52,13 @@ def next_fixture(request):
         next_fixture = Match.objects.get(next_fixture=True)
     except:
         next_fixture = Match.objects.all().order_by('-match_date')[0]
+    blues = MatchPlayer.objects.filter(team='blue')
+    whites = MatchPlayer.objects.filter(team='white')
     return render(request, 'club/next_fixture.html', {
         'next_fixture': next_fixture,
-        'member': member
+        'member': member,
+        'blues': blues,
+        'whites': whites
     })
 
 def league_table(request):
@@ -74,13 +78,23 @@ def results(request):
 
 
 def book_match_place(request):
-    player = request.user
     match = Match.objects.get(registrations_open=True)
     registrations_open = False
     if match:
         registrations_open = True
     else:
         match = Match.objects.all().order_by('-match_date')[0]
+    player = request.user
+    try:
+        player_reservation = MatchPlayer.objects.get(player_id=player)
+    except:
+        player_reservation = None
+    if player_reservation:
+        player.is_in_team = True
+        player.save()
+    else:
+        player.is_in_team = False
+        player.save()
     return render(request, 'club/match_booking.html', {
         'player': player,
         'match': match,
@@ -93,12 +107,14 @@ def confirm_availability(request):
     match = Match.objects.get(registrations_open=True)
     player.is_available = True
     player.save()
-    num_registered_players = MatchPlayer.objects.count()
+    registered_players = MatchPlayer.objects.filter(match_id=match)
+    num_registered_players = registered_players.count()
     if num_registered_players < 2:
         print(num_registered_players)
         player.is_in_team = True
         player.save()
-        MatchPlayer(player_id=player, match_id=match)
+        new_player = MatchPlayer(player_id=player, match_id=match)
+        new_player.save()
         messages.success(request, 'You have been allocated a place in '
                                   'the next match!')
     else:
@@ -107,10 +123,13 @@ def confirm_availability(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-def sort_players():
-    confirmed_players = MatchPlayer.object.all()
-    scored_players = confirmed_players.order_by('-player_ID__points')
-    sorted_players = scored_players.order_by('player_ID__played')
+
+
+def see_registered_players(request):
+    players = MatchPlayer.objects.all()
+    return render(request, 'club/see_players.html', {
+        'players': players
+    })
 
 
 def cancel_match_place(request):
@@ -119,10 +138,10 @@ def cancel_match_place(request):
     player.save()
     if player.is_in_team == True:
         player.is_in_team == False
+        match_player = MatchPlayer.objects.get(player_id=player)
+        match_player.delete()
     messages.success(request, 'Your place has been cancelled')
-    return HttpResponseRedirect(reverse('members'))
-
-
+    return HttpResponseRedirect(reverse('index'))
 
 
 
@@ -260,6 +279,19 @@ def close_reg(request, pk):
     messages.success(request, f"Registrations closed")
     return HttpResponseRedirect(reverse('select_match'))
 
+
+def allocate_teams(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    registered_players = MatchPlayer.objects.filter(match_id=match)
+    blue1 = registered_players.order_by('player_id__points')[0]
+    blue1.team = 'blue'
+    blue1.save
+    white1 = registered_players.order_by('player_id__points')[1]
+    white1.team = 'white'
+    white1.save()
+    messages.success(request, f"Teams allocated")
+    return HttpResponseRedirect(reverse('select_match'))
 
 def approve_member(request, pk):
     queryset = ClubMember.objects.filter(is_approved=False)

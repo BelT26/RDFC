@@ -31,29 +31,30 @@ Member Zone
                 <h4 class="text-center">Registrations for this match are currently closed</h4>
             {% endif %}
         {% endif %}
-        <!--
+        
         <div class="row">
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h5 class="text-center">Blues</h5>
                 {% for player in blues %}
-                <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
+                <p class="text-center">{{player.player_id}}</p>
                 {% endfor %}
             </div>
-            <div class="col-md-4">
+            <div class="col-md-6">
                 <h5 class="text-center">Whites</h5>
                 {% for player in whites %}
-                <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
+                <p class="text-center">{{player.player_id}}</p>
                 {% endfor %}
             </div>
+            <!--
             <div class="col-md-4">
                 <h5 class="text-center">Reserves</h5>
                 {% for player in reserves %}
                 <p class="text-center">{{player.first_name}} {{player.last_name}}</p>
                 {% endfor %}
             </div>
+            -->
         </div>
-        -->
-                 
+                
     </div>
 </div>
 {% endblock %}

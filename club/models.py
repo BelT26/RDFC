@@ -55,6 +55,7 @@ class Match(models.Model):
     results_added = models.BooleanField(default=False)
     registrations_open = models.BooleanField(default=False)
     next_fixture = models.BooleanField(default=False)
+    teams_allocated = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.match_date} - {self.location}"
@@ -66,3 +67,6 @@ class MatchPlayer(models.Model):
     player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE)
     match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
     team = models.CharField(max_length=6, null=True, blank=True)
+
+    def __str__(self):
+        return f"{self.player_id} - {self.team}"

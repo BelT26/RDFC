@@ -9,11 +9,11 @@
 }
 
 .homepage-text {
-    font-size: 18px;
+    font-size: 17px;
 }
 
 #social-pic {
-    background: url(../images/beer2.jpg) center no-repeat;
+    background: url(../images/beer.jpg) center no-repeat;
     background-size: cover;
     height: 50vh;
 

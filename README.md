@@ -14,6 +14,7 @@ https://belt26.github.io
 * [Stucture](#structure)
 * [Features](#features)
     * [Navigation](#navigation)
+    * [Footer](#footer)
     * [Home Page](#home)
     * [Map](#map)
     * [Member Zone](#member-zone)
@@ -57,10 +58,25 @@ Add navbar and footer to base html
 ## Features
 
 ## Navigation
+I created a responsive navbar that collapses on mobile devices using Bootstrap classes.  The items displayed on the navbar change according to whether the user is logged in or not and whether they are the club manager.
+
+### General User Access
+Visitors to the site can view general information about the club.  They also have the option of signing up to the club or logging in if they are a member.
+
+### Member Access
+Once a user has logged in their logged in status is displayed on the right of the navbar. Logged in users have access to the member zone in which they can book a place in the next match, view details of the next fixture, view past results and view the player league table.
+
+### Manager Access
+As well as all of the member facilities, the manager has access to a dropdown management menu.  This offers options for him to add a new match fixture, update details of the existing matches and approve and remove members.
+
+## Footer
+The footer contains social media links to Facebook, Twitter and Instagram.  The club manager has not yet set up accounts with these sites so the links currently take the user to the home page. These links will be updated once the club's accounts have been created.
 
 ## Home Page
+The home page is split into three sections, accessible by a dropdown menu, a general introduction to the club, a social section and a contact section including a Google map showing where the team play.
 
 ## Map
+I used the Bootstrap Resume walkthrough project as a guide to creating the JavaScript code to link to the Google Maps API.  At the moment only one location is marked as the club both play and socialise at the South Park grounds.  I decided to still use marker clusters as the club manager mentioned to me that he may like to add other venues to the map in the future
 
 ## Sign Up Form
 

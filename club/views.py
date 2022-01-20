@@ -61,6 +61,7 @@ def next_fixture(request):
         'whites': whites
     })
 
+
 def league_table(request):
     member = request.user
     league_table = ClubMember.objects.filter(is_approved=True).order_by('-points')
@@ -128,8 +129,6 @@ def confirm_availability(request):
     return HttpResponseRedirect(reverse('index'))
 
 
-
-
 def see_registered_players(request):
     players = MatchPlayer.objects.all()
     return render(request, 'club/see_players.html', {
@@ -141,13 +140,12 @@ def cancel_match_place(request):
     player = request.user
     player.is_available = False
     player.save()
-    if player.is_in_team == True:
-        player.is_in_team == False
-        match_player = MatchPlayer.objects.get(player_id=player)
-        match_player.delete()
+    if player.is_in_team is True:
+        player.is_in_team = False
+    match_player = MatchPlayer.objects.get(player_id=player)
+    match_player.delete()
     messages.success(request, 'Your place has been cancelled')
     return HttpResponseRedirect(reverse('index'))
-
 
 
 def applications(request):
@@ -156,7 +154,7 @@ def applications(request):
     pending_applications = ClubMember.objects.filter(is_approved=False)
     current_members = ClubMember.objects.filter(is_approved=True)
     return render(request, 'club/applications.html', {
-        'pending_applications':pending_applications,
+        'pending_applications': pending_applications,
         'current_members': current_members
     })
 
@@ -210,7 +208,7 @@ def edit_match(request, pk):
             match.save()
             messages.success(request, 'Match successfully updated')
             return HttpResponseRedirect(reverse('index'))
-    
+  
     return render(request, 'club/add_fixture.html', {
         'form': form
     })
@@ -232,8 +230,9 @@ def add_next(request, pk):
     next_match = Match.objects.filter(next_fixture=True)
     if len(next_match) > 0:
         current_fixture = Match.objects.get(next_fixture=True)
-        messages.error(request, 'Only one match can be flagged as the next fixture. '
-                                f'Please remove the next fixture flag from {current_fixture.match_date}')
+        messages.error(request, 'Only one match can be flagged as the next '
+                                'fixtue. Please remove the next fixture flag'
+                                f'from {current_fixture.match_date}')
         return HttpResponseRedirect(reverse('select_match'))
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
@@ -282,21 +281,33 @@ def close_reg(request, pk):
     match = get_object_or_404(queryset, id=pk)
     match.registrations_open = False
     match.save()
-    messages.success(request, f"Registrations closed")
+    messages.success(request, f"Registrations closed for {match.match_date}")
     return HttpResponseRedirect(reverse('select_match'))
 
 
 def allocate_teams(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    registered_players = MatchPlayer.objects.filter(match_id=match)
+    registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
+    while registered_players.count() < 2:
+        if reserves.count() > 0:
+            reserve_selected = reserves[0]
+            reserve_selected.reserve = False
+            reserve_selected.save()
+            registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+        else:
+            messages.error(request, 'You require 12 available '
+                                       'members to allocate teams')
+            return HttpResponseRedirect(reverse('select_match'))
+    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue1 = registered_players.order_by('player_id__points')[0]
     blue1.team = 'blue'
     blue1.save()
     white1 = registered_players.order_by('player_id__points')[1]
     white1.team = 'white'
     white1.save()
-    messages.success(request, f"Teams allocated")
+    messages.success(request, "Teams allocated")
     match.teams_allocated = True
     match.save()
     return HttpResponseRedirect(reverse('select_match'))

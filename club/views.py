@@ -118,8 +118,13 @@ def confirm_availability(request):
         messages.success(request, 'You have been allocated a place in '
                                   'the next match!')
     else:
+        new_player = MatchPlayer(player_id=player, match_id=match, reserve=True)
+        new_player.save()
+        reserves = MatchPlayer.objects.filter(reserve=True)
+        num_reserves = reserves.count()
         messages.warning(request, 'Unfortunately there is no room '
-                                  'on the team.')                        
+                                  'on the team. You are reserve '
+                                  f'number {num_reserves}')                        
     return HttpResponseRedirect(reverse('index'))
 
 
@@ -233,7 +238,7 @@ def add_next(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     match.next_fixture = True
-    match.save()        
+    match.save()
     messages.success(request, 'Next fixture updated')
     return HttpResponseRedirect(reverse('select_match'))
 

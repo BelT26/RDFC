@@ -68,6 +68,7 @@ class MatchPlayer(models.Model):
     player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE)
     match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
     team = models.CharField(max_length=6, null=True, blank=True)
+    reserve = models.BooleanField(default=False)
 
     def __str__(self):
         return f"{self.player_id} - {self.team}"

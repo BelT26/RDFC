@@ -13,35 +13,6 @@ def index(request):
     return render(request, 'club/index.html')
 
 
-# def members(request):
-#     """only accessible if a user is logged in.
-#     returns a view containing details of team and playerscores,
-#     the next match fixture and a booking form with which the
-#     club member can book a place in the next match"""
-#     player = request.user
-#     league_table = ClubMember.objects.all().order_by('-points')
-#     fixture_added = False
-#     try:
-#         next_fixture = Match.objects.get(next_fixture=True)
-#     except:
-#         next_fixture = Match.objects.all().order_by('-match_date')[0]
-#     all_matches = Match.objects.all().order_by('-match_date')
-#     past_results = all_matches[1:]
-#     registrations_open = True
-#     if len(available_players) > 11:
-#         registrations_open = False
-#     context = {
-#         'player': player,
-#         'league_table': league_table,
-#         'next_fixture': next_fixture,
-#         'past_results': past_results,
-#         'registrations_open': registrations_open,
-#         'blues': blues,
-#         'whites': whites,
-#         'reserves': reserves
-#     }
-#     return render(request, 'club/members.html', context)
-
 
 def next_fixture(request):
     member = request.user
@@ -96,10 +67,15 @@ def book_match_place(request):
     else:
         player.is_in_team = False
         player.save()
+    match_full = False
+    registered_players = MatchPlayer.objects.filter(reserve=False)
+    if registered_players.count() == 12:
+        match_full = True
     return render(request, 'club/match_booking.html', {
         'player': player,
         'match': match,
-        'registrations_open': registrations_open
+        'registrations_open': registrations_open,
+        'match_full': match_full,
     })
 
 
@@ -110,7 +86,7 @@ def confirm_availability(request):
     player.save()
     registered_players = MatchPlayer.objects.filter(match_id=match)
     num_registered_players = registered_players.count()
-    if num_registered_players < 2:
+    if num_registered_players < 12:
         print(num_registered_players)
         player.is_in_team = True
         player.save()
@@ -123,9 +99,8 @@ def confirm_availability(request):
         new_player.save()
         reserves = MatchPlayer.objects.filter(reserve=True)
         num_reserves = reserves.count()
-        messages.warning(request, 'Unfortunately there is no room '
-                                  'on the team. You are reserve '
-                                  f'number {num_reserves}')                        
+        messages.success(request, 'You are number '
+                                  f'{num_reserves} on the reserve list')                        
     return HttpResponseRedirect(reverse('index'))
 
 
@@ -215,6 +190,7 @@ def edit_match(request, pk):
 
 
 def delete_match(request, pk):
+    """removes a match from the database"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     match.delete()
@@ -290,7 +266,7 @@ def allocate_teams(request, pk):
     match = get_object_or_404(queryset, id=pk)
     registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
-    while registered_players.count() < 2:
+    while registered_players.count() < 12:
         if reserves.count() > 0:
             reserve_selected = reserves[0]
             reserve_selected.reserve = False
@@ -298,15 +274,28 @@ def allocate_teams(request, pk):
             registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
         else:
             messages.error(request, 'You require 12 available '
-                                       'members to allocate teams')
+                                    'members to allocate teams')
             return HttpResponseRedirect(reverse('select_match'))
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
-    blue1 = registered_players.order_by('player_id__points')[0]
-    blue1.team = 'blue'
-    blue1.save()
-    white1 = registered_players.order_by('player_id__points')[1]
-    white1.team = 'white'
-    white1.save()
+    blue_indices = [0, 3, 5, 7, 9, 11]
+    white_indices = [1, 2, 4, 6, 8, 10]
+    for index in blue_indices:
+        blue = registered_players.order_by('player_id__points')[index]
+        blue.team = 'blue'
+        blue.save()
+    for index in white_indices:
+        white = registered_players.order_by('player_id__points')[index]
+        white.team = 'white'
+        white.save()
+    # blue2 = registered_players.order_by('player_id__points')[3]
+    # blue2.team = 'blue'
+    # blue2.save()
+    # white1 = registered_players.order_by('player_id__points')[1]
+    # white1.team = 'white'
+    # white1.save()
+    # white2 = registered_players.order_by('player_id__points')[2]
+    # white2.team = 'white'
+    # white2.save()
     messages.success(request, "Teams allocated")
     match.teams_allocated = True
     match.save()

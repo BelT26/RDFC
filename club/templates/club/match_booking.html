@@ -25,6 +25,9 @@ Member Zone
                 </form>
                 {% else %}
                 <form method="POST" action="#">
+                    {% if match_full %}
+                    <h5 class="mt-4">The match is currently full. Click below to be placed on the reserves list.</h5>
+                    {% endif %}
                     <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'confirm_availability' %}">Book Now</a></button>
                 </form>
                 {% endif %}

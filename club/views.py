@@ -63,7 +63,7 @@ def next_fixture(request):
 
 def league_table(request):
     member = request.user
-    league_table = ClubMember.objects.all().order_by('-points')
+    league_table = ClubMember.objects.filter(is_approved=True).order_by('-points')
     return render(request, 'club/league_table.html', {
         'league_table': league_table,
         'current_member': member,
@@ -206,7 +206,7 @@ def edit_match(request, pk):
             messages.success(request, 'Match successfully updated')
             return HttpResponseRedirect(reverse('index'))
     
-    return render(request, 'club/fixture.html', {
+    return render(request, 'club/add_fixture.html', {
         'form': form
     })
 
@@ -226,8 +226,9 @@ def add_next(request, pk):
     to true and updates the display in members.html"""
     next_match = Match.objects.filter(next_fixture=True)
     if len(next_match) > 0:
-        messages.error(request, 'Only one match can be flagged as the next fixture')
-        messages.error(request, 'Please remove the next fixture flag from the current match')
+        current_fixture = Match.objects.get(next_fixture=True)
+        messages.error(request, 'Only one match can be flagged as the next fixture. '
+                                f'Please remove the next fixture flag from {current_fixture.match_date}')
         return HttpResponseRedirect(reverse('select_match'))
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)

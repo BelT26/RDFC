@@ -19,6 +19,7 @@ Member Zone
             <h5 class="text-center mt-5">Registrations are open for {{match.match_date}}</h5>
                 {% if player.is_in_team %}
                 <form method="POST" action="#">
+                    {% csrf_token %}
                     <h5 class="mt-4">You have already booked your place in the match</h5>
                     <button class="btn submit-button btn-lg mt-3 mb-5"><a href="{% url 'cancel_match_place' %}">Cancel Place</a></button>
                 </form>

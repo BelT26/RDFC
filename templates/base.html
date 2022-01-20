@@ -38,7 +38,7 @@
             <a class="dropdown-item" href="{% anchor 'index' 'contact' %}">Contact</a>               
           </div>
         </li>
-        {% if request.user.is_authenticated %}
+        {% if request.user.is_approved %}
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
             Member Zone
@@ -49,10 +49,6 @@
             <a class="dropdown-item" href="{% url 'results' %}">Latest Results</a>
             <a class="dropdown-item" href="{% url 'book_match_place' %}">Book Your Match Place</a>               
           </div>
-        </li>
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
         </li>
         {% endif %}
         {% if request.user.is_superuser %}
@@ -66,16 +62,26 @@
           </div>
         </li>
         {% endif %}
-        <li class="nav-item">
         {% if request.user.is_authenticated %}
+        <li class="nav-item">
           <a href="{% url 'account_logout' %}" class="nav-link">Logout</a>
+        </li>          
         {% else %}
+        <li class="nav-item">
           <a href="{% url 'account_login' %}" class="nav-link">Login</a>
-        {% endif %}
-          </div>
-          </a>
+        </li>        
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'account_signup' %}">Sign Up</a>
         </li>
-      </ul>         
+        {% endif %}
+      </ul>
+      {% if request.user.is_authenticated %}
+      <ul class="navbar-nav ml-auto">
+        <li class="nav-item pr-2">
+          Logged in as {{ request.user.username}}
+        </li>
+      </ul> 
+      {% endif %}
   </div>
   </nav>
   <div class="container mt-4">

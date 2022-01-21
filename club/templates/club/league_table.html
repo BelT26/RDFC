@@ -20,7 +20,6 @@ Member Zone
         </div>
         <table class="table table-bordered my-4">
             <tr>
-                <th>Position</th>
                 <th>Player</th>
                 <th>Played</th>
                 <th>Won</th>
@@ -31,7 +30,6 @@ Member Zone
             {% for member in league_table %}
                 {% if member == current_member %}
                     <tr class="highlight">
-                        <td>position</td>
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.played}}</td>
                         <td>{{member.won}}</td>
@@ -41,7 +39,6 @@ Member Zone
                     </tr>
                 {% else %}
                     <tr>
-                        <td>position</td>
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.played}}</td>
                         <td>{{member.won}}</td>

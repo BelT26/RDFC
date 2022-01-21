@@ -33,6 +33,23 @@
     display: none;
 }
 
+.player-table {
+    width: 50%;
+    line-height: 1rem;
+    padding: 1rem;
+    margin: 0 auto;
+}
+
+#player-table-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    margin: 0 auto;
+    height: calc(100vh - 10rem);
+    padding: 1rem;
+    width: 80%;    
+}
+
 @media screen and (max-width: 760px) {
     .custom-form-container {
         width: 90%;
@@ -48,6 +65,10 @@
         width: 90%;
         height: auto;
         padding-bottom: 1rem;
+    }
+
+    #player-table-container {
+        height: calc(100vh - 4rem)
     }
 
 

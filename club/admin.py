@@ -15,7 +15,15 @@ class ClubMemberAdmin(admin.ModelAdmin):
         queryset.update(is_approved=True)
 
 
+@admin.register(MatchPlayer)
+class MatchPlayerAdmin(admin.ModelAdmin):
+
+    list_filter = ('team', 'reserve')
+    list_display = ('player_id', 'match_id', 'team')
+    search_fields = ['player_id']
+    
+
+
 admin.site.register(Team)
 admin.site.register(Match)
-admin.site.register(MatchPlayer)
 admin.site.register(Result)

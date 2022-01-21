@@ -19,17 +19,17 @@ def next_fixture(request):
     match_players = MatchPlayer.objects.all()
     if member in match_players:
         member.playing_match = True
-    try:
-        next_fixture = Match.objects.get(next_fixture=True)
-    except:
-        next_fixture = Match.objects.all().order_by('-match_date')[0]
+    if Match.objects.filter(next_fixture=True).count() > 0:
+        next_game = Match.objects.get(next_fixture=True)
+    else:
+        next_game = Match.objects.all().order_by('-match_date')[0] 
     blues = MatchPlayer.objects.filter(team='blue')
     whites = MatchPlayer.objects.filter(team='white')
     return render(request, 'club/next_fixture.html', {
-        'next_fixture': next_fixture,
+        'next_game': next_game,
         'member': member,
         'blues': blues,
-        'whites': whites
+        'whites': whites,        
     })
 
 

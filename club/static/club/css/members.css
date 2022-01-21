@@ -19,6 +19,16 @@
     background-color: rgb(252, 235, 142);
 }
 
+#booking-container {
+    height: calc(100vh - 11.5rem);
+}
+
 .custom-height {
-    min-height: calc(100vh - 11rem);
+    min-height: calc(100vh - 11.5rem);
+}
+
+@media screen and (max-width: 600px) {
+    #booking-container {
+        height: calc(100vh - 11.5rem);
+    }
 }

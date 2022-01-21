@@ -1,6 +1,6 @@
 .custom-form-container {
     margin: 0 auto;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11.5rem);
     padding: 1rem;
     width: 60%;
 }
@@ -14,7 +14,7 @@
 
 .edit-match-container {
     margin: 0 auto;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11.5rem);
     line-height: 1rem;
     padding: 0rem;
     width: 60%;
@@ -45,7 +45,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
-    height: calc(100vh - 10rem);
+    height: calc(100vh - 11.5rem);
     padding: 1rem;
     width: 80%;    
 }

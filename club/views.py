@@ -311,7 +311,7 @@ def allocate_teams(request, pk):
     match = get_object_or_404(queryset, id=pk)
     registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
     registered_players.save()
-    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
+    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True).order_by('registration_time')
     reserves.save()
     # while registered_players.count() < 12:
     #     if reserves.count() > 0:

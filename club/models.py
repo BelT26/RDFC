@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+import datetime
 
 
 # Create your models here.
@@ -69,6 +70,7 @@ class MatchPlayer(models.Model):
     match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
     team = models.CharField(max_length=6, null=True, blank=True)
     reserve = models.BooleanField(default=False)
+    registration_time = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
         return f"{self.player_id} - {self.team}"

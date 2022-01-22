@@ -35,8 +35,8 @@
 
 .player-table {
     width: 50%;
-    line-height: 1rem;
-    padding: 1rem;
+    line-height: 0.8rem;
+    padding-left: 1rem;
     margin: 0 auto;
 }
 
@@ -45,7 +45,7 @@
     flex-direction: column;
     justify-content: space-between;
     margin: 0 auto;
-    height: calc(100vh - 11.5rem);
+    min-height: calc(100vh - 11.5rem);
     padding: 1rem;
     width: 80%;    
 }
@@ -69,5 +69,11 @@
 
     #player-table-container {
         height: auto;
+        justify-content: start;
+    }
+
+    .player-table {
+        width: 80%;
+        
     }
 }

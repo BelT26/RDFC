@@ -25,11 +25,13 @@ def next_fixture(request):
         next_game = Match.objects.all().order_by('-match_date')[0] 
     blues = MatchPlayer.objects.filter(team='blue')
     whites = MatchPlayer.objects.filter(team='white')
+    reserves = MatchPlayer.objects.filter(reserve=True)
     return render(request, 'club/next_fixture.html', {
         'next_game': next_game,
         'member': member,
         'blues': blues,
-        'whites': whites,        
+        'whites': whites, 
+        'reserves': reserves       
     })
 
 
@@ -87,7 +89,6 @@ def confirm_availability(request):
     registered_players = MatchPlayer.objects.filter(match_id=match)
     num_registered_players = registered_players.count()
     if num_registered_players < 12:
-        print(num_registered_players)
         player.is_in_team = True
         player.save()
         new_player = MatchPlayer(player_id=player, match_id=match)
@@ -310,28 +311,27 @@ def allocate_teams(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
-    registered_players.save()
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True).order_by('registration_time')
-    reserves.save()
-    # while registered_players.count() < 12:
-    #     if reserves.count() > 0:
-    #         reserve_selected = reserves[0]
-    #         reserve_selected.reserve = False
-    #         reserve_selected.save()
-    #         registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
-    #     else:
-    #         messages.error(request, 'You require 12 available '
-    #                                 'members to allocate teams')
-    #         return HttpResponseRedirect(reverse('select_match'))
-    # reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
+    while registered_players.count() < 12:
+        if reserves.count() > 0:
+            reserve_selected = reserves[0]
+            reserve_selected.reserve = False
+            reserve_selected.save()
+            registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+        else:
+            messages.error(request, 'You require 12 available '
+                                    'members to allocate teams')
+            return HttpResponseRedirect(reverse('select_match'))
+    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
     white_indices = [1, 2, 4, 6, 8, 10]
+    ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__first_name')
     for index in blue_indices:
-        blue = registered_players.order_by('-player_id__points', 'player_id__played')[index]
+        blue = ordered_players[index]
         blue.team = 'blue'
         blue.save()
     for index in white_indices:
-        white = registered_players.order_by('-player_id__points', 'player_id__played')[index]
+        white = ordered_players[index]
         white.team = 'white'
         white.save()
     messages.success(request, "Teams allocated")

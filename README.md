@@ -11,24 +11,36 @@ https://belt26.github.io
 ## Contents
 * [Overview](#overview)
 * [Planning](#planning)
-* [Stucture](#structure)
+    * [Initial Meeting](#initial-meeting)
+    * [Epics](#epics)
+    * [User Stories](#user-stories)
+    * [Project Review](#project-review)
+* [Models](#models)
+    * [ClubMember](#clubmember)
+    * [Match](#match)
+    * [MatchPlayer](#matchplayer)
 * [Features](#features)
+    * [User Authentications](#user-authentication)
     * [Navigation](#navigation)
     * [Footer](#footer)
     * [Home Page](#home)
     * [Map](#map)
     * [Member Zone](#member-zone)
-        * [Log In Form](#log-in-form)
         * [Next Fixture](#fixture)
         * [League Table](#league-table)
         * [Past Results](#past-results)
         * [Match Registration](#match-registration)
-        * [Coutdown Clock](#countdown-clock)   
     * [Manager Zone](#manager-zone)
-        * [Fixture Updates](#fixture-updates)
-        * [Team Selection](#team-selection)
-        * [Social Updates](#social-updates)
-        * [Match Results](#match-results)
+        * [Add Fixture](#add-fixture)
+        * [Match Admin](#match-admin)
+            * [Edit Match](#edit-match)
+            * [Delete Match](#delete-match)
+            * [Flag Next Fixture](#flag-next-fixture)
+            * [Open Registrations](#open-registrations)
+            * [Allocate Teams](#allocate-teams)
+            * [Add Scores](#add-scores)
+        * [Member Admin](#member-admin)
+        * [View Players](#view-players)
 * [Bugs and challenges](#bugs-and-challenges)
 * [Testing](#testing)
     * [Automated Tests](#automated-tests)
@@ -52,10 +64,21 @@ Added member model
 Added member zone
 Set up base html and base css
 Add navbar and footer to base html
+Club manager indicated that it would be important to be store reserves on a list and have the possibility of reallocating teams if a team member cancelled.
 
-## Structure
+## Models
+
+### ClubMember
+
+### Match
+
+### MatchPlayer
 
 ## Features
+
+## User Authentication
+Django Allauth was installed to enable users to sign up, log in and log out.  I customised the standard Allauth model  
+so that users also need to enter their first and last name when signing up
 
 ## Navigation
 I created a responsive navbar that collapses on mobile devices using Bootstrap classes.  The items displayed on the navbar change according to whether the user is logged in or not and whether they are the club manager.
@@ -78,38 +101,58 @@ The home page is split into three sections, accessible by a dropdown menu, a gen
 ## Map
 I used the Bootstrap Resume walkthrough project as a guide to creating the JavaScript code to link to the Google Maps API.  At the moment only one location is marked as the club both play and socialise at the South Park grounds.  I decided to still use marker clusters as the club manager mentioned to me that he may like to add other venues to the map in the future
 
-## Sign Up Form
 
 ## Member Zone
 
-### Log In Form
 
 ### Next Fixture
+The next fixture page shows members the details of the next match.  If no match has been flagged by the manager as the next fixture then the most recent match in the database is displayed.
+
+Members can see whether the booking system is currently open for the match displayed.  If it is a link is shown which takes them to the match booking form.
+
+Once the manager has allocated the teams for the match the player names and a list of the reserves are displayed.
 
 ### League Table
+The league table sorts the players by the number of points they have scored and then by the number of matches they have played. When two or more players have the same number of points the player who has played the fewer matches ranks more highly.
 
 ### Past Results
 
-### Match Registration
+### Match Booking Form
+If match registrations are open a booking form is displayed. Otherwise users see a message informing them that registrations are currently closed. In the booking form users can see the date of the match.  
+
+12 members can register for a match once this number has been reached the user is informed that the match is full but they are still able to book a place on the reserve list.  If they do decide to be a reserve a message shows them their place on the list when they submit the form.
+
+If a member has already registered for the match rather than being shown the 'book match place' button they are given the option to cancel their place. If teams have already been allocated by the manager and the member has a place on the team, an email is generated to the manager to inform them that a player has cancelled and that they need to reselect the teams.
 
 ## Manager Zone
 
-### Fixture Updates
-The Manager is able to add, cancel and edit the next match fixture details
+### Add Fixture
+The Manager is able to create a new match and add the date, time and locations
+
+### Match Admin
+
+#### Edit Match
+This enables the manager to amend the time, date and location of matches.
+
+#### Delete Match
+This allows the manager to delete a match and all associated MatchPlayer objects.
+
+#### Open Registrations
+
+#### Flag Next Fixture
 
 
-### Team Selection
+#### Allocate Teams
 A maximum of 12 members per week can play. Once 12 people have registered a function is called to allocated players to either the blue or the white team as follows: 
 The registered players are sorted in descending order according to their current points.
 If 2 or members have the same number of points, they are then ranked according to the number of matches with players with  the fewest number of matches played ranking higher
-The eams assigned according to the players' position in the sorted list:
+The teams are then assigned according to the players' position in the sorted list:
 Blues: 1, 4, 6, 8, 10, 12
 Whites: 2, 3, 5, 7, 9, 11
-Once assignment has occurred the next fixture details are be updated with the team details.
+Once assignment has occurred the next fixture details are updated with the team details.
 
 
-
-### Match Results
+#### Add Results
 The manager has the ability to manually enter the latest match score.
 The winning team gets 3 points, the losing team 0 points and in the case of a draw each team receives 1 point.
 Players automatically inherit their team’s points once the scores have been input by the manager
@@ -129,6 +172,8 @@ book match place not working. implemented manual test driven approach, gradually
 
 mambers page throwing an error if next fixture was not flagged. added try block
 
+allocate teams functions not working correctly.  if 2 members had the same number of points and matches played the one of the members was being omitted. realised that this was because they had the same index number so added a 3rd search parameter which resolved the issue
+
 ## Testing
 
 ### Automated Tests
@@ -141,7 +186,20 @@ mambers page throwing an error if next fixture was not flagged. added try block
 
 ## Credits
 
+The text for the home page was provided by Steve Wilson, the club manager.
+
+#### Images
+Home page banner:  Mick Haupt / Unsplash.
+Social section: Rawpixel / Shutterstock
+League table: QuinceCreative / Pixabay
+Results table: Chaos Soccer / Unsplash
+Next fixture: Emrah Kara / Unsplash
+
 ## Future Development Possibilities
 
-originally planned to add a social page and function to add social events - not current requirement
+Add the possibility to add social events - not current requirement
+
+Add to the management functionality so that they can manually adjust members details
+
+Add a blog featuring the weekly match report
 

@@ -49,6 +49,9 @@ class MatchPlayer(models.Model):
     team = models.CharField(max_length=6, null=True, blank=True)
     reserve = models.BooleanField(default=False)
     registration_time = models.DateTimeField(auto_now_add=True)
+    win = models.BooleanField(default=False)
+    loss = models.BooleanField(default=False)
+    draw = models.BooleanField(default=False)
         
     def __str__(self):
         return f"{self.player_id} - {self.team}"

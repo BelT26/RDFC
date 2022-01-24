@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, get_object_or_404
+from django.shortcuts import render, reverse, get_object_or_404, redirect
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -148,9 +148,6 @@ def add_match(request):
                 match_date=form.cleaned_data['match_date'],
                 time=form.cleaned_data['time'],
                 location=form.cleaned_data['location'],
-                blue_goals=form.cleaned_data['blue_goals'],
-                white_goals=form.cleaned_data['white_goals'],
-                results_added=form.cleaned_data['results_added']
             )
             match.save()
             messages.success(request, 'Match successfully added')
@@ -165,6 +162,23 @@ def select_match(request):
     matches = Match.objects.all().order_by('-match_date')
     return render(request, 'club/matches.html', {
         'matches': matches
+    })
+
+
+def edit_match(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    form = MatchForm(instance=match)
+    
+    if request.method == 'POST':
+        form = MatchForm(request.POST, instance=match)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Match successfully updated')
+            return HttpResponseRedirect(reverse('select_match'))
+  
+    return render(request, 'club/edit_fixture.html', {
+        'form': form
     })
 
 
@@ -204,29 +218,7 @@ def update_player_score(request, pk):
     return HttpResponseRedirect(reverse('league-table'))
 
 
-def edit_match(request, pk):
-    queryset = Match.objects.all()
-    match = get_object_or_404(queryset, id=pk)
-    form = MatchForm(instance=match)
-    
-    if request.method == 'POST':
-        form = MatchForm(request.POST, instance=match)
-        if form.is_valid():
-            match = Match(
-                match_date=form.cleaned_data['match_date'],
-                time=form.cleaned_data['time'],
-                location=form.cleaned_data['location'],
-                blue_goals=form.cleaned_data['blue_goals'],
-                white_goals=form.cleaned_data['white_goals'],
-                results_added=form.cleaned_data['results_added']
-            )
-            match.save()
-            messages.success(request, 'Match successfully updated')
-            return HttpResponseRedirect(reverse('index'))
-  
-    return render(request, 'club/add_fixture.html', {
-        'form': form
-    })
+
 
 def add_score(request, pk):
     queryset = Match.objects.all()
@@ -234,46 +226,31 @@ def add_score(request, pk):
     form = ResultsForm(instance=match)    
     if request.method == 'POST':
         form = ResultsForm(request.POST, instance=match)
-        if form.is_valid():
-            match = Match(
-                match_date=form.cleaned_data['match_date'],
-                time=form.cleaned_data['time'],
-                location=form.cleaned_data['location'],
-                blue_goals=form.cleaned_data['blue_goals'],
-                white_goals=form.cleaned_data['white_goals'],
-            )
+        if form.is_valid():        
             match.results_added = True
-            match.save()
+            form.save()
             all_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
             blues = all_players.filter(team='blue')
             whites = all_players.filter(team='white')
             if match.blue_goals > match.white_goals:
                 for player in blues:
-                    player.player_id__points += 3
-                    player.player_id__played += 1
-                    player.player_id__won += 1
+                    player.win = True
                     player.save()
                 for player in whites:
-                    player.player_id__played += 1
-                    player.player_id__lost += 1
-                    player.save()
+                    player.loss = True
+                    player.save()                    
             elif match.white_goals > match.blue_goals:
-                for player in whites:
-                    player.player_id__points += 3
-                    player.player_id__played += 1
-                    player.player_id__won += 1
-                    player.save()
                 for player in blues:
-                    player.player_id__played += 1
-                    player.player_id__lost += 1
+                    player.loss = True
                     player.save()
+                for player in whites:
+                    player.win = True
+                    player.save() 
             else:
                 for player in all_players:
-                    player.player_id__points += 1
-                    player.player_id__played += 1
-                    player.player_id__drawn += 1
+                    player.draw = True
                     player.save()
-            messages.success(request, 'Player scores updated')
+            messages.success(request, 'Match scores updated')
             return HttpResponseRedirect(reverse('league_table'))
         else:
             messages.error(request, 'something went wrong')

@@ -22,5 +22,11 @@ class DateInput(forms.DateInput):
 class MatchForm(forms.ModelForm):
     class Meta:
         model = Match
-        exclude = ['registrations_open', 'next_fixture', 'teams_allocated']
+        fields = ['match_date', 'time', 'location']
         widgets = {'match_date': DateInput()}
+
+
+class ResultsForm(forms.ModelForm):
+    class Meta:
+        model = Match
+        fields = ['match_date', 'time', 'location', 'blue_goals', 'white_goals']        

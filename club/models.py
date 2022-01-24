@@ -25,31 +25,9 @@ class ClubMember(AbstractUser):
         return f"{self.first_name} {self.last_name}"
 
 
-class Team(models.Model):
-    blues = 'BL'
-    whites = 'WH'
-    colour_choices = [
-        (blues, 'Blues'),
-        (whites, 'Whites'),
-    ]
-    colour = models.CharField(max_length=7, choices=colour_choices)
-    match_date = models.DateField()
-    players = models.ManyToManyField(ClubMember, blank=True)
-
-    def __str__(self):
-        return f"{self.colour} - {self.match_date}"
-
-
-
-class Result(models.Model):
-    match_date = models.DateField()
-    blue_goals = models.IntegerField()
-    white_goals = models.IntegerField()
-
-
 class Match(models.Model):
     match_date = models.DateField()
-    time = models.TimeField(default="19:00")
+    time = models.TimeField(default="20:00")
     location = models.CharField(max_length=200)
     blue_goals = models.IntegerField(default=0)
     white_goals = models.IntegerField(default=0)
@@ -66,11 +44,13 @@ class Match(models.Model):
 
 
 class MatchPlayer(models.Model):
-    player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE)
-    match_id = models.ForeignKey(Match, on_delete=models.CASCADE)
+    player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE, related_name='member')
+    match_id = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='match')
     team = models.CharField(max_length=6, null=True, blank=True)
     reserve = models.BooleanField(default=False)
     registration_time = models.DateTimeField(auto_now_add=True)
-
+        
     def __str__(self):
         return f"{self.player_id} - {self.team}"
+
+    

@@ -96,13 +96,15 @@ Member Zone
         <div class="text-center mb-3">
             {% if registrations_open %}
                 {% if player.is_available %}
-                <form method="POST" action="#">
+                <form method="POST" action="/">
+                    {% csrf_token %}
                     <h5 class="mt-5">You have already registered your availability</h5>
                     <button class="btn submit-button btn-lg mt-3 mb-5"><a href="{% url 'cancel_match_place' %}">Cancel Place</a></button>
                 </form>
                 {% else %}
-                <form method="POST" action="#">
-                    <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'book_match_place' %}">Book Now</a></button>
+                <form method="POST" action="/">
+                    {% csrf_token %}
+                    <button class="btn submit-button btn-lg mt-5 mb-5"><a href="{% url 'booking_form' %}">Book Now</a></button>
                 </form>
                 {% endif %}
             {% else %} 

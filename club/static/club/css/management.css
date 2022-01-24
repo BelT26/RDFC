@@ -5,6 +5,13 @@
     width: 60%;
 }
 
+.matches-form-container {
+    margin: 0 auto;
+    height: calc(100vh - 11.5rem);
+    padding: 1rem;
+    width: 90%;
+}
+
 .member-form-container {
     margin: 0 auto;
     height: 100%;

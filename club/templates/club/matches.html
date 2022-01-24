@@ -12,7 +12,7 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
-<div class="custom-form-container">
+<div class="matches-form-container">
     <h1 class="text-center display-4">All Matches</h1>
     <br>
     <table class="table table-bordered my-4">
@@ -21,7 +21,7 @@ Manager Zone
             <th>Blues</th>
             <th>Whites</th>
             <th>Results Added</th>
-            <th colspan="4">Match Management</th>
+            <th colspan="5">Match Management</th>
         </tr>
         {% for match in matches %}
         <tr>
@@ -50,6 +50,7 @@ Manager Zone
                 <td>Function disabled</a>
                 {% endif %}
             {% endif %}
+            <td><a href="{% url 'add_score' match.id %}">Add Scores</a></td>
         </tr>
         {% endfor %}
     </table>   

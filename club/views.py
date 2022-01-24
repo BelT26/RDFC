@@ -3,7 +3,7 @@ from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
 from .models import ClubMember, Match, MatchPlayer
-from .forms import MatchForm
+from .forms import MatchForm, ResultsForm
 
 # Create your views here.
 
@@ -51,30 +51,24 @@ def results(request):
     })
 
 
-def book_match_place(request):
-    match = Match.objects.get(registrations_open=True)
-    registrations_open = False
-    if match:
+def booking_form(request):
+    if Match.objects.filter(registrations_open=True).exists():
+        match = Match.objects.get(registrations_open=True)
         registrations_open = True
     else:
         match = Match.objects.all().order_by('-match_date')[0]
+        registrations_open = False
     player = request.user
-    try:
-        player_reservation = MatchPlayer.objects.get(player_id=player)
-    except:
-        player_reservation = None
-    if player_reservation:
-        player.is_in_team = True
-        player.save()
+    if MatchPlayer.objects.filter(player_id=player).exists():
+        player_registered = True
     else:
-        player.is_in_team = False
-        player.save()
+        player_registered = False
     match_full = False
     registered_players = MatchPlayer.objects.filter(reserve=False)
     if registered_players.count() == 12:
         match_full = True
     return render(request, 'club/match_booking.html', {
-        'player': player,
+        'player_registered': player_registered,
         'match': match,
         'registrations_open': registrations_open,
         'match_full': match_full,
@@ -185,27 +179,27 @@ def update_player_score(request, pk):
             player.player_id__points += 3
             player.player_id__played += 1
             player.player_id__won += 1
-            player.save()
+            player.player_id.save()
         for player in whites:
             player.player_id__played += 1
             player.player_id__lost += 1
-            player.save()
+            player.player_id.save()
     elif match.white_goals > match.blue_goals:
         for player in whites:
             player.player_id__points += 3
             player.player_id__played += 1
             player.player_id__won += 1
-            player.save()
+            player.player_id.save()
         for player in blues:
             player.player_id__played += 1
             player.player_id__lost += 1
-            player.save()
+            player.player_id.save()
     else:
         for player in all_players:
             player.player_id__points += 1
             player.player_id__played += 1
             player.player_id__drawn += 1
-            player.save()
+            player.player_id.save()
     messages.success(request, 'Player scores updated')
     return HttpResponseRedirect(reverse('league-table'))
 
@@ -232,6 +226,61 @@ def edit_match(request, pk):
   
     return render(request, 'club/add_fixture.html', {
         'form': form
+    })
+
+def add_score(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    form = ResultsForm(instance=match)    
+    if request.method == 'POST':
+        form = ResultsForm(request.POST, instance=match)
+        if form.is_valid():
+            match = Match(
+                match_date=form.cleaned_data['match_date'],
+                time=form.cleaned_data['time'],
+                location=form.cleaned_data['location'],
+                blue_goals=form.cleaned_data['blue_goals'],
+                white_goals=form.cleaned_data['white_goals'],
+            )
+            match.results_added = True
+            match.save()
+            all_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+            blues = all_players.filter(team='blue')
+            whites = all_players.filter(team='white')
+            if match.blue_goals > match.white_goals:
+                for player in blues:
+                    player.player_id__points += 3
+                    player.player_id__played += 1
+                    player.player_id__won += 1
+                    player.save()
+                for player in whites:
+                    player.player_id__played += 1
+                    player.player_id__lost += 1
+                    player.save()
+            elif match.white_goals > match.blue_goals:
+                for player in whites:
+                    player.player_id__points += 3
+                    player.player_id__played += 1
+                    player.player_id__won += 1
+                    player.save()
+                for player in blues:
+                    player.player_id__played += 1
+                    player.player_id__lost += 1
+                    player.save()
+            else:
+                for player in all_players:
+                    player.player_id__points += 1
+                    player.player_id__played += 1
+                    player.player_id__drawn += 1
+                    player.save()
+            messages.success(request, 'Player scores updated')
+            return HttpResponseRedirect(reverse('league_table'))
+        else:
+            messages.error(request, 'something went wrong')
+            return HttpResponseRedirect(reverse('index'))
+    return render(request, 'club/add_score.html', {
+        'form': form,
+        'match': match
     })
 
 
@@ -325,7 +374,7 @@ def allocate_teams(request, pk):
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
     white_indices = [1, 2, 4, 6, 8, 10]
-    ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__first_name')
+    ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__username')
     for index in blue_indices:
         blue = ordered_players[index]
         blue.team = 'blue'

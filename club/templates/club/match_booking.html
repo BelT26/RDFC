@@ -17,14 +17,14 @@ Member Zone
         <div class="text-center mb-3">
             {% if registrations_open %}
             <h5 class="text-center mt-5">Registrations are open for {{match.match_date}}</h5>
-                {% if player.is_in_team %}
+                {% if player_registered %}
                 <form method="POST" action="#">
                     {% csrf_token %}
                     <h5 class="mt-4">You have already booked your place in the match</h5>
                     <button class="btn submit-button btn-lg mt-3 mb-5"><a href="{% url 'cancel_match_place' %}">Cancel Place</a></button>
                 </form>
                 {% else %}
-                <form method="POST" action="#">
+                <form method="POST" action="/">
                     {% if match_full %}
                     <h5 class="mt-4">The match is currently full. Click below to be placed on the reserves list.</h5>
                     {% endif %}

@@ -14,11 +14,11 @@ Manager Zone
 
 {% block content %}
 <div class="edit-match-container">
-    <h1 class="text-center display-4">Match Details</h1>
+    <h1 class="text-center display-4">Edit Match Details</h1>
     <h5 class="mb-3 text-center">(Please ensure that you enter the time in the following format: <strong>19:00:00</strong>)</h5>
     <div class="row">
         <div class="col-10 col-sm-6 col-md-4 ml-md-5">
-            <form method="POST" action="/">
+            <form method="POST" action="">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form | crispy }}

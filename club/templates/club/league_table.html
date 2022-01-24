@@ -31,21 +31,21 @@ Member Zone
                 {% if member == current_member %}
                     <tr class="highlight">
                         <td>{{member.first_name}} {{member.last_name}}</td>
-                        <td>{{member.played}}</td>
-                        <td>{{member.won}}</td>
-                        <td>{{member.drawn}}</td>
-                        <td>{{member.lost}}</td>
+                        <td>{{member.games_played}}</td>
+                        <td>{{member.games_won}}</td>
+                        <td>{{member.games_drawn}}</td>
+                        <td>{{member.games_lost}}</td>
                         <td>{{member.points}}</td>
                     </tr>
                 {% else %}
-                    <tr>
-                        <td>{{member.first_name}} {{member.last_name}}</td>
-                        <td>{{member.played}}</td>
-                        <td>{{member.won}}</td>
-                        <td>{{member.drawn}}</td>
-                        <td>{{member.lost}}</td>
-                        <td>{{member.points}}</td>
-                    </tr>
+                <tr>
+                    <td>{{member.first_name}} {{member.last_name}}</td>
+                    <td>{{member.games_played}}</td>
+                    <td>{{member.games_won}}</td>
+                    <td>{{member.games_drawn}}</td>
+                    <td>{{member.games_lost}}</td>
+                    <td>{{member.points}}</td>
+                </tr>
                 {% endif %}
             {% endfor %}
         </table>

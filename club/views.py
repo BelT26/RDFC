@@ -13,7 +13,6 @@ def index(request):
     return render(request, 'club/index.html')
 
 
-
 def next_fixture(request):
     member = request.user
     match_players = MatchPlayer.objects.all()
@@ -36,11 +35,18 @@ def next_fixture(request):
 
 
 def league_table(request):
-    member = request.user
+    current_member = request.user
+    all_members = ClubMember.objects.filter(is_approved=True)
+    for member in all_members:
+        num_wins = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
+        num_draws = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
+        member.points = (num_wins * 3) + num_draws
+        member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
+        member.save()
     league_table = ClubMember.objects.filter(is_approved=True).order_by('-points', 'played')
     return render(request, 'club/league_table.html', {
         'league_table': league_table,
-        'current_member': member,
+        'current_member': current_member,
     })
 
 
@@ -180,43 +186,6 @@ def edit_match(request, pk):
     return render(request, 'club/edit_fixture.html', {
         'form': form
     })
-
-
-def update_player_score(request, pk):
-    queryset = Match.objects.all()
-    match = get_object_or_404(queryset, id=pk)
-    all_players = MatchPlayer.objects.filter(match_id=match)
-    blues = all_players.filter(team='blue')
-    whites = all_players.filter(team='white')
-    if match.blue_goals > match.white_goals:
-        for player in blues:
-            player.player_id__points += 3
-            player.player_id__played += 1
-            player.player_id__won += 1
-            player.player_id.save()
-        for player in whites:
-            player.player_id__played += 1
-            player.player_id__lost += 1
-            player.player_id.save()
-    elif match.white_goals > match.blue_goals:
-        for player in whites:
-            player.player_id__points += 3
-            player.player_id__played += 1
-            player.player_id__won += 1
-            player.player_id.save()
-        for player in blues:
-            player.player_id__played += 1
-            player.player_id__lost += 1
-            player.player_id.save()
-    else:
-        for player in all_players:
-            player.player_id__points += 1
-            player.player_id__played += 1
-            player.player_id__drawn += 1
-            player.player_id.save()
-    messages.success(request, 'Player scores updated')
-    return HttpResponseRedirect(reverse('league-table'))
-
 
 
 

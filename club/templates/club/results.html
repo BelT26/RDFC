@@ -23,12 +23,17 @@ Member Zone
                 <th>Date</th>
                 <th>Blues</th>
                 <th>Whites</th>
+                <th>Blue Team</th>
+                <th>White Team</th>
             </tr>
             {% for match in past_results %}
             <tr>
                 <td>{{match.match_date}}</td>
                 <td>{{match.blue_goals}}</td>
                 <td>{{match.white_goals}}</td>
+                <td>{{match.blueteam}}</td>
+                <td>{{match.whiteteam}}</td>
+                <td></td>
             </tr>
             {% endfor %}
         </table>

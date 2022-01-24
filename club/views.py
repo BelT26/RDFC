@@ -52,6 +52,10 @@ def league_table(request):
 
 def results(request):
     past_results = Match.objects.filter(results_added=True)
+    for match in past_results:
+        match.blueteam = match.matchplayer.filter(team='blue')
+        match.whiteteam = match.matchplayer.filter(team='white')
+        match.save()
     return render(request, 'club/results.html', {
         'past_results': past_results
     })

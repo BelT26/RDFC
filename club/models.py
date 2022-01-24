@@ -66,8 +66,8 @@ class Match(models.Model):
 
 
 class MatchPlayer(models.Model):
-    player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE, related_name='member')
-    match_id = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='match')
+    player_id = models.ForeignKey(ClubMember, on_delete=models.CASCADE, related_name='matchmember')
+    match_id = models.ForeignKey(Match, on_delete=models.CASCADE, related_name='matchplayer')
     team = models.CharField(max_length=6, null=True, blank=True)
     reserve = models.BooleanField(default=False)
     registration_time = models.DateTimeField(auto_now_add=True)

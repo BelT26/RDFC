@@ -25,6 +25,7 @@ Member Zone
                 </form>
                 {% else %}
                 <form method="POST" action="/">
+                    {% csrf_token %}
                     {% if match_full %}
                     <h5 class="mt-4">The match is currently full. Click below to be placed on the reserves list.</h5>
                     {% endif %}

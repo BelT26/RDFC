@@ -11,10 +11,9 @@ https://belt26.github.io
 ## Contents
 * [Overview](#overview)
 * [Planning](#planning)
-    * [Initial Meeting](#initial-meeting)
-    * [Epics](#epics)
+    * [Project Conception Meeting](#project-conception-meeting)
     * [User Stories](#user-stories)
-    * [Project Review](#project-review)
+    * [Project Review](#project-review-meeting)
 * [Models](#models)
     * [ClubMember](#clubmember)
     * [Match](#match)
@@ -51,28 +50,46 @@ https://belt26.github.io
 
 ## Overview
 
-Site created for a friend of mine who is the manager of an amateur football club. He was finding it time consuming to manually manage match registrations, update the player league table and keep all members informed of club activities.
+The project was created following a request from a friend of mine called Steve, who is the manager of an amateur football club. He was finding it time consuming to manually manage match place bookings, allocate teams and keep all players updated of their position in the club's player league table.
+
+The club plays a six a side match every week so 12 players can register for each game.  To make the teams evenly balanced before they are allocated the players are sorted according to their scores from their previous matches.  Each time they are part of the winning team they earn 3 points and if the teams draw all players are allocated 1 point. If 2 players have the same number of points they are then sorted according to the number of matches they have played with members who have played fewer games ranking more highly.
+
 
 ## Planning
 
-Meeting with club manager to ascertain requirements.  
-Project created with Kanban template on Github
-26 User Stories added to initial board
-Word document created to break down user stories into tasks
-Set up views / urls / templates in club app folder
-Added member model
-Added member zone
-Set up base html and base css
-Add navbar and footer to base html
-Club manager indicated that it would be important to be store reserves on a list and have the possibility of reallocating teams if a team member cancelled.
+### Project Conception Meeting
+Before starting work on the project I met with the club manager to ascertain his requirements for the site.  Essential features that he requested were:
+* A home page with information about the club
+* A booking facility for club members to reserve their place in the next match
+* A function that would allocate teams based on the members' current points and number of matches played
+* A league table displaying all players' results
+* A sign up facility so that new members can apply to join the club 
+
+Optional features that were discussed were:
+* A page displaying details of the next fixture and the names of the players in each team
+* A table containing the results of past games
+* A page on which the manager could upload match reports and other members could comment
+* A page dedicated to upcoming social events
+
+### User Stories
+Once I had collected the requirements I created a project with the Kanban template on Github and added all of the user stories. These were arranged into epics as shown in the table below and allocated a priority rating.
+Each user story was then broken down into tasks.
+
+### Project Review Meeting
+Once the project was near completion I scheduled another meeting with the club manager to review the progress of the site. Steve was happy to leave the pages for the match reports and social events to a later date, but requested that I add a page in which he could view which members had registered for the upcoming match and also a facility whereby players could be placed on a reserve list if all of the team places were already taken so that he could reassign the place if somebody cancelled.
+I suggested adding an email alert so that Steve would be advised if a team member cancels and would know to reallocate the teams.
 
 ## Models
+I used three models to create this project, ClubMember, Match and MatchPlayer
 
 ### ClubMember
+The ClubMember model is a custom user model that inherits from the Django user model.
 
 ### Match
+The Match model is used to create an instance of each game.  The details are used to populate the Next Fixture and Past Results pages and the manager is able to manage the properties of each Match within the Match Admin table. 
 
 ### MatchPlayer
+Each time a ClubMember registers for a Match an instance of the MatchPlayer field is created.  The results of each game are stored on the MatchPlayer model and these are used to dynamically generate the scores for the player league table.
 
 ## Features
 
@@ -104,13 +121,12 @@ I used the Bootstrap Resume walkthrough project as a guide to creating the JavaS
 
 ## Member Zone
 
-
 ### Next Fixture
 The next fixture page shows members the details of the next match.  If no match has been flagged by the manager as the next fixture then the most recent match in the database is displayed.
 
-Members can see whether the booking system is currently open for the match displayed.  If it is a link is shown which takes them to the match booking form.
+Members can see whether the booking system is currently open for the match displayed.  If it is, a link is shown which takes them to the match booking form.
 
-Once the manager has allocated the teams for the match the player names and a list of the reserves are displayed.
+Once the manager has allocated the teams for the match, the player names and a list of the reserves are displayed.
 
 ### League Table
 The league table sorts the players by the number of points they have scored and then by the number of matches they have played. When two or more players have the same number of points the player who has played the fewer matches ranks more highly.
@@ -138,25 +154,25 @@ This enables the manager to amend the time, date and location of matches.
 This allows the manager to delete a match and all associated MatchPlayer objects.
 
 #### Open Registrations
+Once registrations have been opened for a match the booking form is enabled and the match date is displayed.  Registrations can only be open for one match at a time.  If the manager tries to open registrations for a second match an error message will be displayed.
 
 #### Flag Next Fixture
-
+The next fixture flag controls which match details are displayed on the Next Fixture page.  Only one match can be flagged at a time.  Trying to flag a second fixture results in a custom error message being displayed.
 
 #### Allocate Teams
-A maximum of 12 members per week can play. Once 12 people have registered a function is called to allocated players to either the blue or the white team as follows: 
-The registered players are sorted in descending order according to their current points.
-If 2 or members have the same number of points, they are then ranked according to the number of matches with players with  the fewest number of matches played ranking higher
+A maximum of 12 members per week can play. Once 12 people have registered a function can be called to allocate players to either the blue or the white team as follows: 
+The points are calculated dynamically by accessing the past results stored on the MatchPlayer models associated with each registered. Players are sorted in descending order according to their current points. If 2 or members have the same number of points, they are then ranked according to the number of matches with players with  the fewest number of matches played ranking higher. The username has been added as a third field to avoid players with the same number of points and matches played having the same index.
 The teams are then assigned according to the players' position in the sorted list:
 Blues: 1, 4, 6, 8, 10, 12
 Whites: 2, 3, 5, 7, 9, 11
-Once assignment has occurred the next fixture details are updated with the team details.
+Once assignment has occurred the next fixture details are updated with the team details and the 'Allocate Teams' button changes to 'Clear Teams'.  In the event that a player who has a place on the team cancels, the manager would use the Clear Teams button to clear the current selection and then click on 'Allocate Teams' again to resort the players. When 'Allocate Teams' is called after confirmed players cancel, it checks the number of confirmed players and then pulls in members from the reserve list, which is sorted by booking time, until 12 players are reached. 
 
 
 #### Add Results
 The manager has the ability to manually enter the latest match score.
 The winning team gets 3 points, the losing team 0 points and in the case of a draw each team receives 1 point.
-Players automatically inherit their team’s points once the scores have been input by the manager
-The league table automatically updates the player scores and resorts the players.
+The MatchPlayers are allocated either a win, loss or a draw according to the results input by the manager
+The league table then recalculates and updates the player scores and resorts the players.
 The scores areautomatically populated in the latest results table
 
 

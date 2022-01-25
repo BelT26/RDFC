@@ -26,31 +26,39 @@ Member Zone
         {% else %}
             {% if next_game.registrations_open %}
                 <h4 class="text-center mt-4">Registrations for this match are currently open</h4>
-                <h4 class="text-center mb-4">Register your availability <a href="{% url 'booking_form'%}">here</a></h4>
+                <h4 class="text-center mb-5">Register your availability <a href="{% url 'booking_form'%}">here</a></h4>
             {% else %}
                 <h4 class="text-center my-4">Registrations for this match are currently closed</h4>
             {% endif %}
         {% endif %}
         {% if next_game.teams_allocated %}
-        <div class="row mt-4">
-            <div class="col-md-4">
-                <h4 class="text-center">Blues</h4>
-                {% for player in blues %}
-                <p class="text-center">{{player.player_id}}</p>
-                {% endfor %}
+        <div class="container my-5 border border-warning rounded" id="team-container">
+            <div class="row mt-3">
+                <div class="col">
+                    <h2 class="text-center">Lineup</h2>
+                </div>                
             </div>
-            <div class="col-md-4">
-                <h4 class="text-center">Whites</h4>
-                {% for player in whites %}
-                <p class="text-center">{{player.player_id}}</p>
-                {% endfor %}
+            <div class="row my-3">
+                <div class="col-md-4">
+                    <h4 class="text-center">Blues</h4>
+                    {% for player in blues %}
+                    <p class="text-center">{{player.player_id}}</p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-center">Whites</h4>
+                    {% for player in whites %}
+                    <p class="text-center">{{player.player_id}}</p>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    <h4 class="text-center">Reserves</h4>
+                    {% for player in reserves %}
+                    <p class="text-center">{{player.player_id}}</p>
+                    {% endfor %}
+                </div>
             </div>
-            <div class="col-md-4">
-                <h4 class="text-center">Reserves</h4>
-                {% for player in reserves %}
-                <p class="text-center">{{player.player_id}}</p>
-                {% endfor %}
-            </div>
+        </div>
             {% else %}
             <div class="row-mt-4">
                 <h4 class="text-center">Keep an eye on this spot for team details</h4>

@@ -331,7 +331,7 @@ def allocate_teams(request, pk):
         member.points = (num_wins * 3) + num_draws
         member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
         member.save()
-    ordered_players = ClubMember.objects.filter(is_approved=True).order_by('-points', 'played', 'player_id__username')
+    ordered_players = MatchPlayer.objects.filter(reserve=False).order_by('-player_id__points', 'player_id__played', 'player_id__username')
     for index in blue_indices:
         blue = ordered_players[index]
         blue.team = 'blue'

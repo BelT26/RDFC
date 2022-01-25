@@ -31,8 +31,14 @@ Member Zone
                 <td>{{match.match_date}}</td>
                 <td>{{match.blue_goals}}</td>
                 <td>{{match.white_goals}}</td>
-                <td>{{match.blueteam}}</td>
-                <td>{{match.whiteteam}}</td>
+                <td>{% for player in match.blueteam %}
+                    <span>{{player.player_id}},  </span>
+                    {% endfor %}
+                </td>
+                <td>{% for player in match.whiteteam %}
+                    <span>{{player.player_id}},  </span>
+                    {% endfor %}
+                </td>
                 <td></td>
             </tr>
             {% endfor %}

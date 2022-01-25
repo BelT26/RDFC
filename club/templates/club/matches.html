@@ -18,17 +18,16 @@ Manager Zone
     <table class="table table-bordered my-4">
         <tr>
             <th>Date</th>
-            <th>Blues</th>
-            <th>Whites</th>
-            <th>Results Added</th>
-            <th colspan="5">Match Management</th>
+            <!-- <th>Blues</th>
+            <th>Whites</th> -->
+            <th colspan="7">Match Management</th>
         </tr>
         {% for match in matches %}
         <tr>
             <td>{{match.match_date|date:"j F y"}}</td>
-            <td>{{match.blue_goals}}</td>
+            <!-- <td>{{match.blue_goals}}</td>
             <td>{{match.white_goals}}</td>
-            <td>{{match.results_added}}</td>
+            <td>{{match.results_added}}</td> -->
             <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
             <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
             {% if match.registrations_open %}
@@ -50,7 +49,12 @@ Manager Zone
                 <td>Function disabled</a>
                 {% endif %}
             {% endif %}
-            <td><a href="{% url 'add_score' match.id %}">Add Scores</a></td>
+            {% if match.results_added %}
+            <td><a href="{% url 'delete_score' match.id %}">Delete Result</a></td>
+            {% else %}
+            <td><a href="{% url 'add_score' match.id %}">Add Result</a></td>
+            {% endif %}
+            <td><a href="{% url 'see_players' match.id %}">See Members</a></td>
         </tr>
         {% endfor %}
     </table>   

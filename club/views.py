@@ -1,4 +1,4 @@
-from django.shortcuts import render, reverse, get_object_or_404, redirect
+from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.core.mail import send_mail
@@ -21,7 +21,7 @@ def next_fixture(request):
     if Match.objects.filter(next_fixture=True).count() > 0:
         next_game = Match.objects.get(next_fixture=True)
     else:
-        next_game = Match.objects.all().order_by('-match_date')[0] 
+        next_game = Match.objects.all().order_by('-match_date')[0]
     blues = MatchPlayer.objects.filter(team='blue')
     whites = MatchPlayer.objects.filter(team='white')
     reserves = MatchPlayer.objects.filter(reserve=True)
@@ -29,12 +29,12 @@ def next_fixture(request):
         'next_game': next_game,
         'member': member,
         'blues': blues,
-        'whites': whites, 
-        'reserves': reserves       
+        'whites': whites,
+        'reserves': reserves
     })
 
 
-def league_table(request):
+def view_league_table(request):
     current_member = request.user
     all_members = ClubMember.objects.filter(is_approved=True)
     for member in all_members:
@@ -105,17 +105,8 @@ def confirm_availability(request):
         reserves = MatchPlayer.objects.filter(reserve=True)
         num_reserves = reserves.count()
         messages.success(request, 'You are number '
-                                  f'{num_reserves} on the reserve list')                        
+                                  f'{num_reserves} on the reserve list')
     return HttpResponseRedirect(reverse('index'))
-
-
-def see_registered_players(request):
-    players = MatchPlayer.objects.filter(reserve=False).order_by('-player_id__points', 'player_id__played')
-    reserves = MatchPlayer.objects.filter(reserve=True)
-    return render(request, 'club/see_players.html', {
-        'players': players,
-        'reserves': reserves,
-    })
 
 
 def cancel_match_place(request):
@@ -179,27 +170,26 @@ def edit_match(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     form = MatchForm(instance=match)
-    
+
     if request.method == 'POST':
         form = MatchForm(request.POST, instance=match)
         if form.is_valid():
             form.save()
             messages.success(request, 'Match successfully updated')
             return HttpResponseRedirect(reverse('select_match'))
-  
+
     return render(request, 'club/edit_fixture.html', {
         'form': form
     })
 
 
-
 def add_score(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    form = ResultsForm(instance=match)    
+    form = ResultsForm(instance=match)
     if request.method == 'POST':
         form = ResultsForm(request.POST, instance=match)
-        if form.is_valid():        
+        if form.is_valid():
             match.results_added = True
             form.save()
             all_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
@@ -211,14 +201,14 @@ def add_score(request, pk):
                     player.save()
                 for player in whites:
                     player.loss = True
-                    player.save()                    
+                    player.save()
             elif match.white_goals > match.blue_goals:
                 for player in blues:
                     player.loss = True
                     player.save()
                 for player in whites:
                     player.win = True
-                    player.save() 
+                    player.save()
             else:
                 for player in all_players:
                     player.draw = True
@@ -230,6 +220,29 @@ def add_score(request, pk):
             return HttpResponseRedirect(reverse('index'))
     return render(request, 'club/add_score.html', {
         'form': form,
+        'match': match
+    })
+
+
+def delete_score(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+
+    if request.method == 'POST':
+        match.results_added = False
+        match.blue_goals = 0
+        match.white_goals = 0
+        match.save()
+        all_players = MatchPlayer.objects.filter(match_id=match)
+        for player in all_players:
+            player.win = False
+            player.draw = False
+            player.loss = False
+            player.save()
+        messages.success(request, 'Result deleted')
+        return HttpResponseRedirect(reverse('select_match'))
+    
+    return render(request, 'club/delete_score.html', {
         'match': match
     })
 
@@ -293,7 +306,7 @@ def open_reg(request, pk):
               f'Registrations for {match.match_date} have just opened!'
               ' Visit the club site to book your place.',
               'steve@rdfc.com',
-               member_email_addresses)
+              member_email_addresses)
     return HttpResponseRedirect(reverse('select_match'))
 
 
@@ -304,6 +317,18 @@ def close_reg(request, pk):
     match.save()
     messages.success(request, f"Registrations closed for {match.match_date}")
     return HttpResponseRedirect(reverse('select_match'))
+
+
+def see_players(request, pk):
+    queryset = Match.objects.all()
+    match = get_object_or_404(queryset, id=pk)
+    players = MatchPlayer.objects.filter(reserve=False, match_id=match)
+    reserves = MatchPlayer.objects.filter(reserve=True, match_id=match)
+    return render(request, 'club/see_players.html', {
+        'players': players,
+        'reserves': reserves,
+        'match': match,
+    })
 
 
 def allocate_teams(request, pk):
@@ -332,12 +357,12 @@ def allocate_teams(request, pk):
         member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
         member.save()
     ordered_players = MatchPlayer.objects.filter(reserve=False).order_by('-player_id__points', 'player_id__played', 'player_id__username')
-    for index in blue_indices:
-        blue = ordered_players[index]
+    for i in blue_indices:
+        blue = ordered_players[i]
         blue.team = 'blue'
         blue.save()
-    for index in white_indices:
-        white = ordered_players[index]
+    for i in white_indices:
+        white = ordered_players[i]
         white.team = 'white'
         white.save()
     messages.success(request, "Teams allocated")
@@ -345,7 +370,7 @@ def allocate_teams(request, pk):
     match.save()
     return HttpResponseRedirect(reverse('select_match'))
 
-    
+
 def reset_teams(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
@@ -353,7 +378,7 @@ def reset_teams(request, pk):
     for player in registered_players:
         player.team = None
         player.save()
-    messages.success(request, f"Teams cleared")
+    messages.success(request, "Teams cleared")
     match.teams_allocated = False
     match.save()
     return HttpResponseRedirect(reverse('select_match'))
@@ -368,11 +393,10 @@ def approve_member(request, pk):
     send_mail('Application approved',
               'Congratulations! '
               'Your application to join RDFC has been approved.'
-              'We look forward to seeing you!', 
+              'We look forward to seeing you!',
               'steve@rdfc.com',
               (member.email,))
     return HttpResponseRedirect(reverse('applications'))
-
 
 
 def reject_member(request, pk):
@@ -393,6 +417,3 @@ def delete_member(request, pk):
     messages.success(request, 'Member deleted')
     member.delete()
     return HttpResponseRedirect(reverse('applications'))
-
-
-

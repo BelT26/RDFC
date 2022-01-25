@@ -226,26 +226,21 @@ def add_score(request, pk):
 
 def delete_score(request, pk):
     queryset = Match.objects.all()
-    match = get_object_or_404(queryset, id=pk)
-
-    if request.method == 'POST':
-        match.results_added = False
-        match.blue_goals = 0
-        match.white_goals = 0
-        match.save()
-        all_players = MatchPlayer.objects.filter(match_id=match)
-        for player in all_players:
-            player.win = False
-            player.draw = False
-            player.loss = False
-            player.save()
-        messages.success(request, 'Result deleted')
-        return HttpResponseRedirect(reverse('select_match'))
+    match = get_object_or_404(queryset, id=pk)    
+    match.results_added = False
+    match.blue_goals = 0
+    match.white_goals = 0
+    match.save()
+    all_players = MatchPlayer.objects.filter(match_id=match)
+    for player in all_players:
+        player.win = False
+        player.draw = False
+        player.loss = False
+        player.save()
+    messages.success(request, 'Result deleted')
+    return HttpResponseRedirect(reverse('select_match'))
     
-    return render(request, 'club/delete_score.html', {
-        'match': match
-    })
-
+    
 
 def delete_match(request, pk):
     """removes a match from the database"""

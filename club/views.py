@@ -324,7 +324,14 @@ def allocate_teams(request, pk):
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
     white_indices = [1, 2, 4, 6, 8, 10]
-    ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__username')
+    # ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__username')
+    for member in registered_players:
+        num_wins = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
+        num_draws = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
+        member.points = (num_wins * 3) + num_draws
+        member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
+        member.save()
+    ordered_players = ClubMember.objects.filter(is_approved=True).order_by('-points', 'played', 'player_id__username')
     for index in blue_indices:
         blue = ordered_players[index]
         blue.team = 'blue'
@@ -338,7 +345,7 @@ def allocate_teams(request, pk):
     match.save()
     return HttpResponseRedirect(reverse('select_match'))
 
-
+    
 def reset_teams(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)

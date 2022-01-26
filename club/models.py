@@ -22,7 +22,7 @@ class ClubMember(AbstractUser):
     is_in_team = models.BooleanField(default=False)
 
     def games_played(self):
-        num_games = MatchPlayer.objects.filter(player_id=self.id).count()
+        num_games = MatchPlayer.objects.filter(player_id=self.id, reserve=False).count()
         return num_games
 
     def games_won(self):

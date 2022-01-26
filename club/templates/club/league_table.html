@@ -22,9 +22,9 @@ Member Zone
             <tr>
                 <th>Player</th>
                 <th>Played</th>
-                <th>Won</th>
-                <th>Drawn</th>
-                <th>Lost</th>
+                <th class="mobile-hide">Won</th>
+                <th class="mobile-hide">Drawn</th>
+                <th class="mobile-hide">Lost</th>
                 <th>Points</th>
             </tr>
             {% for member in league_table %}
@@ -32,18 +32,18 @@ Member Zone
                     <tr class="highlight">
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.games_played}}</td>
-                        <td>{{member.games_won}}</td>
-                        <td>{{member.games_drawn}}</td>
-                        <td>{{member.games_lost}}</td>
+                        <td class="mobile-hide">{{member.games_won}}</td>
+                        <td class="mobile-hide">{{member.games_drawn}}</td>
+                        <td class="mobile-hide">{{member.games_lost}}</td>
                         <td>{{member.points}}</td>
                     </tr>
                 {% else %}
                 <tr>
                     <td>{{member.first_name}} {{member.last_name}}</td>
                     <td>{{member.games_played}}</td>
-                    <td>{{member.games_won}}</td>
-                    <td>{{member.games_drawn}}</td>
-                    <td>{{member.games_lost}}</td>
+                    <td class="mobile-hide">{{member.games_won}}</td>
+                    <td class="mobile-hide">{{member.games_drawn}}</td>
+                    <td class="mobile-hide">{{member.games_lost}}</td>
                     <td>{{member.points}}</td>
                 </tr>
                 {% endif %}

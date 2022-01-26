@@ -34,14 +34,15 @@ def next_fixture(request):
     })
 
 
+
 def view_league_table(request):
     current_member = request.user
     all_members = ClubMember.objects.filter(is_approved=True)
     for member in all_members:
         num_wins = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
         num_draws = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
+        played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
         member.points = (num_wins * 3) + num_draws
-        member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
         member.save()
     league_table = ClubMember.objects.filter(is_approved=True).order_by('-points', 'played')
     return render(request, 'club/league_table.html', {

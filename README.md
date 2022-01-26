@@ -201,6 +201,8 @@ book match place not working. implemented manual test driven approach, gradually
 
 mambers page throwing an error if next fixture was not flagged. added try block
 
+I initially planned on adding the matches played, won, drawn and lost as integer fields on the ClubMember model, however I had difficulty updating them inside the views to add and remove scores. I then decided to add property methods on the ClubMember model which calculated them based on the MatchPlayer instances created with the player_id of the ClubMember.  I then ran into another issue as I was not able to sort the players by methods in the league table.  I eventually resolved this by removing the methods from the property models and calculating the number of matches and points in the league table view instead.
+
 allocate teams functions not working correctly.  if 2 members had the same number of points and matches played the one of the members was being omitted. realised that this was because they had the same index number so added a 3rd search parameter which resolved the issue
 
 ## Testing

@@ -29,4 +29,4 @@ class MatchForm(forms.ModelForm):
 class ResultsForm(forms.ModelForm):
     class Meta:
         model = Match
-        fields = ['match_date', 'time', 'location', 'blue_goals', 'white_goals']        
+        fields = ['match_date', 'time', 'location', 'blue_goals', 'white_goals']

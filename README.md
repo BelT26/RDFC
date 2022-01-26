@@ -19,7 +19,8 @@ https://belt26.github.io
     * [Match](#match)
     * [MatchPlayer](#matchplayer)
 * [Features](#features)
-    * [User Authentications](#user-authentication)
+    * [User Authentication](#user-authentication)
+    * [Messages](#messages)
     * [Navigation](#navigation)
     * [Footer](#footer)
     * [Home Page](#home)
@@ -38,8 +39,8 @@ https://belt26.github.io
             * [Open Registrations](#open-registrations)
             * [Allocate Teams](#allocate-teams)
             * [Add Scores](#add-scores)
-        * [Member Admin](#member-admin)
-        * [View Players](#view-players)
+            * [View Players](#view-players)
+        * [Member Admin](#member-admin)      
 * [Bugs and challenges](#bugs-and-challenges)
 * [Testing](#testing)
     * [Automated Tests](#automated-tests)
@@ -72,8 +73,9 @@ Optional features that were discussed were:
 * A page dedicated to upcoming social events
 
 ### User Stories
-Once I had collected the requirements I created a project with the Kanban template on Github and added all of the user stories. These were arranged into epics as shown in the table below and allocated a priority rating.
-Each user story was then broken down into tasks.
+After receiving the initial project brief I created a project with the Kanban template on Github and added user stories. 
+Following my first meeting with the club manager the list of stories was extended. They were arranged into epics as shown in the table below and allocated a priority rating of between 1 and 3 with priority 1 being the most important.
+User stories were broken down into tasks as in the example below.
 
 ### Project Review Meeting
 Once the project was near completion I scheduled another meeting with the club manager to review the progress of the site. Steve was happy to leave the pages for the match reports and social events to a later date, but requested that I add a page in which he could view which members had registered for the upcoming match and also a facility whereby players could be placed on a reserve list if all of the team places were already taken so that he could reassign the place if somebody cancelled.
@@ -89,13 +91,17 @@ The ClubMember model is a custom user model that inherits from the Django user m
 The Match model is used to create an instance of each game.  The details are used to populate the Next Fixture and Past Results pages and the manager is able to manage the properties of each Match within the Match Admin table. 
 
 ### MatchPlayer
-Each time a ClubMember registers for a Match an instance of the MatchPlayer field is created.  The results of each game are stored on the MatchPlayer model and these are used to dynamically generate the scores for the player league table.
+Each time a ClubMember registers for a Match an instance of the MatchPlayer field is created.  The MatchPlayer model has two foreign keys: the match_id that is based on the Match model and the player_id that is based on the ClubMember model.
+The results of each game are stored on the MatchPlayer model and these are used to dynamically generate the scores for the player league table.
 
 ## Features
 
 ## User Authentication
 Django Allauth was installed to enable users to sign up, log in and log out.  I customised the standard Allauth model  
 so that users also need to enter their first and last name when signing up
+
+## Messages
+Feedback on user interaction is provided via Django messages.  Bootstrap classes have been applied to convey success or error messages.  The code to install and customise the messages was taken from the 'I think therefore I blog' walkthrough project.
 
 ## Navigation
 I created a responsive navbar that collapses on mobile devices using Bootstrap classes.  The items displayed on the navbar change according to whether the user is logged in or not and whether they are the club manager.
@@ -113,7 +119,7 @@ As well as all of the member facilities, the manager has access to a dropdown ma
 The footer contains social media links to Facebook, Twitter and Instagram.  The club manager has not yet set up accounts with these sites so the links currently take the user to the home page. These links will be updated once the club's accounts have been created.
 
 ## Home Page
-The home page is split into three sections, accessible by a dropdown menu, a general introduction to the club, a social section and a contact section including a Google map showing where the team play.
+The home page is split into three sections, accessible by a dropdown menu, a general introduction to the club, a social section and a contact section including a Google map showing where the team play. The links to each of the sections were created using template tags.
 
 ## Map
 I used the Bootstrap Resume walkthrough project as a guide to creating the JavaScript code to link to the Google Maps API.  At the moment only one location is marked as the club both play and socialise at the South Park grounds.  I decided to still use marker clusters as the club manager mentioned to me that he may like to add other venues to the map in the future
@@ -132,6 +138,7 @@ Once the manager has allocated the teams for the match, the player names and a l
 The league table sorts the players by the number of points they have scored and then by the number of matches they have played. When two or more players have the same number of points the player who has played the fewer matches ranks more highly.
 
 ### Past Results
+The past results page shows the scores of any previous matches so that members can find out about any games they missed.  The members of each teams are also listed.
 
 ### Match Booking Form
 If match registrations are open a booking form is displayed. Otherwise users see a message informing them that registrations are currently closed. In the booking form users can see the date of the match.  
@@ -169,12 +176,18 @@ Once assignment has occurred the next fixture details are updated with the team 
 
 
 #### Add Results
-The manager has the ability to manually enter the latest match score.
-The winning team gets 3 points, the losing team 0 points and in the case of a draw each team receives 1 point.
-The MatchPlayers are allocated either a win, loss or a draw according to the results input by the manager
-The league table then recalculates and updates the player scores and resorts the players.
-The scores areautomatically populated in the latest results table
+The manager has the ability to manually enter the latest match score. The members of the winning team gets 3 points, the losing team 0 points and in the case of a draw all players receive 1 point.
+The MatchPlayers are allocated either a win, loss or a draw according to the results input by the manager. The league table view then recalculates and updates the player scores and sorts the players. The new scores areautomatically populated in the latest results table
 
+If the results have already been added then the manager has the option to delete the result if they have made a mistake.  The statistics of the players in the match are automatically updated to reflect that the result has been annulled.
+
+#### View Players
+This feature was added after being requested by the manager during the project review. He wanted to be able to see which players had registered for a match prior to allocating teams and displaying them im the member zone.
+
+### Member Admin
+The member admin page offers the manager the possibility to view, approve or rejects any pending club membership applications. Once an applicant has been approved or rejected an email is auto generated to advise them of the club decision.
+
+The member page also contains a list of all approved members with their email addresses so that the club manager is able to contact them if necessary.  The manager has the possibility of deleting members if they leave the club or are barred for misbehaving!
 
 ## Bugs and Challenges
 Linking to specific sections of a page[linking](https://engineertodeveloper.com/a-better-way-to-route-back-to-a-section-ids-in-django/)
@@ -204,6 +217,12 @@ allocate teams functions not working correctly.  if 2 members had the same numbe
 
 The text for the home page was provided by Steve Wilson, the club manager.
 
+The club logo was created using Canva
+
+Raleway and Roboto fonts were imported from Google Fonts.
+
+The social media icons and the icons in the contact section were imported from Font Awesome
+
 #### Images
 Home page banner:  Mick Haupt / Unsplash.
 Social section: Rawpixel / Shutterstock
@@ -213,9 +232,6 @@ Next fixture: Emrah Kara / Unsplash
 
 ## Future Development Possibilities
 
-Add the possibility to add social events - not current requirement
+In the future I would like to address the items marked in the user stories as priority to promote the social side of the club. I plan to add a social page showing future get-togethers and give the manager the possibility to add events.  
 
-Add to the management functionality so that they can manually adjust members details
-
-Add a blog featuring the weekly match report
-
+Another possibility that was dicsussed with the club manager was the inclusion of a blog style page containing match reports. These would be uploaded by the manager after the game and all members would be able to like and comment on them.

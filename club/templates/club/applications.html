@@ -14,7 +14,7 @@ Manager Zone
 
 {% block content %}
 <div class="member-form-container">
-    <h1 class="text-center display-4">Pending Membership Applications</h1>    
+    <h1 class="text-center custom-display">Pending Membership Applications</h1>    
     <div class="row">
         <div class="col-12 my-auto">
             <form method="POST" action="#">
@@ -23,13 +23,13 @@ Manager Zone
                 <table class="table table-bordered my-4">
                     <tr>
                         <th>Name</th>
-                        <th>Email</th>
+                        <th class="mobile-hide">Email</th>
                         <th colspan="2">Manage Applications</th>
                     </tr>
                     {% for member in pending_applications %}
                     <tr>
                         <td>{{member.first_name}} {{member.last_name}}</td>
-                        <td>{{member.email}}</td>
+                        <td class="mobile-hide">{{member.email}}</td>
                         <td><a href="{% url 'approve_member' member.id %}">Approve</a></td>
                         <td><a href="#">Reject</a></td>
                     </tr>
@@ -38,7 +38,7 @@ Manager Zone
             </form>
         </div>    
     </div>
-    <h1 class="text-center display-4">Current Members</h1>
+    <h1 class="text-center custom-display">Current Members</h1>
     <div class="row">
         <div class="col-12 my-auto">
             <form method="POST" action="#">
@@ -48,15 +48,15 @@ Manager Zone
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th>Available</th>
-                        <th>Delete Member</th>
+                        <th class="mobile-hide">Available</th>
+                        <th class="mobile-hide">Delete Member</th>
                     </tr>
                     {% for member in current_members %}
                     <tr>
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.email}}</td>
-                        <td>{{member.is_available}}</td>
-                        <td><a href="{% url 'delete_member' member.id %}">Delete</a></td>
+                        <td class="mobile-hide">{{member.is_available}}</td>
+                        <td class="mobile-hide"><a href="{% url 'delete_member' member.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}
                 </table>   

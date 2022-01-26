@@ -194,6 +194,7 @@ A cropped version of the main homepage is used for smaller devices
 On mobiles non essential columns are hidden on tables to improve readability.
 On the league table only the player, played and points columns appear and on the results page just the match date and the scores are displayed.
 The club manager informed me that he intended to carry out the club admin on a laptop but may occasionally need to open the match registrations, allocate teams or add scores on a mobile device so these were the match admin fields chosen to be displayed on small screens.
+For the member admin page he felt the most important fields were the approve and reject buttons for pending applications and the email address for current members.
 
 ## Bugs and Challenges
 Linking to specific sections of a page[linking](https://engineertodeveloper.com/a-better-way-to-route-back-to-a-section-ids-in-django/)

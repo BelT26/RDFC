@@ -14,7 +14,6 @@
 
 #social-pic {
     height: 50vh;
-
 }
 
 div #map {
@@ -38,5 +37,10 @@ div #map {
 
     #main-heading{
         font-size: 80px;
+    }
+
+    #social-pic {
+        width: 90vw;
+        height: auto;
     }
 }

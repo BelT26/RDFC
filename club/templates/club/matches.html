@@ -13,32 +13,27 @@ Manager Zone
 
 {% block content %}
 <div class="matches-form-container">
-    <h1 class="text-center display-4">All Matches</h1>
+    <h1 class="text-center custom-display">All Matches</h1>
     <br>
-    <table class="table table-bordered my-4">
+    <table class="table table-bordered my-md-4">
         <tr>
             <th>Date</th>
-            <!-- <th>Blues</th>
-            <th>Whites</th> -->
             <th colspan="7">Match Management</th>
         </tr>
         {% for match in matches %}
         <tr>
-            <td>{{match.match_date|date:"j F y"}}</td>
-            <!-- <td>{{match.blue_goals}}</td>
-            <td>{{match.white_goals}}</td>
-            <td>{{match.results_added}}</td> -->
-            <td><a href="{% url 'edit_match' match.id %}">Edit</a></td>
-            <td><a href="{% url 'delete_match' match.id %}">Delete</a></td>
+            <td>{{match.match_date|date:"j M y"}}</td>
+            <td class="mobile-hide"><a href="{% url 'edit_match' match.id %}">Edit</a></td>
+            <td class="mobile-hide"><a href="{% url 'delete_match' match.id %}">Delete</a></td>
             {% if match.registrations_open %}
             <td><a href="{% url 'close_reg' match.id %}">Close Registrations</a></td>
             {% else %}
             <td><a href="{% url 'open_reg' match.id %}">Open Registrations</a></td>
             {% endif %}
             {% if match.next_fixture %}
-            <td><a href="{% url 'remove_next' match.id %}">Remove Next Fixture Flag</a></td>
+            <td class="mobile-hide"><a href="{% url 'remove_next' match.id %}">Remove Next Fixture Flag</a></td>
             {% else %}
-            <td><a href="{% url 'add_next' match.id %}">Flag as Next Fixture</a></td>
+            <td class="mobile-hide"><a href="{% url 'add_next' match.id %}">Flag as Next Fixture</a></td>
             {% endif %}
             {% if match.teams_allocated %}
             <td><a href="{% url 'reset_teams' match.id %}">Clear Teams</a></td>
@@ -54,7 +49,7 @@ Manager Zone
             {% else %}
             <td><a href="{% url 'add_score' match.id %}">Add Result</a></td>
             {% endif %}
-            <td><a href="{% url 'see_players' match.id %}">See Members</a></td>
+            <td class="mobile-hide"><a href="{% url 'see_players' match.id %}">See Members</a></td>
         </tr>
         {% endfor %}
     </table>   

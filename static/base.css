@@ -69,4 +69,9 @@ footer i {
     .custom-display{
         font-size: 2.5rem;
     }
+
+    .mobile-hide {
+        display: none;
+    }
 }
+

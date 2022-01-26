@@ -189,6 +189,12 @@ The member admin page offers the manager the possibility to view, approve or rej
 
 The member page also contains a list of all approved members with their email addresses so that the club manager is able to contact them if necessary.  The manager has the possibility of deleting members if they leave the club or are barred for misbehaving!
 
+## Media Queries
+A cropped version of the main homepage is used for smaller devices
+On mobiles non essential columns are hidden on tables to improve readability.
+On the league table only the player, played and points columns appear and on the results page just the match date and the scores are displayed.
+The club manager informed me that he intended to carry out the club admin on a laptop but may occasionally need to open the match registrations, allocate teams or add scores on a mobile device so these were the match admin fields chosen to be displayed on small screens.
+
 ## Bugs and Challenges
 Linking to specific sections of a page[linking](https://engineertodeveloper.com/a-better-way-to-route-back-to-a-section-ids-in-django/)
 

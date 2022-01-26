@@ -23,19 +23,19 @@ Member Zone
                 <th>Date</th>
                 <th>Blues</th>
                 <th>Whites</th>
-                <th>Blue Team</th>
-                <th>White Team</th>
+                <th class="mobile-hide">Blue Team</th>
+                <th class="mobile-hide">White Team</th>
             </tr>
             {% for match in past_results %}
             <tr>
-                <td>{{match.match_date}}</td>
+                <td >{{match.match_date}}</td>
                 <td>{{match.blue_goals}}</td>
                 <td>{{match.white_goals}}</td>
-                <td>{% for player in match.blueteam %}
+                <td class="mobile-hide">{% for player in match.blueteam %}
                     <span>{{player.player_id}},  </span>
                     {% endfor %}
                 </td>
-                <td>{% for player in match.whiteteam %}
+                <td class="mobile-hide">{% for player in match.whiteteam %}
                     <span>{{player.player_id}},  </span>
                     {% endfor %}
                 </td>

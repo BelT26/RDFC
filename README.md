@@ -1,6 +1,6 @@
 # Reigate Dads FC
 
-https://belt26.github.io
+https://reigate-dads.herokuapp.com/
 
 ## Author: Helen Taylor  
 ## Version 1.0.0
@@ -218,11 +218,96 @@ allocate teams functions not working correctly.  if 2 members had the same numbe
 
 
 ### Manual Tests
+All navigation links work as expected
+
+I tested all auto generated emails using my own email address and received the expected messages.
 
 
 ## Deployment
+The project was created on Github and deployed via Heroku following the steps below based on the Code Institute 'I think therefore I blog' walkthrough project:
+
+### In Github
+* Initialise a git repository
+
+### In the Gitpod terminal
+* Install Django and gunicorn by entering pip3 install Django==3.2 gunicorn in the terminal
+* Install the postgres database by entering pip3 install dj_database_url psycopg2 in the terminal
+* Install Cloudinary libraries by entering pip3 install dj3-cloudinary-storage
+* Create a requirements file by typing pip3 freeze --local > requirements.txt
+* Create a project folder in the current directory by typing django-admin startproject reigate-dads .
+* Create the app folder by entering python3 manage.py startapp RDFC
+* Add 'RDFC' to the list of installed apps in settings.py
+* Migrate Changes using the command python3 manage.py migrate
+
+### In Heroku
+* Login to Heroku, click on the 'NEW' button and create a new app
+* Navigate to the Resources tab and add 'Heroku Postgres'
+* In the settings tab click to reveal the Config Vars and copy the DATABASE_URL value.
+
+### In Gitpod
+* Create new env.py file on top level directory
+* At the top of this file type 'import os'
+* To link the database enter 'os.environ["DATABASE_URL"] =' followed by the value copied from Heroku in inverted commas
+* Add a secret key by typing 'os.environ["SECRET_KEY"] = ' followed by the name of your chosen secret key in inverted commas
+
+### In Heroku
+* Navigate to the the settings tab and add the Secret Key to the Config Vars
+
+#### In Gitpod
+* Open up the settings.py file and add the following code
+    from pathlib import Path
+    import os
+    import dj_database_url
+    if os.path.isfile("env.py"):
+        import env
+* Remove the secret key from settings.py and replace it with SECRET_KEY = os.environ.get('SECRET_KEY')
+* To update the database replace the old database settings with 
+    DATABASES = {
+    'default': dj_database_url.parse(os.environ.get("DATABASE_URL"))
+    }
+* Enter python3 manage.py migrate in the terminal
+
+#### In Cloudinary.com: 
+* Login and copy your CLOUDINARY_URL from the Cloudinary Dashboard
+
+#### In Gitpod
+* Add the Cloudinary URL to the env.py file in the following format:
+    os.environ["CLOUDINARY_URL"] = "cloudinary://************************"
+
+#### In Heroku:
+* In settings add the Cloudinary URL to the Config Vars 
+
+#### In Gitpod
+* Add the following Cloudinary Libraries to the list of installed apps in settings.py in the order below:
+    'cloudinary_storage',
+    'django.contrib.staticfiles',
+    'cloudinary',
+* Add the following code to settings.py to let Django know to use Cloudinary for static and media files:
+    STATIC_URL = '/static/'
+    STATICFILES_STORAGE = 'cloudinary_storage.storage.StaticHashedCloudinaryStorage'
+    STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]
+    STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+    MEDIA_URL = '/media/'
+    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+* Add the following code to settings.py under BASE_DIR to link the templates directory
+    TEMPLATES_DIR = os.path.join(BASE_DIR, 'templates')
+    TEMPLATES = [
+    {'DIRS': [TEMPLATES_DIR],},
+    ]
+* Add the allowed hosts: ALLOWED_HOSTS = ["reigate-dads.herokuapp.com", "localhost"]
+* Create static, media and templates folders in the top level directory 
+* Create a new file named 'Procfile' in the top level directory and add the code:
+    web: gunicorn PROJ_NAME.wsgi
+* Add, commit and push all changes to Github
+
+#### In Heroku:
+* Deploy the site manually using Github as the deployment method, on the main branch
+
+
 
 ## Credits
+
+I learnt how to send emails in Django from the following online tutorial 
 
 The text for the home page was provided by Steve Wilson, the club manager.
 

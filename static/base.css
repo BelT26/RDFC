@@ -10,6 +10,7 @@
     font-weight: 100;
 }
 
+
 .navbar {
     background-color: rgb(70, 70, 190);
     color: white;
@@ -50,11 +51,27 @@ footer i {
     color:white;
 }
 
-
 .allauth-container {
     margin: 0 auto;
-    height: calc(100vh - 11rem);
+    height: calc(100vh - 11.5rem);
     width: 60%;
+}
+
+.no-page-container {
+    margin: 0 auto;
+    height: calc(100vh - 11.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-button {
+    background-color: gold;
+}
+
+.submit-button:active,
+.submit-button:hover {
+    background-color: rgb(216, 188, 29);
 }
 
 @media screen and (max-width: 760px) {

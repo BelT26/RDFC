@@ -370,7 +370,7 @@ def see_players(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     players = MatchPlayer.objects.filter(reserve=False, match_id=match)
-    reserves = MatchPlayer.objects.filter(reserve=True, match_id=match).order_by
+    reserves = MatchPlayer.objects.filter(reserve=True, match_id=match).order_by('registration_time')
     return render(request, 'club/see_players.html', {
         'players': players,
         'reserves': reserves,

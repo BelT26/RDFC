@@ -9,6 +9,9 @@ Page Not Found
 {% endblock %}
 
 {% block content %}
-<h2 id="404-title" class="display-4 text-center">Sorry we couldn't find that page!</h2>
-<button class="btn-lg btn"><a href="{% url 'index' %}">Back to Home</a></button>
+<div class="no-page-container">
+    <img src="{% static 'images/referee.jpg' %}"  alt="cartoon image of a referee blowing a whistle" height="200px">
+    <h2 id="404-title" class="display-4 text-center my-4">Oops we couldn't find that page!</h2>
+    <button class="btn-lg btn submit-button"><a href="{% url 'index' %}">Back to Home</a></button>
+</div>
 {% endblock %}

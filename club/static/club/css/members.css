@@ -1,4 +1,3 @@
-
 #pitch-img-container {
     display: flex;
     justify-content: center;
@@ -27,9 +26,3 @@
     min-height: calc(100vh - 11.5rem);
 }
 
-@media screen and (max-width: 600px) {
-    
-    .mobile-hide {
-        display: none;
-    }
-}

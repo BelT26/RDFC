@@ -7,7 +7,7 @@ from .models import Match, ClubMember, MatchPlayer
 class ClubMemberAdmin(admin.ModelAdmin):
 
     list_filter = ('is_approved', 'is_available')
-    list_display = ('first_name', 'last_name', 'points', 'is_available')
+    list_display = ('first_name', 'last_name', 'is_available')
     search_fields = ['first_name', 'last_name', 'username']
     actions = ['approve_member']
 

@@ -21,28 +21,6 @@ class ClubMember(AbstractUser):
     is_available = models.BooleanField(default=False)
     is_in_team = models.BooleanField(default=False)
 
-    def games_played(self):
-        num_games = MatchPlayer.objects.filter(player_id=self.id, reserve=False).count()
-        return num_games
-
-    def games_won(self):
-        num_games = MatchPlayer.objects.filter(player_id=self.id, win=True).count()
-        return num_games
-    
-    def games_drawn(self):
-        num_games = MatchPlayer.objects.filter(player_id=self.id, draw=True).count()
-        return num_games
-
-    def games_lost(self):
-        num_games = MatchPlayer.objects.filter(player_id=self.id, loss=True).count()
-        return num_games
-
-    def player_points(self):
-        num_wins = MatchPlayer.objects.filter(player_id=self.id, win=True).count()
-        num_draws = MatchPlayer.objects.filter(player_id=self.id, draw=True).count()
-        points = (num_wins * 3) + num_draws
-        return points
-
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 

@@ -31,19 +31,19 @@ Member Zone
                 {% if member == current_member %}
                     <tr class="highlight">
                         <td>{{member.first_name}} {{member.last_name}}</td>
-                        <td>{{member.games_played}}</td>
-                        <td class="mobile-hide">{{member.games_won}}</td>
-                        <td class="mobile-hide">{{member.games_drawn}}</td>
-                        <td class="mobile-hide">{{member.games_lost}}</td>
+                        <td>{{member.played}}</td>
+                        <td class="mobile-hide">{{member.won}}</td>
+                        <td class="mobile-hide">{{member.drawn}}</td>
+                        <td class="mobile-hide">{{member.lost}}</td>
                         <td>{{member.points}}</td>
                     </tr>
                 {% else %}
                 <tr>
                     <td>{{member.first_name}} {{member.last_name}}</td>
-                    <td>{{member.games_played}}</td>
-                    <td class="mobile-hide">{{member.games_won}}</td>
-                    <td class="mobile-hide">{{member.games_drawn}}</td>
-                    <td class="mobile-hide">{{member.games_lost}}</td>
+                    <td>{{member.played}}</td>
+                    <td class="mobile-hide">{{member.won}}</td>
+                    <td class="mobile-hide">{{member.drawn}}</td>
+                    <td class="mobile-hide">{{member.lost}}</td>
                     <td>{{member.points}}</td>
                 </tr>
                 {% endif %}

@@ -7,6 +7,8 @@
 
 #main-img {
     width: 80vw;
+    position: relative;
+    z-index: -1;
 }
 
 #main-cropped{
@@ -15,6 +17,9 @@
 
 #main-heading {
     font-family: 'Raleway', sans-serif;
+    position: absolute;
+    top: 10rem;
+    z-index: 1;
 }
 
 .homepage-text {
@@ -43,14 +48,17 @@ div #map {
 @media screen and (max-width: 600px) {
     
     #main-heading {
-        font-size: 80px;
+        font-size: 70px;
+        top: 7rem;
     }
 
     #main-cropped {
         display: block;
-        width: 85vw;
+        width: 80vw;
         height: auto;
         margin: 0 auto;
+        position: relative;
+        z-index: -1;
     }
 
     #social-pic {

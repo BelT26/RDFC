@@ -1,0 +1,93 @@
+* {
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+.custom-display {
+    font-family: 'Raleway', sans-serif;
+    font-size: 3.5rem;
+    font-weight: 100;
+}
+
+
+.navbar {
+    background-color: rgb(70, 70, 190);
+    color: white;
+    height: 6rem;
+    padding: 20px;
+}
+
+#logo-img {
+    height: 70px;
+}
+
+/* styles for footer of each page */
+
+footer {
+    width: 100%;
+    background-color: rgb(70, 70, 190);
+    color: white;
+    align-items: center;
+    padding: 10px;  
+    height: 4rem; 
+}
+ 
+footer li {
+    display:inline-block;
+    padding-right: 80px;    
+}
+
+footer i {
+    color: white;
+    font-size: 200%;  
+}
+
+.social i:hover {
+    color: gold;
+}
+
+#small-logo i:hover {
+    color:white;
+}
+
+.allauth-container {
+    margin: 0 auto;
+    height: calc(100vh - 11.5rem);
+    width: 60%;
+}
+
+.no-page-container {
+    margin: 0 auto;
+    height: calc(100vh - 11.5rem);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.submit-button {
+    background-color: gold;
+}
+
+.submit-button:active,
+.submit-button:hover {
+    background-color: rgb(216, 188, 29);
+}
+
+@media screen and (max-width: 760px) {
+    footer li {
+        padding: 10px;
+    }
+
+    footer i {
+        font-size: 150%;
+    }
+
+    .custom-display{
+        font-size: 2.5rem;
+    }
+
+    .mobile-hide {
+        display: none;
+    }
+}

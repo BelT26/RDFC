@@ -1,7 +1,16 @@
+/* styles for club introduction and social information on home page */
 #main-img-container {
-    background: url(../images/football.jpg) center no-repeat;
-    background-size: cover;
-    height: 75vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#main-img {
+    width: 80vw;
+}
+
+#main-cropped{
+    display: none;
 }
 
 #main-heading {
@@ -16,6 +25,7 @@
     height: 50vh;
 }
 
+/* styles for contact section */
 div #map {
     min-height: 360px;
 }
@@ -28,15 +38,19 @@ div #map {
     text-decoration: none;
 }
 
+
+/* media queries to change heading font size, main image displayed and the size of the social image on mobiles */
 @media screen and (max-width: 600px) {
-    #main-img-container {
-        background: url(../images/football-cropped.jpg) center no-repeat;
-        background-size: cover;
-        height: 75vh;
+    
+    #main-heading {
+        font-size: 80px;
     }
 
-    #main-heading{
-        font-size: 80px;
+    #main-cropped {
+        display: block;
+        width: 85vw;
+        height: auto;
+        margin: 0 auto;
     }
 
     #social-pic {

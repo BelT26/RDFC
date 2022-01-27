@@ -13,8 +13,9 @@ Home
 
 {% block content %}
 <div class="container-fluid mb-md-3 mt-md-2">
-    <div id="main-img-container" class="container mt-md-4">
-        <span class="background-image" role="img" aria-label="football on a playing field"> </span>        
+    <div id="main-img-container" class="container mt-md-4 mx-auto">
+        <img src="{% static 'club/images/football.jpg' %}" class="mobile-hide mx-auto" alt="football on a playing field" id="main-img">
+        <img src="{% static 'club/images/football-cropped.jpg' %}" class="mobile-only" alt="football on a playing field" id="main-cropped">        
         <h1 class="display-1 text-center font-weight-normal text-white pt-3" id="main-heading">Reigate Dads FC</h1>
     </div>
     <div class="container mt-md-3 p-3" id="club-intro-text">

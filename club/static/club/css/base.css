@@ -1,8 +1,11 @@
+/* general site settings */
 * {
     margin: 0;
     box-sizing: border-box;
     font-family: 'Open Sans', sans-serif;
 }
+
+/* display font used for main headings accross site */
 
 .custom-display {
     font-family: 'Raleway', sans-serif;
@@ -10,6 +13,7 @@
     font-weight: 100;
 }
 
+/* styles for the navbar */
 
 .navbar {
     background-color: rgb(70, 70, 190);
@@ -51,6 +55,8 @@ footer i {
     color:white;
 }
 
+
+/* styles to size container elements for allauth templates and the custom 404 page */
 .allauth-container {
     margin: 0 auto;
     height: calc(100vh - 11.5rem);
@@ -61,9 +67,12 @@ footer i {
     margin: 0 auto;
     height: calc(100vh - 11.5rem);
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 }
+
+/* styles for the button for user interactions */
 
 .submit-button {
     background-color: gold;
@@ -73,6 +82,8 @@ footer i {
 .submit-button:hover {
     background-color: rgb(216, 188, 29);
 }
+
+/* media queries to customize the layout of the footer, font size of the headings and to hide and display elements on mobile devices */
 
 @media screen and (max-width: 760px) {
     footer li {
@@ -89,5 +100,9 @@ footer i {
 
     .mobile-hide {
         display: none;
+    }
+
+    .mobile-only {
+        display: block;
     }
 }

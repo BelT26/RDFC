@@ -1,15 +1,10 @@
-#pitch-img-container {
-    display: flex;
-    justify-content: center;
-    margin-bottom: 3rem;  
-    margin-top: 2rem;  
-}
-
-
+/* style used to hightlight the current user's position in the league table */
 .highlight {
     background-color: rgb(252, 235, 142);
 }
 
+
+/* styles to determine the size of container elements */
 #booking-container {
     height: calc(100vh - 11.5rem);
 }
@@ -18,3 +13,9 @@
     min-height: calc(100vh - 11.5rem);
 }
 
+#pitch-img-container {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 3rem;  
+    margin-top: 2rem;  
+}

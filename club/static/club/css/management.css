@@ -1,3 +1,4 @@
+/* styles to determine the size of table and form container elements */
 .custom-form-container {
     margin: 0 auto;
     height: calc(100vh - 11.5rem);
@@ -26,26 +27,6 @@
     width: 60%;
 }
 
-.submit-button {
-    background-color: gold;
-}
-
-.submit-button:active,
-.submit-button:hover {
-    background-color: rgb(216, 188, 29);
-}
-
-.asteriskField {
-    display: none;
-}
-
-.player-table {
-    width: 50%;
-    line-height: 0.8rem;
-    padding-left: 1rem;
-    margin: 0 auto;
-}
-
 .player-table-container {
     display: flex;
     flex-direction: column;
@@ -56,13 +37,25 @@
     width: 80%;    
 }
 
+.player-table {
+    width: 50%;
+    line-height: 0.8rem;
+    padding-left: 1rem;
+    margin: 0 auto;
+}
+
+/* style to remove default asterisks displayed on forms */
+.asteriskField {
+    display: none;
+}
+
+/* media queries to modify the size and layout of containers on mobile devices */
 @media screen and (max-width: 760px) {
     .custom-form-container {
         width: 90%;
         padding-top: 1rem;
         height: calc(100vh - 4rem)
     }
-
     
     .edit-match-container {
         width: 90%;
@@ -72,8 +65,7 @@
     .edit-match-btn {
         margin: 20px 0;
     }
-
-    
+  
     .matches-form-container {
         height: 100%;
         padding: 0;
@@ -83,7 +75,6 @@
         height: auto;
         justify-content: start;
     }
-
     
     .player-table {
         width: 80%;        
@@ -93,5 +84,4 @@
         width: 90%;
         padding: 0;
     }
-
 }

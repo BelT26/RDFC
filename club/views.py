@@ -9,11 +9,18 @@ from .forms import MatchForm, ResultsForm
 
 
 def index(request):
-    """returns a view of the home page"""
+    """Returns a view of the home page"""
     return render(request, 'club/index.html')
 
 
 def next_fixture(request):
+    """Checks which match has been flagged as the next fixture
+    and passes its details to the next fixture template. If no
+    match has been flagged the latest match in the database is 
+    retrieved to avoid an error being thrown. Checks whether the
+    current user is already registered for the match and passes
+    this information to the template. If teams have been allocated
+    passes collect the details to be displayed on the template"""
     member = request.user
     match_players = MatchPlayer.objects.all()
     if member in match_players:
@@ -22,7 +29,7 @@ def next_fixture(request):
         next_game = Match.objects.get(next_fixture=True)
     else:
         next_game = Match.objects.all().order_by('-match_date')[0]
-    blues = MatchPlayer.objects.filter(team='blue')
+    blues = MatchPlayer.objects.filter(team='blue', match_id=next_game)
     whites = MatchPlayer.objects.filter(team='white')
     reserves = MatchPlayer.objects.filter(reserve=True)
     return render(request, 'club/next_fixture.html', {
@@ -213,6 +220,10 @@ def edit_match(request, pk):
 
 
 def add_score(request, pk):
+    """Returns a results form in which the manager can enter
+    the scores of a match. Retrieves all the match players who
+    played in the game and updates their win/loss/draw property
+    accordingly"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     form = ResultsForm(instance=match)
@@ -254,6 +265,8 @@ def add_score(request, pk):
 
 
 def delete_score(request, pk):
+    """Allows the manager to delete the results of a match
+    and automatically updates the players' staticstics"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)    
     match.results_added = False
@@ -366,6 +379,13 @@ def see_players(request, pk):
 
 
 def allocate_teams(request, pk):
+    """Checks whether 12 people have confirmed places for
+    the match. If not checks the reserve list and pulls in
+    the player who registerd first. If there are no reserves
+    the manager is alerted that he needs 12 people before he
+    can allocate teams.  If there are 12 confirmed members they
+    are sorted by their points, matches played and username and
+    allocated teams according to their position"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
@@ -383,7 +403,6 @@ def allocate_teams(request, pk):
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
     white_indices = [1, 2, 4, 6, 8, 10]
-    # ordered_players = registered_players.order_by('-player_id__points', 'player_id__played', 'player_id__username')
     for member in registered_players:
         num_wins = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
         num_draws = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
@@ -406,6 +425,9 @@ def allocate_teams(request, pk):
 
 
 def reset_teams(request, pk):
+    """Sets the team property of all confirmed players back
+    to None. Used by the manager if a confirmed player cancels
+    their place and they need to allocate teams again"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     registered_players = MatchPlayer.objects.filter(match_id=match)
@@ -419,6 +441,10 @@ def reset_teams(request, pk):
 
 
 def approve_member(request, pk):
+    """Allows the manager to approve membership applications.
+    Sets the is_approved property of the member to True
+    and generates an email advising them they have been 
+    accepted"""
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
     member.is_approved = True
@@ -434,6 +460,9 @@ def approve_member(request, pk):
 
 
 def reject_member(request, pk):
+    """Allows the manager to reject membership applications
+    and generates an email advising them they have been 
+    rejected"""
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Application rejected')
@@ -446,6 +475,8 @@ def reject_member(request, pk):
 
 
 def delete_member(request, pk):
+    """Allows the manager to delete a member from the club
+    database"""
     queryset = ClubMember.objects.filter(is_approved=True)
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Member deleted')

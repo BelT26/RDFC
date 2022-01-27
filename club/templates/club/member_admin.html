@@ -48,14 +48,12 @@ Manager Zone
                     <tr>
                         <th>Name</th>
                         <th>Email</th>
-                        <th class="mobile-hide">Available</th>
                         <th class="mobile-hide">Delete Member</th>
                     </tr>
                     {% for member in current_members %}
                     <tr>
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td>{{member.email}}</td>
-                        <td class="mobile-hide">{{member.is_available}}</td>
                         <td class="mobile-hide"><a href="{% url 'delete_member' member.id %}">Delete</a></td>
                     </tr>
                     {% endfor %}

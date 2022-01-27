@@ -6,9 +6,9 @@ from .models import Match, ClubMember, MatchPlayer
 @admin.register(ClubMember)
 class ClubMemberAdmin(admin.ModelAdmin):
 
-    list_filter = ('is_approved', 'is_available')
-    list_display = ('first_name', 'last_name', 'is_available')
-    search_fields = ['first_name', 'last_name', 'username']
+    list_filter = ('is_approved',)
+    list_display = ('first_name', 'last_name', 'is_approved')
+    search_fields = ['first_name', 'last_name',]
     actions = ['approve_member']
 
     def approve_member(self, request, queryset):

@@ -9,18 +9,13 @@ class ClubMember(AbstractUser):
     last_name = models.CharField(max_length=50, null=False, blank=False)
     username = models.CharField(max_length=50, null=False, blank=False, unique=True)
     email = models.EmailField(max_length=255, unique=True)
-    is_active = models.BooleanField(default=True)
-    staff = models.BooleanField(default=False)
-    admin = models.BooleanField(default=False)
     played = models.IntegerField(default=0)
     won = models.IntegerField(default=0)
     drawn = models.IntegerField(default=0)
     lost = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     is_approved = models.BooleanField(default=False)
-    is_available = models.BooleanField(default=False)
-    is_in_team = models.BooleanField(default=False)
-
+        
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 

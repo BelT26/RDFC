@@ -59,9 +59,9 @@ SITE_ID = 1
 LOGIN_REDIRECT = '/'
 LOGOUT_REDIRECT = '/'
 
-
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
+# The message tags were taken from the 'I think therefore I blog' walkthrough project
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',

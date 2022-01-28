@@ -1,3 +1,5 @@
+//The below code is based on the map section in the Bootstrap resume walkthrough project
+
 // Creates a new google map and sets the zoom and central location
 function initMap() {
     var map = new google.maps.Map(document.getElementById("map"), {

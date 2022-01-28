@@ -4,6 +4,7 @@
 {% load custom_tags %}
 
 {% block css %}
+<!-- link to custom css -->
 <link rel="stylesheet" href="{% static 'club/css/members.css' %}">
 {% endblock %}
 
@@ -12,11 +13,12 @@ Member Zone
 {% endblock %}
 
 {% block content %}
+<!-- section showing details of the next match and the team selection if teams have been allocated -->
 <div id="member-zone" class= "container-fluid custom-height">
     <div id="next-fixture" class="container">
         <h2 class="text-center custom-display">Next Fixture</h2>
         <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto">  
+            <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto" alt="photo of an empty football pitch">  
         </div>  
         <h3 class="text-center">{{next_game.match_date|date:"l j F y"}}</h3>
         <h3 class="text-center">{{next_game.time|date:"H:i"}}</h3>

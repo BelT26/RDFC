@@ -105,4 +105,9 @@ footer i {
     .mobile-only {
         display: block;
     }
+
+    .mobile-nav li {
+        background: rgb(70, 70, 190) !important;
+
+    }
 }

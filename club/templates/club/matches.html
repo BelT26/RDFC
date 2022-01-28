@@ -4,6 +4,7 @@
 {% load custom_tags %}
 
 {% block css %}
+<!-- link to custom css -->
 <link rel="stylesheet" href="{% static 'club/css/management.css' %}">
 {% endblock %}
 
@@ -12,6 +13,8 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
+<!-- table with links for the manager to edit and delete matches, add results, open registrations, allocate 
+    teams and determine the next fixture. Options shown vary according the status of the various properties. -->
 <div class="matches-form-container">
     <h1 class="text-center custom-display">All Matches</h1>
     <br>

@@ -5,6 +5,7 @@
 {% load crispy_forms_tags %}
 
 {% block css %}
+<!-- link to custom css -->
 <link rel="stylesheet" href="{% static 'club/css/management.css' %}">
 {% endblock %}
 
@@ -13,6 +14,7 @@ Manager Zone
 {% endblock %}
 
 {% block content %}
+<!-- form used to add the results of a game -->
 <div class="edit-match-container">
     <h1 class="text-center display-4 mb-2">Add Match Results</h1>
     <h4 class="mb-3 text-center">Please enter the results for the match on {{match.match_date|date:"j F y"}}</h4>

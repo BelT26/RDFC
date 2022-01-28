@@ -128,6 +128,7 @@ When setting up the project I customised the admin display, filter and search fi
 ## User Authentication
 Django Allauth was installed to enable users to sign up, log in and log out.  I customised the standard Allauth model  
 so that users also need to enter their first and last name when signing up.  I copied the Allauth templates into a separate folder and used my own base.html file to extend them.  I also created a custom container for them so that they took up all the space on the screen that was not occupied by the header or footer.
+
 ![Sign Up Form](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/signup.jpg)
 
 ## Messages
@@ -138,18 +139,22 @@ I created a responsive navbar that collapses on mobile devices using Bootstrap c
 
 ### General User Access
 Visitors to the site can view general information about the club.  They also have the option of signing up to the club or logging in if they are a member.
+
 ![Site User Navbar](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/navbar-user.jpg)
 
 ### Member Access
 Once a user has logged in, their logged in status is displayed on the right of the navbar. Logged in users have access to the member zone in which they can book a place in the next match, view details of the next fixture, view past results and view the player league table. The signup option disappears and the login option is replaced with a logout option.
+
 ![Member Navbar](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/navbar-member.jpg)
 
 ### Manager Access
 As well as all of the member facilities, the manager has access to a dropdown management menu.  This offers options for him to add a new match fixture, update details of the existing matches and approve and remove members.
+
 ![Manager Navbar](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/navbar-manager.jpg)
 
 ## Footer
 The footer contains social media links to Facebook, Twitter and Instagram. The icons change from white to gold when the user hovers over them to indicate to the user that they are links. The club manager has not yet set up accounts with these sites so the links currently take the user to the home page. These links will be updated once the club's accounts have been created.
+
 ![Footer](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/footer.jpg)
 
 ## Home Page
@@ -157,16 +162,19 @@ The home page is split into three sections, accessible by a dropdown menu, a gen
 
 ### About
 The text provides a lighthearted introduction to the club for potential new members and was provided by Steve, the club manager. The main image is replaced with a cropped version on mobile devices.
+
 ![Club Intro](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/homepage.jpg)
 
 ### Social
 This section lets potential members know that the players like to socialialise together after the game. Eventually it will be moved to its own page and the manager will be able to add details of upcoming events.
+
 ![Social](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/social.jpg)
 
 ### Contact
 I used the Bootstrap Resume walkthrough project as a guide to creating the JavaScript code to link to the Google Maps API.  At the moment only one location is marked as the club both play and socialise at the South Park grounds.  I decided to still use marker clusters as the club manager mentioned to me that he may like to add other venues to the map in the future.
 
 The contact details allow the users to get in touch with any queries. The email address opens up a link to the user's email account with a prepopulated 'to' field.
+
 ![Contact](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/map.jpg)
 
 ## Member Zone
@@ -190,7 +198,6 @@ To enable the member to locate their place in the table more easily a highlighte
 The past results page shows the scores of any previous matches so that members can find out about any games they missed.  The members of each teams are also listed on larger devices but not on mobiles.
 
 ![Results Table](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/results.jpg)
-![Results Table - Mobiles](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/results_mobile.jpg)
 
 ### Match Booking Form
 If match registrations are open a booking form is displayed. Otherwise users see a message informing them that registrations are currently closed. In the booking form users can see the date of the match.  
@@ -261,11 +268,10 @@ On the league table only the player, played and points columns appear and on the
 
 The club manager informed me that he intended to carry out the club admin on a laptop but may occasionally need to open the match registrations, allocate teams or add scores on a mobile device so these were the match admin fields chosen to be displayed on small screens.
 
-![Match Admin - Mobiles](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/match_admin_mobile.jpg)
+![Mobile Views](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/mobile-views.jpg)
 
 For the member admin page he felt the most important fields were the approve and reject buttons for pending applications and the email address for current members so the other columns were hidden.
 
-![Match Admin - Mobiles](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/member_admin_mobile.jpg)
 
 ## Bugs and Challenges
 Issues when testing deployment mid project were resolved with the help of Alan at tutor support who identified that my requirements.txt did not contain all of my dependencies.  Solved by freezing the requirements.txt file again.
@@ -284,6 +290,7 @@ The styling in the base.css file was not being applied in the deployed version a
 
 ### 404 Page
 I created a custom 404 page with a link to the home page to handle incorrect addresses 
+
 ![404 Page]()
 
 ## Testing

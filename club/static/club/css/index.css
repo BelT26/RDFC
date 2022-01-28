@@ -6,9 +6,7 @@
 }
 
 #main-img {
-    width: 80vw;
-    position: relative;
-    z-index: -1;
+    width: 75vw;
 }
 
 #main-cropped{
@@ -17,9 +15,7 @@
 
 #main-heading {
     font-family: 'Raleway', sans-serif;
-    position: absolute;
-    top: 10rem;
-    z-index: 1;
+    color: navy;
 }
 
 .homepage-text {
@@ -48,8 +44,7 @@ div #map {
 @media screen and (max-width: 600px) {
     
     #main-heading {
-        font-size: 70px;
-        top: 7rem;
+        font-size: 60px;
     }
 
     #main-cropped {

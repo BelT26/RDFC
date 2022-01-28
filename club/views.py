@@ -302,7 +302,7 @@ def add_next(request, pk):
     if len(next_match) > 0:
         current_fixture = Match.objects.get(next_fixture=True)
         messages.error(request, 'Only one match can be flagged as the next '
-                                'fixtue. Please remove the next fixture flag'
+                                'fixture. Please remove the next fixture flag'
                                 f'from {current_fixture.match_date}')
         return HttpResponseRedirect(reverse('select_match'))
     queryset = Match.objects.all()
@@ -331,10 +331,11 @@ def open_reg(request, pk):
     that match registrations are open."""
     open_matches = Match.objects.filter(registrations_open=True)
     if len(open_matches) > 0:
+        open_match = Match.objects.get(registrations_open=True)
         messages.error(request, 'Registrations can only be '
                                 'open for one match at a time. '
-                                'Please close registrations for any '
-                                'open match before proceding.')
+                                'Please close registrations for  '
+                                f'{open_match.match_date} before proceding.')
         return HttpResponseRedirect(reverse('select_match'))
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)

@@ -4,6 +4,7 @@
 {% load custom_tags %}
 
 {% block css %}
+<!-- link to custom css -->
 <link rel="stylesheet" href="{% static 'club/css/management.css' %}">
 {% endblock %}
 
@@ -12,6 +13,7 @@ Member Zone
 {% endblock %}
 
 {% block content %}
+<!-- table showing list of member with confirmed places in the next match and those available as reserves -->
 <div class= "container-fluid player-table-container">   
     <h2 class="custom-display text-center">Match Players</h2>
     <div class="row">
@@ -29,7 +31,9 @@ Member Zone
         </div>
         <div class="col-md-6">
             <table class="table table-bordered my-4 player-table">
-                <th>Reserves</th>
+                <tr>
+                    <th>Reserves</th>
+                </tr>
                 {% for reserve in reserves %}
                 <tr>
                     <td>{{reserve.player_id}}</td>

@@ -4,6 +4,7 @@
 {% load custom_tags %}
 
 {% block css %}
+<!-- link to custom css -->
 <link rel="stylesheet" href="{% static 'club/css/members.css' %}">
 {% endblock %}
 
@@ -17,7 +18,7 @@ Member Zone
     <div id="past-results-container" class="container">
         <h2 class="custom-display text-center">Latest Results</h2>
         <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/goal.jpg' %}" height="250px" class="my-auto">
+            <img src="{% static 'club/images/goal.jpg' %}" height="250" class="my-auto" alt="photo of a goal in the back of the net">
         </div>
         <table class="table table-bordered my-4">
             <tr>
@@ -40,7 +41,6 @@ Member Zone
                     <span>{{player.player_id}},  </span>
                     {% endfor %}
                 </td>
-                <td></td>
             </tr>
             {% endfor %}
         </table>

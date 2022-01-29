@@ -18,7 +18,7 @@ Member Zone
     <div id="next-fixture" class="container">
         <h2 class="text-center custom-display">Next Fixture</h2>
         <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/pitch.jpg' %}" height="200px" class="my-auto" alt="photo of an empty football pitch">  
+            <img src="{% static 'club/images/pitch.jpg' %}" height="200" class="my-auto" alt="photo of an empty football pitch">  
         </div>  
         <h3 class="text-center">{{next_game.match_date|date:"l j F y"}}</h3>
         <h3 class="text-center">{{next_game.time|date:"H:i"}}</h3>
@@ -61,12 +61,11 @@ Member Zone
                 </div>
             </div>
         </div>
-            {% else %}
-            <div class="row-mt-4">
+        {% else %}
+        <div class="row-mt-4">
                 <h4 class="text-center">Keep an eye on this spot for team details</h4>
-            </div>
-            {% endif %}
-        </div>                
+        </div>
+        {% endif %}                        
     </div>
 </div>
 {% endblock %}

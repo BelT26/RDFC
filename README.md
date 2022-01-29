@@ -291,9 +291,9 @@ Initially the allocate teams functions was not working correctly.  if 2 members 
 The styling in the base.css file was not being applied in the deployed version although the local version did not have the same issue.  I discussed this with my mentor during our final meeting and we tried changing the roots to the static files but it still was not working as expected.  As the css files in the app directory did not have the same issues I tried moving the base.css file to the app folder and it resolved the issue.  The only problem that remained was that the main image on the home page was not loading.  I had originally loaded it as a background image on a container div as I wanted the heading to appear within the image.  To rectify this I loaded it instead as an image element and used z-indexes and absolute positioning to make the main heading text appear in front of the image. Unfortunately when messages appeared at the top of the screen this then moved the heading outside the image borders. I decided to resize the background image and move the heading on top and all issues were resolved.
 
 ### 404 Page
-I created a custom 404 page with a link to the home page to handle incorrect addresses 
+I created a custom 404 page with a link to the home page to handle incorrect addresses.  The user can either return to the home page via the button or use the navigation bar to access a specific page.
 
-![404 Page]()
+![404 Page](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/no-page.jpg)
 
 ## Testing
 
@@ -311,12 +311,12 @@ Long line errors have not been corrected where they formed part of the preinstal
 I created some automated tests for views and forms following the examples in the Hello Django module.  These are not currently running correctly as they are returning errors concerning the database connection.  I have tested the same features manually and they are working as expected. 
 
 
-
-
 ### Manual Tests
 Manual testing was carried out by myself and the club manager.
 
 Messages confirming user actions appear at the top of the screen.
+
+User authentication features work and the items appearing on the navbar change according to user access.
 
 All navigation links work as expected althought the navbar hides the title of the social section.
 
@@ -349,8 +349,6 @@ Deleting a member removes them from the database.
 I tested all auto generated emails using my own email address and received the expected messages.
 
 ![Test Emails](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/test-emails.jpg)
-
-
 
 
 ## Deployment

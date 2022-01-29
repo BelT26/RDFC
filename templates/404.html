@@ -11,14 +11,12 @@ Page Not Found
 {% block content %}
 <!-- Contents of 404 page with a button linking back to the home page -->
 <div class="no-page-container">
-    <div class="row">
+    
         <img src="{% static 'images/referee.jpg' %}"  alt="cartoon image of a referee blowing a whistle" height="250px">
-    </div>
-    <div class="row">
-        <h2 id="404-title" class="display-4 text-center my-4 d-block">Oops we couldn't find that page!</h2>
-    </div>
-    <div class="row">
-        <button class="btn-lg btn submit-button d-block"><a href="{% url 'index' %}">Back to Home</a></button>
-    </div>    
+    
+        <h2 id="404-title" class="display-4 text-center m-5">Oops we couldn't find that page!</h2>
+    
+        <button class="btn-lg btn submit-button m-5"><a href="{% url 'index' %}">Back to Home</a></button>
+      
 </div>
 {% endblock %}

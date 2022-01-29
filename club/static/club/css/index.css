@@ -23,7 +23,7 @@
 }
 
 #social-pic {
-    height: 50vh;
+    width: 45vw;
 }
 
 /* styles for contact section */
@@ -41,6 +41,13 @@ div #map {
 
 
 /* media queries to change heading font size, main image displayed and the size of the social image on mobiles */
+@media screen and (max-width: 768px) {
+    social-pic {
+        width: 40vw;
+    }
+}
+
+
 @media screen and (max-width: 600px) {
     
     #main-heading {

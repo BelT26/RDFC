@@ -5,7 +5,7 @@ https://reigate-dads.herokuapp.com/
 ## Author: Helen Taylor  
 ## Version 1.0.0
 
-![site preview on a variety of devices](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/user_stories.jpg)
+![site preview on a variety of devices](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/responsive-preview.jpg)
 
 
 ## Contents

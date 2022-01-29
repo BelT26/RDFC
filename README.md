@@ -300,6 +300,10 @@ I created a custom 404 page with a link to the home page to handle incorrect add
 ### Automated Tests
 All 4 css files passed through the W3C CSS validation service with no errors.
 
+I was not able to validate the match booking form html as the address returned the following error:
+![W3C Validation Issue](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/w3c-validator.jpg)
+All other templates passed through the validator with no issues.  Due to time constraints I won't have the chance to investigate this problem before submission.
+
 The map js file was copied to the JSHint validator and returned the following results:
 
 ![JavaScript Validation](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/js-validation.jpg)

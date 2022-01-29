@@ -52,8 +52,6 @@ div #map {
         width: 80vw;
         height: auto;
         margin: 0 auto;
-        position: relative;
-        z-index: -1;
     }
 
     #social-pic {

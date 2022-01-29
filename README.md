@@ -84,10 +84,12 @@ The extra features requested have been implemented in the project.
 ### User Stories
 After receiving the initial project brief I created a project with the Kanban template on Github and added user stories. 
 Following my first meeting with the club manager the list of stories was extended. They were arranged into epics as shown in the excel table below and allocated a priority rating of between 1 and 3 with priority 1 being the most important. I found it easier visually to prioritise my work using the excel spreadsheet rather than the project board in Github and so it became my main tool for the project planning.
+
 ![Epics and User Stories](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/user_stories.jpg)
 
 When approaching an epic I would focus first on the user stories with priority 1 and break them  down into tasks as in the example below. 
-![Example of user story tasks]()
+
+![Example of user story tasks](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/tasks.jpg)
 
 Once I had completed the user stories with the highest priority I would assess how simple and time consuming it would be to complete the tasks with a lower rating.  If they were quick and easy to implement I would complete them before moving on. Otherwise I would leave them for a future sprint.
 
@@ -274,19 +276,19 @@ For the member admin page he felt the most important fields were the approve and
 
 
 ## Bugs and Challenges
-Issues when testing deployment mid project were resolved with the help of Alan at tutor support who identified that my requirements.txt did not contain all of my dependencies.  Solved by freezing the requirements.txt file again.
+I had several problems when trying to customize the standard allauth signup form and create the ClubMember model. Each time I ran a migration I was getting an error message.  I tried to resolve the issue through my own research but eventually contacted tutor support with the below problem statement.
 
-I had several problems when trying to customize the standard allauth signup form and create the ClubMember model. Each time I ran a migration I was getting an error message.  The original message informed me 
+![Allauth Problem Statement](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/allauth_issues.jpg)
 
-book match place not working. implemented manual test driven approach, gradually increasing functionality
+Deleting the database and the migrations file did eventually resolve the issues which I did with the help of Ed at tutor support.
 
 The next fixture page  was throwing an error if no matches were flagged as the next fixture and causing the site to crash. To resolve this I added an if statement so that if now matches were flagged the latest match would be displayed.
 
-I initially planned on adding the matches played, won, drawn and lost as integer fields on the ClubMember model, however I had difficulty updating them inside the views to add and remove scores. I then decided to add property methods on the ClubMember model which calculated them based on the MatchPlayer instances created with the player_id of the ClubMember.  I then ran into another issue as I was not able to sort the players by methods in the league table.  I eventually resolved this by removing the methods from the property models and calculating the number of matches and points in the league table view instead.
+I tried to determine the matches played, won, drawn and lost and total points for each member by adding property methods to the ClubMember model. These methods calculated the figures by retrieving the MatchPlayer instances created with the player_id of the ClubMember. Although this worked, I ran into an issue as I was not able to sort the players by methods in the league table.  I eventually resolved this by removing the methods from the property models and calculating the number of matches and points in the league table view instead.
 
-allocate teams functions not working correctly.  if 2 members had the same number of points and matches played the one of the members was being omitted. realised that this was because they had the same index number so added a 3rd search parameter which resolved the issue
+Initially the allocate teams functions was not working correctly.  if 2 members had the same number of points and matches played, one of the members was being omitted. I realised that this could be because they had been allocated the same index number in the database so added a 3rd search parameter, the username, which rectified the issue
 
-The styling in the base.css file was not being applied in the deployed version although the local version did not have the same issue.  I discussed this with my mentor during our final meeting and we tried changing the roots to the static files but it still was not working as expected.  As the css files in the app directory did not have the same issues I tried moving the base.css file to the app folder and it resolved the issue.  The only problem that remained was that the main image on the home page was not loading.  I had originally loaded it as a background image on a container div.  To rectify this I loaded it instead as an image element, which I felt was also semantically more correct, and used z-indexes and positioning to make the main heading text appear in front of the image.
+The styling in the base.css file was not being applied in the deployed version although the local version did not have the same issue.  I discussed this with my mentor during our final meeting and we tried changing the roots to the static files but it still was not working as expected.  As the css files in the app directory did not have the same issues I tried moving the base.css file to the app folder and it resolved the issue.  The only problem that remained was that the main image on the home page was not loading.  I had originally loaded it as a background image on a container div as I wanted the heading to appear within the image.  To rectify this I loaded it instead as an image element and used z-indexes and absolute positioning to make the main heading text appear in front of the image. Unfortunately when messages appeared at the top of the screen this then moved the heading outside the image borders. I decided to resize the background image and move the heading on top and all issues were resolved.
 
 ### 404 Page
 I created a custom 404 page with a link to the home page to handle incorrect addresses 
@@ -296,12 +298,58 @@ I created a custom 404 page with a link to the home page to handle incorrect add
 ## Testing
 
 ### Automated Tests
+All 4 css files passed through the W3C CSS validation service with no errors.
+
+The map js file was copied to the JSHint validator and returned the following results:
+![JavaScript Validation](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/js-validation.jpg)
+
+Python testing:
+Many errors were returned for the views file of the type 'Match has no objects member'.  These were ignored as advise in the CI blog walkthough project.
+Long line errors have not been corrected where they formed part of the preinstalled setting or I felt that splitting the lines would impair the readability of the code.
+
+I created some automated tests for views and forms following the examples in the Hello Django module.  These are not currently running correctly as they are returning errors concerning the database connection.  I have tested the same features manually and they are working as expected. 
+
+
 
 
 ### Manual Tests
-All navigation links work as expected
+Manual testing was carried out by myself and the club manager.
+
+Messages confirming user actions appear at the top of the screen.
+
+All navigation links work as expected althought the navbar hides the title of the social section.
+
+The Google map api works and displays the correct location.
+
+The Next Fixture page displays the correct details and links to the booking page if registrations are open.  If teams have been allocated the names are displayed.
+
+The Player League table sorts the players correctly and highlights the details of the logged in user.
+
+The match booking form works as expected and generates a new MatchPlayer instance.  The display on the page changes according to whether registrations are open and the player has already booked a place in the match. If the team is full the message returns the correct place on the reserve list. If a confirmed player cancels an email to the manager is generated.
+
+The 'add fixture' form generates a new instance of the Match model.
+
+The 'edit fixture' form updates the Match details correctly.
+
+The 'next fixture' flag works. Details of the next fixture are updated on the template.  An error message appears if the manager attempts to flag more than one match as the next fixture.
+
+The 'open registrations' function works.  The booking page is updated allowing members to register. An error message appears if the manager tries to open registrations for more than one match. Emails are auto generated to all club members.
+
+The 'add results' form is displayed correctly.  When submitted the player scores update on league table and the results appear on the results page. 
+
+The 'see members' function shows all members that have registered their availability for the next match.
+
+Approving a member results in the member moving from the pending applications to the confirmed member list, allows them to login to the member zone and generates an email to the member.
+
+Rejecting a member results in the application being removed and generates an email to the applicant.
+
+Deleting a member removes them from the database.
 
 I tested all auto generated emails using my own email address and received the expected messages.
+
+![Test Emails](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/test-emails.jpg)
+
+
 
 
 ## Deployment

@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
-import datetime
 
 
 # Create your models here.
@@ -15,7 +14,7 @@ class ClubMember(AbstractUser):
     lost = models.IntegerField(default=0)
     points = models.IntegerField(default=0)
     is_approved = models.BooleanField(default=False)
-        
+
     def __str__(self):
         return f"{self.first_name} {self.last_name}"
 
@@ -47,8 +46,6 @@ class MatchPlayer(models.Model):
     win = models.BooleanField(default=False)
     loss = models.BooleanField(default=False)
     draw = models.BooleanField(default=False)
-        
+
     def __str__(self):
         return f"{self.player_id} - {self.team}"
-
-    

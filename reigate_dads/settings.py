@@ -30,7 +30,7 @@ SECRET_KEY = os.environ.get('SECRET_KEY')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ["reigate-dads.herokuapp.com", "localhost"]
 
@@ -61,7 +61,7 @@ LOGOUT_REDIRECT = '/'
 
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
-# The message tags were taken from the 'I think therefore I blog' walkthrough project
+# The message tags were taken from the CI blog walkthrough project
 MESSAGE_TAGS = {
     messages.DEBUG: 'alert-info',
     messages.INFO: 'alert-info',

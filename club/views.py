@@ -5,9 +5,8 @@ from django.core.mail import send_mail
 from .models import ClubMember, Match, MatchPlayer
 from .forms import MatchForm, ResultsForm
 
+
 # Create your views here.
-
-
 def index(request):
     """Returns a view of the home page"""
     return render(request, 'club/index.html')
@@ -16,7 +15,7 @@ def index(request):
 def next_fixture(request):
     """Checks which match has been flagged as the next fixture
     and passes its details to the next fixture template. If no
-    match has been flagged the latest match in the database is 
+    match has been flagged the latest match in the database is
     retrieved to avoid an error being thrown. Checks whether the
     current user is already registered for the match and passes
     this information to the template. If teams have been allocated
@@ -41,10 +40,9 @@ def next_fixture(request):
     })
 
 
-
 def view_league_table(request):
     """ Calculates and updates the number of wins, draws and losses for each
-    approved memeber. Sorts all members in descending order according to 
+    approved memeber. Sorts all members in descending order according to
     their points, then in ascending order according to the number of matches
     they have played. Returns a view of the resulting table in which the
     current user's own results are highlighted """
@@ -110,8 +108,8 @@ def confirm_availability(request):
     """ Allows the user to register their availability for the
     next match. Checks how many players have already registered.
     If the maximum number of players has not been reached,
-    the player is allocated a space on the team and is informed 
-    of this via a success message. If the teams are full the 
+    the player is allocated a space on the team and is informed
+    of this via a success message. If the teams are full the
     player is placed on a reserve list and informed of their
     position on the list via message. New MatchPlayer instances
     are created in both instances with the 'reserve' property
@@ -137,12 +135,12 @@ def confirm_availability(request):
 
 
 def cancel_match_place(request):
-    """ Allows a member who has already registered for a 
+    """ Allows a member who has already registered for a
     match to cancel their booking.  If the member has been
     allocated a place on the team an email is generated to
-    the club manager to inform them that they need to 
+    the club manager to inform them that they need to
     reallocate the teams """
-    player = request.user     
+    player = request.user
     match_player = MatchPlayer.objects.get(player_id=player)
     if match_player.reserve is False:
         send_mail('Player Cancellation',
@@ -170,7 +168,7 @@ def member_admin(request):
 
 
 def add_match(request):
-    """Returns a form in which the manager can add a new 
+    """Returns a form in which the manager can add a new
     match fixture. Shows a success message once the match
     has been added."""
     if request.method == 'POST':
@@ -268,7 +266,7 @@ def delete_score(request, pk):
     """Allows the manager to delete the results of a match
     and automatically updates the players' staticstics"""
     queryset = Match.objects.all()
-    match = get_object_or_404(queryset, id=pk)    
+    match = get_object_or_404(queryset, id=pk)
     match.results_added = False
     match.blue_goals = 0
     match.white_goals = 0
@@ -281,8 +279,7 @@ def delete_score(request, pk):
         player.save()
     messages.success(request, 'Result deleted')
     return HttpResponseRedirect(reverse('select_match'))
-    
-    
+
 
 def delete_match(request, pk):
     """removes a match from the database"""
@@ -327,7 +324,7 @@ def open_reg(request, pk):
     """Checks that there is not already a match which has
     registrations open. Displays an error message if there is,
     otherwise changes the registrations_open property of the match
-    to True. Generates an email to all members to advise them 
+    to True. Generates an email to all members to advise them
     that match registrations are open."""
     open_matches = Match.objects.filter(registrations_open=True)
     if len(open_matches) > 0:
@@ -366,7 +363,7 @@ def close_reg(request, pk):
 
 def see_players(request, pk):
     """Returns a template showing all members who have a
-    confirmed place on the next match and those on the 
+    confirmed place on the next match and those on the
     reserve list"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
@@ -444,7 +441,7 @@ def reset_teams(request, pk):
 def approve_member(request, pk):
     """Allows the manager to approve membership applications.
     Sets the is_approved property of the member to True
-    and generates an email advising them they have been 
+    and generates an email advising them they have been
     accepted"""
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
@@ -462,7 +459,7 @@ def approve_member(request, pk):
 
 def reject_member(request, pk):
     """Allows the manager to reject membership applications
-    and generates an email advising them they have been 
+    and generates an email advising them they have been
     rejected"""
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
@@ -472,6 +469,7 @@ def reject_member(request, pk):
               'Please contact steve@rdfc.com for further information',
               'steve@rdfc.com',
               (member.email,))
+    member.delete()
     return HttpResponseRedirect(reverse('member_admin'))
 
 

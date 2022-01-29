@@ -301,9 +301,10 @@ I created a custom 404 page with a link to the home page to handle incorrect add
 All 4 css files passed through the W3C CSS validation service with no errors.
 
 The map js file was copied to the JSHint validator and returned the following results:
+
 ![JavaScript Validation](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/js-validation.jpg)
 
-Python testing:
+The problems tab in the terminal was used to validate my Python code.
 Many errors were returned for the views file of the type 'Match has no objects member'.  These were ignored as advise in the CI blog walkthough project.
 Long line errors have not been corrected where they formed part of the preinstalled setting or I felt that splitting the lines would impair the readability of the code.
 

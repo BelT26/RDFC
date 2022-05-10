@@ -191,6 +191,8 @@ def add_match(request):
             match.save()
             messages.success(request, 'Match successfully added')
             return HttpResponseRedirect(reverse('index'))
+        else:
+            messages.error(request, 'There was an error on your form')
     form = MatchForm()
     return render(request, 'club/add_fixture.html', {
         'form': form
@@ -220,8 +222,8 @@ def edit_match(request, pk):
             form.save()
             messages.success(request, 'Match successfully updated')
             return HttpResponseRedirect(reverse('select_match'))
-
     return render(request, 'club/edit_fixture.html', {
+        'match': match,
         'form': form
     })
 
@@ -471,12 +473,12 @@ def approve_member(request, pk):
     member.is_approved = True
     member.save()
     messages.success(request, 'Application approved')
-    send_mail('Application approved',
-              'Congratulations! '
-              'Your application to join RDFC has been approved.'
-              'We look forward to seeing you!',
-              'steve@rdfc.com',
-              (member.email,))
+    # send_mail('Application approved',
+    #           'Congratulations! '
+    #           'Your application to join RDFC has been approved.'
+    #           'We look forward to seeing you!',
+    #           'steve@rdfc.com',
+    #           (member.email,))
     return HttpResponseRedirect(reverse('member_admin'))
 
 
@@ -487,11 +489,11 @@ def reject_member(request, pk):
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Application rejected')
-    send_mail('Application rejected',
-              'Sorry. Your application to join RDFC has not been approved'
-              'Please contact steve@rdfc.com for further information',
-              'steve@rdfc.com',
-              (member.email,))
+    # send_mail('Application rejected',
+    #           'Sorry. Your application to join RDFC has not been approved'
+    #           'Please contact steve@rdfc.com for further information',
+    #           'steve@rdfc.com',
+    #           (member.email,))
     member.delete()
     return HttpResponseRedirect(reverse('member_admin'))
 

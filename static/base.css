@@ -57,6 +57,12 @@ footer i {
     width: 60%;
 }
 
+.signup-container {
+    margin: 0 auto;    
+    width: 70%;
+    min-height: calc(100vh - 11.5rem);
+}
+
 .no-page-container {
     margin: 0 auto;
     height: calc(100vh - 11.5rem);
@@ -90,4 +96,10 @@ footer i {
     .mobile-hide {
         display: none;
     }
+
+    .signup-container {
+        margin: 0 auto;    
+        width: 90%;
+    }
+
 }

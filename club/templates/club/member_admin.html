@@ -33,7 +33,7 @@ Manager Zone
                         <td>{{member.first_name}} {{member.last_name}}</td>
                         <td class="mobile-hide">{{member.email}}</td>
                         <td><a href="{% url 'approve_member' member.id %}">Approve</a></td>
-                        <td><a href="#">Reject</a></td>
+                        <td><a href="{% url 'reject_member' member.id %}">Reject</a></td>
                     </tr>
                     {% endfor %}
                 </table>   

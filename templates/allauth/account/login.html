@@ -2,6 +2,7 @@
 
 {% load i18n %}
 {% load account socialaccount %}
+{% load crispy_forms_tags %}
 
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
@@ -10,9 +11,9 @@ Login
 {% endblock %}
 
 {% block content %}
-<div class="allauth-container">
+<div class="allauth-container container">
   <div class="row">
-    <div class="col-md-8 mt-4 mb-2">
+    <div class="col-md-8 my-2">
 
       <h1>{% trans "Sign In" %}</h1>
 
@@ -37,7 +38,7 @@ Login
 
       {% else %}
       <h4>{% blocktrans %}Welcome to Reigate Dads FC Member Zone.</h4>
-      <p>To register your availability for the next match, view match fixtures, past results and player statistics, please login below.</p> 
+      <p class="d-none d-sm-block">To register your availability for the next match, view match fixtures, past results and player statistics, please login below.</p> 
       <p>If you are not a member, then please
       <a href="{{ signup_url }}">sign up</a> first.{% endblocktrans %}</p>
       {% endif %}
@@ -47,12 +48,13 @@ Login
     <div class="col-md-8 mt-2 mb-5">
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
         <a class="button secondaryAction" href="{% url 'account_reset_password' %}">{% trans "Forgot Password?" %}</a>
-        <button class="primaryAction btn" type="submit">{% trans "Sign In" %}</button>
+        <br>
+        <button class="primaryAction btn submit-button my-2" type="submit">{% trans "Sign In" %}</button>
       </form>
     </div>
   </div>

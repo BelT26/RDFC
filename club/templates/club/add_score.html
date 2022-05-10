@@ -20,7 +20,7 @@ Manager Zone
     <h4 class="mb-3 text-center">Please enter the results for the match on {{match.match_date|date:"j F y"}}</h4>
     <div class="row">
         <div class="col-10 col-sm-6 col-md-4 ml-md-5">            
-            <form method="POST" action="#">
+            <form method="POST" action="{% url 'add_score' match.id %}">
                 {% csrf_token %}
                 <div class="form-group">
                     {{ form | crispy }}

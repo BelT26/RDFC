@@ -13,13 +13,15 @@ def index(request):
 
 
 def next_fixture(request):
-    """Checks which match has been flagged as the next fixture
+    """
+    Checks which match has been flagged as the next fixture
     and passes its details to the next fixture template. If no
     match has been flagged the latest match in the database is
     retrieved to avoid an error being thrown. Checks whether the
     current user is already registered for the match and passes
     this information to the template. If teams have been allocated
-    passes collect the details to be displayed on the template"""
+    passes collect the details to be displayed on the template
+    """
     member = request.user
     match_players = MatchPlayer.objects.all()
     if member in match_players:
@@ -49,13 +51,19 @@ def view_league_table(request):
     current_member = request.user
     all_members = ClubMember.objects.filter(is_approved=True)
     for member in all_members:
-        member.won = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
-        member.drawn = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
-        member.lost = MatchPlayer.objects.filter(player_id=member.id, loss=True).count()
-        member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
+        member.won = MatchPlayer.objects.filter(player_id=member.id,
+                                                win=True).count()
+        member.drawn = MatchPlayer.objects.filter(player_id=member.id,
+                                                  draw=True).count()
+        member.lost = MatchPlayer.objects.filter(player_id=member.id,
+                                                 loss=True).count()
+        member.played = MatchPlayer.objects.filter(player_id=member.id,
+                                                   reserve=False).count()
         member.points = (member.won * 3) + member.drawn
         member.save()
-    league_table = ClubMember.objects.filter(is_approved=True).order_by('-points', 'played')
+    league_table = ClubMember.objects.filter(
+                                             is_approved=True).order_by(
+                                             '-points', 'played')
     return render(request, 'club/league_table.html', {
         'league_table': league_table,
         'current_member': current_member,
@@ -125,7 +133,8 @@ def confirm_availability(request):
         messages.success(request, 'You have been allocated a place in '
                                   'the next match!')
     else:
-        new_player = MatchPlayer(player_id=player, match_id=match, reserve=True)
+        new_player = MatchPlayer(player_id=player, match_id=match,
+                                 reserve=True)
         new_player.save()
         reserves = MatchPlayer.objects.filter(reserve=True)
         num_reserves = reserves.count()
@@ -230,7 +239,8 @@ def add_score(request, pk):
         if form.is_valid():
             match.results_added = True
             form.save()
-            all_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+            all_players = MatchPlayer.objects.filter(match_id=match,
+                                                     reserve=False)
             blues = all_players.filter(team='blue')
             whites = all_players.filter(team='white')
             if match.blue_goals > match.white_goals:
@@ -368,7 +378,9 @@ def see_players(request, pk):
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
     players = MatchPlayer.objects.filter(reserve=False, match_id=match)
-    reserves = MatchPlayer.objects.filter(reserve=True, match_id=match).order_by('registration_time')
+    reserves = MatchPlayer.objects.filter(reserve=True,
+                                          match_id=match).order_by(
+                                          'registration_time')
     return render(request, 'club/see_players.html', {
         'players': players,
         'reserves': reserves,
@@ -386,14 +398,18 @@ def allocate_teams(request, pk):
     allocated teams according to their position"""
     queryset = Match.objects.all()
     match = get_object_or_404(queryset, id=pk)
-    registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
-    reserves = MatchPlayer.objects.filter(match_id=match, reserve=True).order_by('registration_time')
+    registered_players = MatchPlayer.objects.filter(match_id=match,
+                                                    reserve=False)
+    reserves = MatchPlayer.objects.filter(match_id=match,
+                                          reserve=True).order_by(
+                                          'registration_time')
     while registered_players.count() < 12:
         if reserves.count() > 0:
             reserve_selected = reserves[0]
             reserve_selected.reserve = False
             reserve_selected.save()
-            registered_players = MatchPlayer.objects.filter(match_id=match, reserve=False)
+            registered_players = MatchPlayer.objects.filter(match_id=match,
+                                                            reserve=False)
         else:
             messages.error(request, 'You require 12 available '
                                     'members to allocate teams')
@@ -402,12 +418,19 @@ def allocate_teams(request, pk):
     blue_indices = [0, 3, 5, 7, 9, 11]
     white_indices = [1, 2, 4, 6, 8, 10]
     for member in registered_players:
-        num_wins = MatchPlayer.objects.filter(player_id=member.id, win=True).count()
-        num_draws = MatchPlayer.objects.filter(player_id=member.id, draw=True).count()
+        num_wins = MatchPlayer.objects.filter(player_id=member.id,
+                                              win=True).count()
+        num_draws = MatchPlayer.objects.filter(player_id=member.id,
+                                               draw=True).count()
         member.points = (num_wins * 3) + num_draws
-        member.played = MatchPlayer.objects.filter(player_id=member.id, reserve=False).count()
+        member.played = MatchPlayer.objects.filter(player_id=member.id,
+                                                   reserve=False).count()
         member.save()
-    ordered_players = MatchPlayer.objects.filter(reserve=False).order_by('-player_id__points', 'player_id__played', 'player_id__username')
+    ordered_players = MatchPlayer.objects.filter(
+                                                 reserve=False).order_by(
+                                                 '-player_id__points',                                                                 
+                                                 'player_id__played',
+                                                 'player_id__username')
     for i in blue_indices:
         blue = ordered_players[i]
         blue.team = 'blue'

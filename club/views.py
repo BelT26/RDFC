@@ -468,17 +468,16 @@ def approve_member(request, pk):
     Sets the is_approved property of the member to True
     and generates an email advising them they have been
     accepted"""
-    queryset = ClubMember.objects.filter(is_approved=False)
-    member = get_object_or_404(queryset, id=pk)
+    member = ClubMember.objects.get(id=pk)
     member.is_approved = True
     member.save()
     messages.success(request, 'Application approved')
-    # send_mail('Application approved',
-    #           'Congratulations! '
-    #           'Your application to join RDFC has been approved.'
-    #           'We look forward to seeing you!',
-    #           'steve@rdfc.com',
-    #           (member.email,))
+    send_mail('Application approved',
+              'Congratulations! '
+              'Your application to join RDFC has been approved.'
+              'We look forward to seeing you!',
+              'steve@rdfc.com',
+              (member.email,))
     return HttpResponseRedirect(reverse('member_admin'))
 
 

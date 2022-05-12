@@ -504,4 +504,4 @@ def delete_member(request, pk):
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Member deleted')
     member.delete()
-    return HttpResponseRedirect(reverse('member_admin.html'))
+    return HttpResponseRedirect(reverse('member_admin'))

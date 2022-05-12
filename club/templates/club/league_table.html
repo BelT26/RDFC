@@ -22,15 +22,18 @@ Member Zone
             <img src="{% static 'club/images/trophy2.jpg' %}" height="200" class="my-auto" alt="world cup trophy">
         </div>
         <table class="table table-bordered my-4">
-            <tr>
-                <th>Player</th>
-                <th>Played</th>
-                <th class="mobile-hide">Won</th>
-                <th class="mobile-hide">Drawn</th>
-                <th class="mobile-hide">Lost</th>
-                <th>Points</th>
-            </tr>
-            {% for member in league_table %}
+            <thead>
+                <tr>
+                    <th>Player</th>
+                    <th>Played</th>
+                    <th class="mobile-hide">Won</th>
+                    <th class="mobile-hide">Drawn</th>
+                    <th class="mobile-hide">Lost</th>
+                    <th>Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for member in league_table %}
                 {% if member == current_member %}
                     <tr class="highlight">
                         <td>{{member.first_name}} {{member.last_name}}</td>
@@ -51,6 +54,7 @@ Member Zone
                 </tr>
                 {% endif %}
             {% endfor %}
+            </tbody> 
         </table>
     </div>
 </div>

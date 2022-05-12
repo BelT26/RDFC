@@ -5,7 +5,7 @@
 }
 
 body {
-    background-color: rgb(252, 250, 235);
+    background-color: rgb(249, 251, 253);
     z-index: -99;
 }
 
@@ -27,6 +27,18 @@ body {
 #logo-img {
     height: 70px;
 }
+
+thead {
+    background-color: gold;
+}
+
+tbody {
+    background-color: white;
+}
+
+tr:nth-child(even) {
+    background-color: #ededed;
+  }
 
 /* styles for footer of each page */
 

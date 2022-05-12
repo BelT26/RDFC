@@ -21,28 +21,33 @@ Member Zone
             <img src="{% static 'club/images/goal.jpg' %}" height="250" class="my-auto" alt="photo of a goal in the back of the net">
         </div>
         <table class="table table-bordered my-4">
-            <tr>
-                <th>Date</th>
-                <th>Blues</th>
-                <th>Whites</th>
-                <th class="mobile-hide">Blue Team</th>
-                <th class="mobile-hide">White Team</th>
-            </tr>
-            {% for match in past_results %}
-            <tr>
-                <td >{{match.match_date}}</td>
-                <td>{{match.blue_goals}}</td>
-                <td>{{match.white_goals}}</td>
-                <td class="mobile-hide">{% for player in match.blueteam %}
-                    <span>{{player.player_id}},  </span>
-                    {% endfor %}
-                </td>
-                <td class="mobile-hide">{% for player in match.whiteteam %}
-                    <span>{{player.player_id}},  </span>
-                    {% endfor %}
-                </td>
-            </tr>
-            {% endfor %}
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Blues</th>
+                    <th>Whites</th>
+                    <th class="mobile-hide">Blue Team</th>
+                    <th class="mobile-hide">White Team</th>
+                </tr>
+            </thead>            
+            
+            <tbody>
+                {% for match in past_results %}
+                <tr>
+                    <td >{{match.match_date}}</td>
+                    <td>{{match.blue_goals}}</td>
+                    <td>{{match.white_goals}}</td>
+                    <td class="mobile-hide">{% for player in match.blueteam %}
+                        <p>{{player.player_id}}</p>
+                        {% endfor %}
+                    </td>
+                    <td class="mobile-hide">{% for player in match.whiteteam %}
+                        <p>{{player.player_id}}</p>
+                        {% endfor %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
         </table>
         
     </div>

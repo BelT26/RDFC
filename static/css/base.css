@@ -4,6 +4,11 @@
     font-family: 'Open Sans', sans-serif;
 }
 
+body {
+    background-color: rgb(252, 250, 235);
+    z-index: -99;
+}
+
 .custom-display {
     font-family: 'Raleway', sans-serif;
     font-size: 3.5rem;
@@ -16,6 +21,7 @@
     color: white;
     height: 6rem;
     padding: 20px;
+    margin-bottom: 0;
 }
 
 #logo-img {
@@ -50,6 +56,8 @@ footer i {
 #small-logo i:hover {
     color:white;
 }
+
+/* styles for allauth forms */
 
 .allauth-container {
     margin: 0 auto;

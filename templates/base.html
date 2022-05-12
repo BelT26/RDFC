@@ -97,19 +97,21 @@
       {% endif %}
   </div>
   </nav>
-  <div class="container mt-4">
-    <div class="row">
-        <div class="col-md-8 offset-md-2">
-            {% for message in messages %}
-            <div class="alert {{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
-                {{ message | safe }}
-            </div>
-            {% endfor %}
-        </div>
+  <div id="page-container">
+    <div class="container mt-4">
+      <div class="row">
+          <div class="col-md-8 offset-md-2">
+              {% for message in messages %}
+              <div class="alert {{ message.tags }} alert-dismissable fade show" id="msg" role="alert">
+                  {{ message | safe }}
+              </div>
+              {% endfor %}
+          </div>
+      </div>
     </div>
-</div>
-  {% block content %}
-  {% endblock %}
+    {% block content %}
+    {% endblock %}
+  </div>  
   <!--footer containing links to social media sites-->
   <footer class="container-fluid"> 
     <div class="row">

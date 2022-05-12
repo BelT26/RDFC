@@ -14,13 +14,14 @@ Home
 
 {% block content %}
 <!-- introduction containing a football image and light hearted information about the club -->
-<div class="container-fluid mb-md-3">
-    <h1 class="display-1 text-center font-weight-normal" id="main-heading">Reigate Dads FC</h1>
-    <div id="main-img-container" class="container mt-md-4 mx-auto">
-        <img src="{% static 'club/images/football1.jpg' %}" class="mobile-hide mx-auto" alt="football on a playing field" id="main-img">
-        <img src="{% static 'club/images/football-cropped1.jpg' %}" class="mobile-only" alt="football on a playing field" id="main-cropped">        
-
-    </div>
+<div class="container-fluid mb-md-3 px-5">
+    <div class="mx-auto mb-4" id="hero-img-container">
+        <div class="row w-100">
+            <div class="col-12 text-center" id="main-header-container">
+                <h1 class="text-light" id="hero-img-text">Reigate Dads FC</h1>           
+            </div>
+        </div>
+    </div> 
     <div class="container mt-md-1 p-3" id="club-intro-text">
         <p class="lead">Reigate Dads is an ecletic mix of wanna-be and has-been footballing fathers (mostly), from in and around the town of Reigate. Camaraderie and sportsmanship are second only to technical football excellence in Reigate Dads' philosophy. </p>
         <p class="homepage-text">Inaugurated in September 2016, Reigate Dads play on Thursday evenings at the five-a-side astro-turf stadium at South Park Football Club, Whitehall Lane, RH2 8LG. Reigate Dads play against each other within a league, whose triannual season culminates in the award of a highly prized crystal trophy, often referred to as 'The Perspex Block'. The cornerstone of the competition is 'The Algorithm', a sophisticated function that optimises weekly team selection balance, based on a swathe of player statistics.</p>

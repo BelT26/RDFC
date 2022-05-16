@@ -13,9 +13,17 @@
     min-height: calc(100vh - 11.5rem);
 }
 
-#pitch-img-container {
+.pitch-img-container {
     display: flex;
     justify-content: center;
     margin-bottom: 3rem;  
-    margin-top: 2rem;  
+    margin-top: 2rem;
 }
+
+.pitch-img-container img {
+    box-shadow: rgba(17, 17, 26, 0.1) 0px 8px 24px, rgba(17, 17, 26, 0.1) 0px 16px 56px, rgba(17, 17, 26, 0.1) 0px 24px 80px;
+    border-radius: 3px;
+}
+
+
+

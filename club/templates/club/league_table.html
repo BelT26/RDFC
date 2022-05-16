@@ -17,10 +17,7 @@ Member Zone
     The position of the logged in user is highlighted -->
 <div id="member-zone" class= "container-fluid custom-height">
     <div id="league-table-container" class="container">
-        <h2 class="custom-display text-center">League Table</h2>
-        <div class="container" id="pitch-img-container">
-            <img src="{% static 'club/images/trophy2.jpg' %}" height="200" class="my-auto" alt="world cup trophy">
-        </div>
+        <h2 class="custom-display text-center mb-3">League Table</h2>        
         <table class="table table-bordered my-4">
             <thead>
                 <tr>
@@ -56,6 +53,10 @@ Member Zone
             {% endfor %}
             </tbody> 
         </table>
+        <div class="pitch-img-container">
+            <img src="{% static 'club/images/trophy2.jpg' %}" height="200" class="my-auto d-block d-md-none" alt="world cup trophy">
+            <img src="{% static 'club/images/trophy2.jpg' %}" height="300" class="my-auto d-none d-md-block" alt="world cup trophy">
+        </div>
     </div>
 </div>
 {% endblock %}

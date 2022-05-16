@@ -1,6 +1,7 @@
 from django.shortcuts import render, reverse, get_object_or_404
 from django.http import HttpResponseRedirect
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required, user_passes_test
 from django.core.mail import send_mail
 from .models import ClubMember, Match, MatchPlayer
 from .forms import MatchForm, ResultsForm
@@ -162,7 +163,8 @@ def cancel_match_place(request):
     messages.success(request, 'Your place has been cancelled')
     return HttpResponseRedirect(reverse('index'))
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def member_admin(request):
     """ Returns a template showing any pending applications and
     gives the manager the opportunity to approve or reject them.
@@ -175,7 +177,8 @@ def member_admin(request):
         'current_members': current_members
     })
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_match(request):
     """Returns a form in which the manager can add a new
     match fixture. Shows a success message once the match
@@ -198,7 +201,8 @@ def add_match(request):
         'form': form
     })
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def select_match(request):
     """Returns a table with a list of all matches and all
     available admin options for the manager"""
@@ -208,6 +212,8 @@ def select_match(request):
     })
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def edit_match(request, pk):
     """Retrieves the data of the selected match and returns
     a form in which the manager can update the time, date
@@ -228,6 +234,8 @@ def edit_match(request, pk):
     })
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_score(request, pk):
     """Returns a results form in which the manager can enter
     the scores of a match. Retrieves all the match players who
@@ -274,6 +282,8 @@ def add_score(request, pk):
     })
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_score(request, pk):
     """Allows the manager to delete the results of a match
     and automatically updates the players' staticstics"""
@@ -293,6 +303,8 @@ def delete_score(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_match(request, pk):
     """removes a match from the database"""
     queryset = Match.objects.all()
@@ -302,6 +314,8 @@ def delete_match(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def add_next(request, pk):
     """Checks that there is not already a match flagged as
     the next fixture. Displays an error message if there is,
@@ -322,6 +336,8 @@ def add_next(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def remove_next(request, pk):
     """Removes the next fixture flag from a match"""
     queryset = Match.objects.filter(next_fixture=True)
@@ -332,6 +348,8 @@ def remove_next(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def open_reg(request, pk):
     """Checks that there is not already a match which has
     registrations open. Displays an error message if there is,
@@ -363,6 +381,8 @@ def open_reg(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def close_reg(request, pk):
     """Closes the registrations of the selected match"""
     queryset = Match.objects.all()
@@ -372,7 +392,8 @@ def close_reg(request, pk):
     messages.success(request, f"Registrations closed for {match.match_date}")
     return HttpResponseRedirect(reverse('select_match'))
 
-
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def see_players(request, pk):
     """Returns a template showing all members who have a
     confirmed place on the next match and those on the
@@ -390,6 +411,8 @@ def see_players(request, pk):
     })
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def allocate_teams(request, pk):
     """Checks whether 12 people have confirmed places for
     the match. If not checks the reserve list and pulls in
@@ -447,6 +470,8 @@ def allocate_teams(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def reset_teams(request, pk):
     """Sets the team property of all confirmed players back
     to None. Used by the manager if a confirmed player cancels
@@ -463,6 +488,8 @@ def reset_teams(request, pk):
     return HttpResponseRedirect(reverse('select_match'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def approve_member(request, pk):
     """Allows the manager to approve membership applications.
     Sets the is_approved property of the member to True
@@ -481,6 +508,8 @@ def approve_member(request, pk):
     return HttpResponseRedirect(reverse('member_admin'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def reject_member(request, pk):
     """Allows the manager to reject membership applications
     and generates an email advising them they have been
@@ -488,15 +517,17 @@ def reject_member(request, pk):
     queryset = ClubMember.objects.filter(is_approved=False)
     member = get_object_or_404(queryset, id=pk)
     messages.success(request, 'Application rejected')
-    # send_mail('Application rejected',
-    #           'Sorry. Your application to join RDFC has not been approved'
-    #           'Please contact steve@rdfc.com for further information',
-    #           'steve@rdfc.com',
-    #           (member.email,))
+    send_mail('Application rejected',
+              'Sorry. Your application to join RDFC has not been approved'
+              'Please contact steve@rdfc.com for further information',
+              'steve@rdfc.com',
+              (member.email,))
     member.delete()
     return HttpResponseRedirect(reverse('member_admin'))
 
 
+@login_required
+@user_passes_test(lambda u: u.is_superuser)
 def delete_member(request, pk):
     """Allows the manager to delete a member from the club
     database"""

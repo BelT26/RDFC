@@ -193,7 +193,7 @@ def add_match(request):
             )
             match.save()
             messages.success(request, 'Match successfully added')
-            return HttpResponseRedirect(reverse('index'))
+            return HttpResponseRedirect(reverse('select_match'))
         else:
             messages.error(request, 'There was an error on your form')
     form = MatchForm()

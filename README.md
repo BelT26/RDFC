@@ -83,15 +83,13 @@ The extra features requested have been implemented in the project.
 
 ### User Stories
 After receiving the initial project brief I created a project with the Kanban template on Github and added user stories. 
-Following my first meeting with the club manager the list of stories was extended. They were arranged into epics as shown in the excel table below and allocated a priority rating of between 1 and 3 with priority 1 being the most important. I found it easier visually to prioritise my work using the excel spreadsheet rather than the project board in Github and so it became my main tool for the project planning.
+Following my first meeting with the club manager the list of stories was extended. They were arranged into epics which were used as labels on the Kanban board. Each user story was also allocated a priority label of must have, should have or could have.  The stories were ordered into interations in Github.
 
-![Epics and User Stories](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/user_stories.jpg)
-
-When approaching an epic I would focus first on the user stories with priority 1 and break them  down into tasks as in the example below. 
+When approaching each user story, I broke it down into tasks as in the example below. 
 
 ![Example of user story tasks](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/tasks.jpg)
 
-Once I had completed the user stories with the highest priority I would assess how simple and time consuming it would be to complete the tasks with a lower rating.  If they were quick and easy to implement I would complete them before moving on. Otherwise I would leave them for a future sprint.
+Once I had completed the user stories with the highest priority in an iteration, I would assess how simple and time consuming it would be to complete the tasks with a lower rating.  If they were quick and easy to implement I would complete them before moving on. Otherwise I would leave them for a future sprint.
 
 ### Wireframes
 The original wireframes that I first presented to the club manager are included below.  The finished project does not bear a great deal of resemblance to the initial plan, apart from the layout of the home page. I found that as I talked to the client, progressed with my learning and implemented certain features, that the needs of the site gradually grew.
@@ -121,6 +119,14 @@ The Match model is used to create an instance of each game. The add match functi
 ### MatchPlayer
 Each time a ClubMember registers for a Match an instance of the MatchPlayer field is created.  The MatchPlayer model has two foreign keys: the match_id that is based on the Match model and the player_id that is based on the ClubMember model.
 The results of each game are stored on the MatchPlayer model and these are used to dynamically generate the scores for the player league table.
+
+The relationship between the models can be seen in the diagram below.
+
+![Model Relationships](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/model_relationships.jpg)
+
+The models created and their fields are summarised in the following screenshot.
+
+![Models](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/models.jpg)
 
 ## Admin
 When setting up the project I customised the admin display, filter and search fields for the ClubMembers and MatchPlayers and added an 'approve member' function.  It is not now expected that most of these will usually be used by the manager as I have since created views on the main site for the manager to approve membership applications, see which members are available and view their contact details.

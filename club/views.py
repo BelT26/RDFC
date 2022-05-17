@@ -97,12 +97,12 @@ def booking_form(request):
         match = Match.objects.all().order_by('-match_date')[0]
         registrations_open = False
     player = request.user
-    if MatchPlayer.objects.filter(player_id=player).exists():
+    if MatchPlayer.objects.filter(player_id=player, match_id=match).exists():
         player_registered = True
     else:
         player_registered = False
     match_full = False
-    registered_players = MatchPlayer.objects.filter(reserve=False)
+    registered_players = MatchPlayer.objects.filter(reserve=False, match_id=match)
     if registered_players.count() == 12:
         match_full = True
     return render(request, 'club/match_booking.html', {

@@ -6,9 +6,9 @@
 }
 
 #hero-img-container {
-    width: 100%;
+    width: 95%;
     height: 75vh;
-    background-image: url(../images/football1.jpg);
+    background-image: url(../../../static/images/football1.jpg);
     background-size: cover;
     background-repeat: no-repeat;
     background-position: center;
@@ -87,7 +87,7 @@ div #map {
     }
 
     #hero-img-container {
-        background-image: url(../images/football-cropped1.jpg);  
+        background-image: url(../../../static/images/football-cropped1.jpg);  
     }
 
     #main-cropped {

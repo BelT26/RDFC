@@ -70,6 +70,7 @@ class MatchPlayer(models.Model):
     win = models.BooleanField(default=False)
     loss = models.BooleanField(default=False)
     draw = models.BooleanField(default=False)
+    played = models.BooleanField(default=False)
 
     def __str__(self):
         """

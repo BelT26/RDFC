@@ -24,16 +24,13 @@ def next_fixture(request):
     passes collect the details to be displayed on the template
     """
     member = request.user
-    match_players = MatchPlayer.objects.all()
-    if member in match_players:
-        member.playing_match = True
     if Match.objects.filter(next_fixture=True).count() > 0:
         next_game = Match.objects.get(next_fixture=True)
     else:
         next_game = Match.objects.all().order_by('-match_date')[0]
     blues = MatchPlayer.objects.filter(team='blue', match_id=next_game)
-    whites = MatchPlayer.objects.filter(team='white')
-    reserves = MatchPlayer.objects.filter(reserve=True)
+    whites = MatchPlayer.objects.filter(team='white', match_id=next_game)
+    reserves = MatchPlayer.objects.filter(reserve=True, match_id=next_game)
     return render(request, 'club/next_fixture.html', {
         'next_game': next_game,
         'member': member,
@@ -59,7 +56,7 @@ def view_league_table(request):
         member.lost = MatchPlayer.objects.filter(player_id=member.id,
                                                  loss=True).count()
         member.played = MatchPlayer.objects.filter(player_id=member.id,
-                                                   reserve=False).count()
+                                                   played=True).count()
         member.points = (member.won * 3) + member.drawn
         member.save()
     league_table = ClubMember.objects.filter(
@@ -76,8 +73,16 @@ def results(request):
     all matches that the manager has added the result for """
     past_results = Match.objects.filter(results_added=True)
     for match in past_results:
-        match.blueteam = match.matchplayer.filter(team='blue')
-        match.whiteteam = match.matchplayer.filter(team='white')
+        match.blueteam = []
+        blue_players = MatchPlayer.objects.filter(
+                        team='blue', match_id=match)
+        for player in blue_players:
+            match.blueteam.append(player)
+        match.whiteteam = []
+        white_players = MatchPlayer.objects.filter(
+                            team='white', match_id=match)
+        for player in white_players:
+            match.whiteteam.append(player)
         match.save()
     return render(request, 'club/results.html', {
         'past_results': past_results
@@ -261,6 +266,9 @@ def add_score(request, pk):
             form.save()
             all_players = MatchPlayer.objects.filter(match_id=match,
                                                      reserve=False)
+            for player in all_players:
+                player.played = True
+                player.save()
             blues = all_players.filter(team='blue')
             whites = all_players.filter(team='white')
             if match.blue_goals > match.white_goals:
@@ -269,7 +277,7 @@ def add_score(request, pk):
                     player.save()
                 for player in whites:
                     player.loss = True
-                    player.save()
+                    player.save()                
             elif match.white_goals > match.blue_goals:
                 for player in blues:
                     player.loss = True
@@ -463,6 +471,7 @@ def allocate_teams(request, pk):
                                                    reserve=False).count()
         member.save()
     ordered_players = MatchPlayer.objects.filter(
+                                                 match_id=match,
                                                  reserve=False).order_by(
                                                  '-player_id__points',
                                                  'player_id__played',

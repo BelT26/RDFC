@@ -30,7 +30,7 @@
 .player-table-container {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;;
+    justify-content: flex-start;
     margin: 0 auto;
     min-height: calc(100vh - 11.5rem);
     padding: 1rem;

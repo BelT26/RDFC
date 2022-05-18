@@ -15,30 +15,38 @@ Member Zone
 {% block content %}
 <!-- table showing list of member with confirmed places in the next match and those available as reserves -->
 <div class= "container-fluid player-table-container">   
-    <h2 class="custom-display text-center">Match Players</h2>
+    <h2 class="custom-display text-center mb-4">Match Players</h2>
     <div class="row">
         <div class="col-md-6">                        
             <table class="table table-bordered my-2 player-table">
-                <tr>
-                    <th>Confirmed Players</th>
-                </tr>            
-                {% for player in players %}
-                <tr>
-                    <td>{{player.player_id}}</td>
-                </tr>
-                {% endfor %}
+                <thead>
+                    <tr>
+                        <th>Confirmed Players</th>
+                    </tr> 
+                </thead>
+                <tbody>
+                    {% for player in players %}
+                    <tr>
+                        <td>{{player.player_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>  
             </table>
         </div>
         <div class="col-md-6">
-            <table class="table table-bordered my-4 player-table">
-                <tr>
-                    <th>Reserves</th>
-                </tr>
-                {% for reserve in reserves %}
-                <tr>
-                    <td>{{reserve.player_id}}</td>
-                </tr>
-                {% endfor %}
+            <table class="table table-bordered my-2 player-table">
+                <thead>
+                    <tr>
+                        <th>Reserves</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for reserve in reserves %}
+                    <tr>
+                        <td>{{reserve.player_id}}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody> 
             </table>
         </div>        
     </div>  

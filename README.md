@@ -151,7 +151,7 @@ Visitors to the site can view general information about the club.  They also hav
 ![Site User Navbar](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/navbar-user.jpg)
 
 ### Member Access
-Once a user has logged in, their logged in status is displayed on the right of the navbar. Logged in users have access to the member zone in which they can book a place in the next match, view details of the next fixture, view past results and view the player league table. The signup option disappears and the login option is replaced with a logout option.
+Once a user has logged in, their logged in status is displayed on the right of the navbar. If a user has submitted an application but it has not yet been approved the text 'Membership Pending Approval' is displayed instead. Logged in, approved users have access to the member zone in which they can book a place in the next match, view details of the next fixture, view past results and view the player league table. The signup option disappears and the login option is replaced with a logout option.
 
 ![Member Navbar](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/navbar-member.jpg)
 
@@ -465,6 +465,6 @@ The social media icons and the icons in the contact section were imported from F
 * Next fixture: Emrah Kara / Unsplash
 
 ## Future Development Possibilities
-In the future I would like to address the items marked in the user stories as priority to promote the social side of the club. I plan to add a social page showing future get-togethers and give the manager the possibility to add events.  
+I plan to add a social page showing future get-togethers and give the manager the possibility to add events.  
 
 Another possibility that was discussed with the club manager was the inclusion of a blog style page containing match reports. These would be uploaded by the manager after the game and all members would be able to like and comment on them.

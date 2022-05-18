@@ -113,6 +113,7 @@ def booking_form(request):
     })
 
 
+@login_required
 def confirm_availability(request):
     """ Allows the user to register their availability for the
     next match. Checks how many players have already registered.
@@ -137,13 +138,14 @@ def confirm_availability(request):
         new_player = MatchPlayer(player_id=player, match_id=match,
                                  reserve=True)
         new_player.save()
-        reserves = MatchPlayer.objects.filter(reserve=True)
+        reserves = MatchPlayer.objects.filter(reserve=True, match_id=match)
         num_reserves = reserves.count()
         messages.success(request, 'You are number '
                                   f'{num_reserves} on the reserve list')
     return HttpResponseRedirect(reverse('index'))
 
 
+@login_required
 def cancel_match_place(request):
     """ Allows a member who has already registered for a
     match to cancel their booking.  If the member has been
@@ -151,8 +153,12 @@ def cancel_match_place(request):
     the club manager to inform them that they need to
     reallocate the teams """
     player = request.user
-    match_player = MatchPlayer.objects.get(player_id=player)
-    if match_player.reserve is False:
+    match = Match.objects.get(registrations_open=True)
+    match_player = MatchPlayer.objects.get(
+                    player_id=player, match_id=match)
+    registered_players = MatchPlayer.objects.filter(match_id=match)
+    num_registered_players = registered_players.count()
+    if match_player.reserve is False and num_registered_players > 11:
         send_mail('Player Cancellation',
                   f'{match_player.player_id} '
                   'has cancelled their place in the next match '
@@ -162,6 +168,7 @@ def cancel_match_place(request):
     match_player.delete()
     messages.success(request, 'Your place has been cancelled')
     return HttpResponseRedirect(reverse('index'))
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -176,6 +183,7 @@ def member_admin(request):
         'pending_applications': pending_applications,
         'current_members': current_members
     })
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
@@ -200,6 +208,7 @@ def add_match(request):
     return render(request, 'club/add_fixture.html', {
         'form': form
     })
+
 
 @login_required
 @user_passes_test(lambda u: u.is_superuser)

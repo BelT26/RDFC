@@ -102,7 +102,8 @@ def booking_form(request):
     else:
         player_registered = False
     match_full = False
-    registered_players = MatchPlayer.objects.filter(reserve=False, match_id=match)
+    registered_players = MatchPlayer.objects.filter(
+                            reserve=False, match_id=match)
     if registered_players.count() == 12:
         match_full = True
     return render(request, 'club/match_booking.html', {
@@ -401,6 +402,7 @@ def close_reg(request, pk):
     messages.success(request, f"Registrations closed for {match.match_date}")
     return HttpResponseRedirect(reverse('select_match'))
 
+
 @login_required
 @user_passes_test(lambda u: u.is_superuser)
 def see_players(request, pk):
@@ -462,7 +464,7 @@ def allocate_teams(request, pk):
         member.save()
     ordered_players = MatchPlayer.objects.filter(
                                                  reserve=False).order_by(
-                                                 '-player_id__points',                                                                 
+                                                 '-player_id__points',
                                                  'player_id__played',
                                                  'player_id__username')
     for i in blue_indices:

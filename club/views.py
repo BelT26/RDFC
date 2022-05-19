@@ -13,6 +13,7 @@ def index(request):
     return render(request, 'club/index.html')
 
 
+@login_required
 def next_fixture(request):
     """
     Checks which match has been flagged as the next fixture
@@ -40,6 +41,7 @@ def next_fixture(request):
     })
 
 
+@login_required
 def view_league_table(request):
     """ Calculates and updates the number of wins, draws and losses for each
     approved memeber. Sorts all members in descending order according to
@@ -68,6 +70,7 @@ def view_league_table(request):
     })
 
 
+@login_required
 def results(request):
     """Returns a view displaying a table with the scores for
     all matches that the manager has added the result for """
@@ -89,6 +92,7 @@ def results(request):
     })
 
 
+@login_required
 def booking_form(request):
     """ Checks whether the manager has opened registrations
     for a match. If so checks whether the player has already

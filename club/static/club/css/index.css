@@ -5,7 +5,7 @@
     align-items: center;
 }
 
-#hero-img-container {
+.hero-img-container {
     width: 95%;
     height: 75vh;
     background-size: cover;
@@ -28,7 +28,7 @@
     z-index: 3;
 }
 
-#hero-img-text {
+.hero-img-text {
     font-size: 7rem;
     z-index: 7;
 }
@@ -74,7 +74,7 @@ div #map {
         width: 40vw;
     }
 
-    #hero-img-text {
+    .hero-img-text {
         font-size: 4.5rem;
     }
 }
@@ -82,7 +82,7 @@ div #map {
 
 @media screen and (max-width: 600px) {
     
-    #hero-img-text {
+    .hero-img-text {
         font-size: 4rem;
     }
 
@@ -101,7 +101,7 @@ div #map {
 
 @media screen and (max-width: 360px) {
     
-    #hero-img-text {
+    .hero-img-text {
         font-size: 3.4rem;
     }
 }

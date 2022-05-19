@@ -460,16 +460,7 @@ def allocate_teams(request, pk):
             return HttpResponseRedirect(reverse('select_match'))
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
-    white_indices = [1, 2, 4, 6, 8, 10]
-    for member in registered_players:
-        num_wins = MatchPlayer.objects.filter(player_id=member.id,
-                                              win=True).count()
-        num_draws = MatchPlayer.objects.filter(player_id=member.id,
-                                               draw=True).count()
-        member.points = (num_wins * 3) + num_draws
-        member.played = MatchPlayer.objects.filter(player_id=member.id,
-                                                   reserve=False).count()
-        member.save()
+    white_indices = [1, 2, 4, 6, 8, 10]    
     ordered_players = MatchPlayer.objects.filter(
                                                  match_id=match,
                                                  reserve=False).order_by(

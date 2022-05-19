@@ -294,7 +294,7 @@ I tried to determine the matches played, won, drawn and lost and total points fo
 
 Initially the allocate teams functions was not working correctly.  if 2 members had the same number of points and matches played, one of the members was being omitted. I realised that this could be because they had been allocated the same index number in the database so added a 3rd search parameter, the username, which rectified the issue
 
-The styling in the base.css file was not being applied in the deployed version although the local version did not have the same issue.  I discussed this with my mentor during our final meeting and we tried changing the roots to the static files but it still was not working as expected.  As the css files in the app directory did not have the same issues I tried moving the base.css file to the app folder and it resolved the issue.  The only problem that remained was that the main image on the home page was not loading.  I had originally loaded it as a background image on a container div as I wanted the heading to appear within the image.  To rectify this I loaded it instead as an image element and used z-indexes and absolute positioning to make the main heading text appear in front of the image. Unfortunately when messages appeared at the top of the screen this then moved the heading outside the image borders. I decided to resize the background image and move the heading on top and all issues were resolved.
+The styling in the base.css file was not being applied in the deployed version although the local version did not have the same issue.  I discussed this with my mentor during our final meeting and we tried changing the roots to the static files but it still was not working as expected.  As the css files in the app directory did not have the same issues I tried moving the base.css file to the app folder and it resolved the issue.  The only problem that remained was that the main image on the home page was not loading.  I eventually resolved this issue by adding the background image url to as a style tag to the container in the html file rather than the css file.
 
 ### 404 Page
 I created a custom 404 page with a link to the home page to handle incorrect addresses.  The user can either return to the home page via the button or use the navigation bar to access a specific page.
@@ -306,17 +306,19 @@ I created a custom 404 page with a link to the home page to handle incorrect add
 ### Automated Tests
 All 4 css files passed through the W3C CSS validation service with no errors.
 
-I was not able to validate the match booking form html as the address returned the following error:
+I was not able to validate the match booking form html as the address returned the following message:
+
 ![W3C Validation Issue](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/w3c-validator.jpg)
-All other templates passed through the validator with no issues.  Due to time constraints I won't have the chance to investigate this problem before submission.
+
+All other templates passed through the validator with no issues. 
 
 The map js file was copied to the JSHint validator and returned the following results:
 
 ![JavaScript Validation](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/js-validation.jpg)
 
-The problems tab in the terminal was used to validate my Python code.
-Many errors were returned for the views file of the type 'Match has no objects member'.  These were ignored as advise in the CI blog walkthough project.
-Long line errors have not been corrected where they formed part of the preinstalled setting or I felt that splitting the lines would impair the readability of the code.
+I checked the python code by running the command 'python3 -m flake8' in the terminal.
+
+Errors have not been corrected where they formed part of the preinstalled settings or appear in the automatically generated migrations files. Otherwise all files passed through the validator with no issues.
 
 I created some automated tests for views and forms following the examples in the Hello Django module.  These are not currently running correctly as they are returning errors concerning the database connection.  I have tested the same features manually and they are working as expected. 
 

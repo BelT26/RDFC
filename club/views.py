@@ -281,7 +281,7 @@ def add_score(request, pk):
                     player.save()
                 for player in whites:
                     player.loss = True
-                    player.save()                
+                    player.save()           
             elif match.white_goals > match.blue_goals:
                 for player in blues:
                     player.loss = True
@@ -464,7 +464,7 @@ def allocate_teams(request, pk):
             return HttpResponseRedirect(reverse('select_match'))
     reserves = MatchPlayer.objects.filter(match_id=match, reserve=True)
     blue_indices = [0, 3, 5, 7, 9, 11]
-    white_indices = [1, 2, 4, 6, 8, 10]    
+    white_indices = [1, 2, 4, 6, 8, 10]
     ordered_players = MatchPlayer.objects.filter(
                                                  match_id=match,
                                                  reserve=False).order_by(

@@ -100,7 +100,13 @@ footer i {
     background-color: rgb(216, 188, 29);
 }
 
-@media screen and (max-width: 760px) {
+/* media queries */
+
+@media screen and (max-width: 768px) {
+    .navbar {
+        height: auto;
+    }
+
     footer li {
         padding: 10px;
     }

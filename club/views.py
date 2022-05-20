@@ -281,7 +281,7 @@ def add_score(request, pk):
                     player.save()
                 for player in whites:
                     player.loss = True
-                    player.save()           
+                    player.save()
             elif match.white_goals > match.blue_goals:
                 for player in blues:
                     player.loss = True

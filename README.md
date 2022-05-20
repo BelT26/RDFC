@@ -282,6 +282,8 @@ For the member admin page he felt the most important fields were the approve and
 
 
 ## Bugs and Challenges
+The Google map API initially worked and displayed the correct location however it has recently stopped loading correctly and is displaying the message 'You must enable Billing on the Google Cloud Project'.  When I checked the console billing is enabled and the payment is valid.  I have had several issues lately accessing my Google account. If these issues persist I will eventually create a new account and link the project to it.
+
 I had several problems when trying to customize the standard allauth signup form and create the ClubMember model. Each time I ran a migration I was getting an error message.  I tried to resolve the issue through my own research but eventually contacted tutor support with the below problem statement.
 
 ![Allauth Problem Statement](https://github.com/BelT26/RDFC/blob/main/club/static/club/screenshots/allauth_issues.jpg)
@@ -332,7 +334,7 @@ User authentication features work and the items appearing on the navbar change a
 
 All navigation links work as expected althought the navbar hides the title of the social section.
 
-The Google map api works and displays the correct location.
+As mentioned above the Google maps API has recently stopped loading correctly. Please see the comments in the 'Bugs and Challenges' section.
 
 The Next Fixture page displays the correct details and links to the booking page if registrations are open.  If teams have been allocated the names are displayed.
 
